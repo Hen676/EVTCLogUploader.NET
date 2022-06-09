@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:FadedVanguardLogUploader.Util;assembly=FadedVanguardLogUploader"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="FadedVanguardLogUploader.Views.EVTCListView">
+	<UserControl.Resources>
+		<local:PageConverter x:Key="pageConverter"/>
+	</UserControl.Resources>
+	
+	<DockPanel Margin="10">
+		<Grid DockPanel.Dock="Bottom">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			
+			<Button Grid.Column="0" 
+					DockPanel.Dock="Bottom" 
+					Command="{Binding PageDownCommand}" 
+					IsEnabled="{Binding EnabledDown}">&lt;</Button>
+			<TextBlock Grid.Column="1" 
+					   VerticalAlignment="Center" 
+					   Text="{Binding Page, Mode=OneWay, 
+					   Converter={StaticResource pageConverter}}" Padding="8"></TextBlock>
+			<Button Grid.Column="2" 
+					DockPanel.Dock="Bottom" 
+					Command="{Binding PageUpCommand}" 
+					IsEnabled="{Binding EnabledUp}">&gt;</Button>
+			<ProgressBar Grid.Column="3" 
+						 Value="{Binding ProgressBarValue}" 
+						 Maximum="{Binding ProgressBarMax}"
+						 ToolTip.Tip="Upload progress bar"></ProgressBar>
+			<Button Grid.Column="4" 
+					HorizontalAlignment="Right" 
+					DockPanel.Dock="Bottom" 
+					Command="{Binding UploadCommand}"
+					ToolTip.Tip="Uploads currently selected files">Upload</Button>
+		</Grid>
+		<TextBlock IsVisible="{Binding !Items.Count}"
+				   Background="{DynamicResource ListBoxBackgroundThemeBrush}">No files found</TextBlock>
+		<ListBox Items="{Binding Items}" IsVisible="{Binding !!Items.Count}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel>
+						<CheckBox Margin="4" Content="{Binding Name}" IsChecked="{Binding IsSelected}"/>
+						<TextBlock Text="{Binding FileInfo.CreationTime}" />
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</DockPanel>
+</UserControl>

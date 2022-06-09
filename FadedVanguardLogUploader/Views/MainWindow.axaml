@@ -1,0 +1,153 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:FadedVanguardLogUploader.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:views="clr-namespace:FadedVanguardLogUploader.Views"
+		xmlns:local="clr-namespace:FadedVanguardLogUploader.Util;assembly=FadedVanguardLogUploader"
+        mc:Ignorable="d"
+		d:DesignWidth="800"
+		d:DesignHeight="450"
+		MinWidth="800"
+		MinHeight="450"
+		x:Name="FadedVanguardLogUploaderWindow"
+        x:Class="FadedVanguardLogUploader.Views.MainWindow"
+        Icon="/Assets/Guild_Faded_Vanguard_Emblem.png"
+        Title="Faded Vanguard Log Uploader">
+	
+	<Window.DataContext>
+		<vm:MainWindowViewModel/>
+	</Window.DataContext>
+	<Window.Resources>
+		<local:FileCountConverter x:Key="countConverter"/>
+	</Window.Resources>
+
+	<Window.Styles>
+		<Style Selector="TextBlock.h1">
+			<Setter Property="FontSize" Value="24"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+		<Style Selector="TextBlock.p1">
+			<Setter Property="FontSize" Value="12"/>
+		</Style>
+		<Style Selector="TextBlock.p2">
+			<Setter Property="FontSize" Value="8"/>
+		</Style>
+	</Window.Styles>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="20"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto"></ColumnDefinition>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+		<!-- Panels + Row 0-->
+		<StackPanel Grid.RowSpan="10"
+					Grid.Row="1"
+					Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+
+		<!-- Row 1 -->
+		<DockPanel  Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
+			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="_File">
+					<MenuItem Header="_Open Folder" 
+							  Command="{Binding FolderCommand}" 
+							  CommandParameter="{Binding ElementName=FadedVanguardLogUploaderWindow}"/>
+					<MenuItem Header="_Save Settings"
+							  Command="{Binding SaveCommand}"/>
+					<Separator/>
+					<MenuItem Header="_Exit"
+							  Command="{Binding CloseCommand}"
+							  CommandParameter="{Binding ElementName=FadedVanguardLogUploaderWindow}"/>
+				</MenuItem>
+				<MenuItem Header="_View">
+					<MenuItem Header="_Dark Mode" Command="{Binding ModeCommand}">
+						<MenuItem.Icon>
+							<CheckBox BorderThickness="0"
+									  ClipToBounds="False"
+									  IsHitTestVisible="False"
+									  IsChecked="{Binding ModeToggle}"/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem Header="_File Types">
+						<MenuItem Header="_.evtc">
+							<MenuItem.Icon>
+								<CheckBox BorderThickness="0"
+										  ClipToBounds="False"
+										  IsHitTestVisible="False"
+										  IsChecked="True"/>
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="_.zevtc">
+							<MenuItem.Icon>
+								<CheckBox BorderThickness="0"
+										  ClipToBounds="False"
+										  IsHitTestVisible="False"
+										  IsChecked="True"/>
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="_.evtc.zip">
+							<MenuItem.Icon>
+								<CheckBox BorderThickness="0"
+										  ClipToBounds="False"
+										  IsHitTestVisible="False"
+										  IsChecked="True"/>
+							</MenuItem.Icon>
+						</MenuItem>
+					</MenuItem>
+				</MenuItem>
+				<MenuItem Header="_Help">
+					<MenuItem Header="_About"
+							  Command="{Binding AboutCommand}"/>
+				</MenuItem>
+			</Menu>
+		</DockPanel>
+		<Image Grid.Column="0"
+			   Grid.Row="0"
+			   Grid.RowSpan="4"
+			   VerticalAlignment="Top"
+			   Source="/Assets/Guild_Faded_Vanguard_Emblem.png"
+			   Width="80"/>
+
+		<!-- Row 2 add another grid? -->
+		<Grid Grid.Column="1"
+			  Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Grid.Column="0"
+					   Margin="10,0,10,0"
+					   VerticalAlignment="Center">From:</TextBlock>
+			<DatePicker Grid.Column="1"
+						SelectedDate="{Binding Date, Mode=TwoWay}"
+						VerticalAlignment="Center"/>
+			<TimePicker Grid.Column="2"
+						SelectedTime="{Binding Time, Mode=TwoWay}"
+						VerticalAlignment="Center"/>
+		</Grid>
+
+		<!-- Row 3 -->
+		<views:EVTCListView Grid.Column="1"
+							Grid.Row="3"
+							DataContext="{Binding List}"></views:EVTCListView>
+
+		<!-- Row 4  -->
+		<TextBlock Grid.Column="1"
+				   Grid.Row="4"
+				   Margin="10,0,0,0"
+				   Classes="p2"
+				   Text="{Binding List.FileCount, Converter={StaticResource countConverter}}"></TextBlock>
+	</Grid>
+
+</Window>

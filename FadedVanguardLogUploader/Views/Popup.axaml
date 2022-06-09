@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		x:Name="PopupWindow"
+        mc:Ignorable="d"
+		SizeToContent="WidthAndHeight"
+		WindowStartupLocation="CenterOwner"
+        x:Class="FadedVanguardLogUploader.Views.Popup"
+		Icon="/Assets/Guild_Faded_Vanguard_Emblem.png"
+		ExtendClientAreaToDecorationsHint="True"
+		HasSystemDecorations="False"
+		Title="Faded Vanguard Log Uploader - Message"
+		CanResize="False">
+	<Grid Margin="20,20,20,20" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition Height="auto"></RowDefinition>
+		</Grid.RowDefinitions>
+		
+		<TextBlock Grid.Row="0"
+				   Margin="10"
+				   VerticalAlignment="Center"
+				   Text="{Binding Message}"></TextBlock>
+		<Button Grid.Row="1" 
+				HorizontalAlignment="Center"
+				Command="{Binding CloseCommand}"
+				CommandParameter="{Binding ElementName=PopupWindow}">Close</Button>
+	</Grid>
+</Window>
