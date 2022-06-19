@@ -9,7 +9,7 @@ namespace FadedVanguardLogUploader.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public EVTCListViewModel List { get; }
+        public ListViewModel List { get; }
         public TimeSpan? Time
         {
             get => time;
@@ -48,7 +48,7 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public MainWindowViewModel()
         {
-            List = new EVTCListViewModel();
+            List = new ListViewModel();
 
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
@@ -76,11 +76,13 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public async void About()
         {
-            var popup = new PopupViewModel();
-            popup.Message = "Faded Vanguard Log Uploader\n\n" +
+            var popup = new PopupViewModel
+            {
+                Message = "Faded Vanguard Log Uploader\n\n" +
                 "Version: 1.0.0\n" +
                 "Creator: Hen676\n" +
-                "Repository:"; //TODO:: Add Github link
+                "Repository:" //TODO:: Add Github link
+            };
             await ShowDialog.Handle(popup);
         }
 

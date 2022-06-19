@@ -1,8 +1,6 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Selection;
 using DynamicData;
-using FadedVanguardLogUploader.Https;
+using FadedVanguardLogUploader.IO;
 using FadedVanguardLogUploader.Models;
 using FadedVanguardLogUploader.Models.Responce;
 using FadedVanguardLogUploader.Util;
@@ -17,9 +15,9 @@ using System.Reactive.Linq;
 
 namespace FadedVanguardLogUploader.ViewModels
 {
-    public class EVTCListViewModel : ViewModelBase
+    public class ListViewModel : ViewModelBase
     {
-        public ObservableCollection<ListEVTC> Items { get; } = new();
+        public ObservableCollection<ListItem> Items { get; } = new();
         public int Page
         {
             get => page;
@@ -54,7 +52,8 @@ namespace FadedVanguardLogUploader.ViewModels
         public ReactiveCommand<Unit, Unit> PageDownCommand { get; }
         public ReactiveCommand<Unit, Unit> UploadCommand { get; }
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
-        private List<ListEVTC> StoredItems = new();
+        private List<ListItem> StoredItems = new();
+        private List<ListItem> FilteredItems = new();
         private readonly Filter FilterSettings = new();
         private readonly int maxPage = 25;
         private int page = 0;
@@ -63,15 +62,20 @@ namespace FadedVanguardLogUploader.ViewModels
         private int fileCount = 0;
         private int progressBarValue = 0;
         private int progressBarMax = 100;
+        private StorageIO storageIO = new();
 
-        //TODO:: EVTCListViewModel created twice?
-        public EVTCListViewModel()
+        public ListViewModel()
         {
-            SearchFolder(App.settings.Path);
-
             PageUpCommand = ReactiveCommand.Create(PageUp);
             PageDownCommand = ReactiveCommand.Create(PageDown);
             UploadCommand = ReactiveCommand.Create(UploadAsync);
+        }
+
+        public void Load()
+        {
+            StoredItems = storageIO.Get();
+            UpdateFolder();
+            Filter();
         }
 
         private async void UploadAsync()
@@ -88,11 +92,11 @@ namespace FadedVanguardLogUploader.ViewModels
 
             List<DpsReportResponse> responses = new();
 
-            foreach (ListEVTC file in uploadlist)
+            foreach (ListItem file in uploadlist)
             {
                 if (!file.IsSelected)
                     continue;
-                DpsReportResponse? responce = await Uploader.UploadEVTCAsync(file.FileInfo);
+                DpsReportResponse? responce = await UploaderHttps.UploadEVTCAsync(file.FullPath);
                 if (responce == null || responce.permalink == null)
                     continue;
                 else
@@ -125,19 +129,30 @@ namespace FadedVanguardLogUploader.ViewModels
             ProgressBarValue = 0;
         }
 
+        private void PageZero()
+        {
+            Items.Clear();
+            Page = 0;
+            EnabledDown = false;
+            EnabledUp = FilteredItems.Count >= maxPage;
+            if (FilteredItems.Count == 0)
+                return;
+            Items.AddRange(FilteredItems.GetRange(0, Math.Min(FilteredItems.Count, maxPage)));
+        }
+
         private void PageUp()
         {
             Page++;
             int total = Page * maxPage;
             EnabledDown = true;
             Items.Clear();
-            if (StoredItems.Count <= total + maxPage)
+            if (FilteredItems.Count <= total + maxPage)
             {
                 EnabledUp = false;
-                Items.AddRange(StoredItems.GetRange(total, StoredItems.Count - total));
+                Items.AddRange(FilteredItems.GetRange(total, FilteredItems.Count - total));
             }
             else
-                Items.AddRange(StoredItems.GetRange(total, maxPage));
+                Items.AddRange(FilteredItems.GetRange(total, maxPage));
         }
 
         private void PageDown()
@@ -147,12 +162,40 @@ namespace FadedVanguardLogUploader.ViewModels
             EnabledUp = true;
             Page--;
             Items.Clear();
-            Items.AddRange(StoredItems.GetRange(Page * maxPage, maxPage));
+            Items.AddRange(FilteredItems.GetRange(Page * maxPage, maxPage));
+        }
+
+        public void UpdateFolder()
+        {
+            if (App.settings.Path == "/")
+                return;
+            IEnumerable<string> files = Directory.EnumerateFiles(App.settings.Path, "*.*", SearchOption.AllDirectories)
+                .Where(s => s.ToLower().EndsWith(".evtc") || s.ToLower().EndsWith(".evtc.zip") || s.ToLower().EndsWith(".zevtc"));
+            try
+            {
+                List<ListItem> temp = new();
+                foreach (string file in files)
+                {
+                    if (File.Exists(file) && !StoredItems.Exists(x => x.FullPath == file))
+                    {
+                        ListItem item = new ListItem(file);
+                        temp.Add(item);
+                        StoredItems.Add(item);
+                    }
+                }
+                storageIO.Update(temp);
+                Filter();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+            }
         }
 
         public void SearchFolder(string path)
         {
             StoredItems.Clear();
+            storageIO.Delete();
             if (path == "/")
                 return;
             IEnumerable<string> files = Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
@@ -162,23 +205,26 @@ namespace FadedVanguardLogUploader.ViewModels
                 foreach (string file in files)
                 {
                     if (File.Exists(file))
-                        StoredItems.Add(new ListEVTC(file));
+                        StoredItems.Add(new ListItem(file));
                 }
             }
             catch (UnauthorizedAccessException ex)
             {
                 Console.Error.WriteLine(ex.Message);
             }
-            StoredItems = StoredItems.FindAll(FilterSettings.Predicate);
-            FileCount = StoredItems.Count;
-            Items.Clear();
-            Page = 0;
-            EnabledDown = false;
-            EnabledUp = StoredItems.Count >= maxPage;
-            if (StoredItems.Count == 0)
-                return;
-            Items.AddRange(StoredItems.GetRange(0, Math.Min(StoredItems.Count, maxPage)));
+            storageIO.Create(StoredItems);
+            Filter();
         }
+
+        public void Sort()
+        {
+            FilteredItems.Sort(delegate (ListItem x, ListItem y)
+            {
+                return x.CreationDate.CompareTo(y.CreationDate);
+            });
+            PageZero();
+        }
+
         public void Filter(DateTimeOffset? date = null, TimeSpan? time = null)
         {
             if (date.HasValue)
@@ -186,7 +232,12 @@ namespace FadedVanguardLogUploader.ViewModels
             if (time.HasValue)
                 FilterSettings.timeOffsetMin = FilterSettings.timeOffsetMin.Date + time.Value;
 
-            SearchFolder(App.settings.Path);
+            FilteredItems = StoredItems.Where(x =>
+            {
+                return FilterSettings.Predicate(x);
+            }).ToList();
+            FileCount = FilteredItems.Count;
+            Sort();
         }
     }
 }

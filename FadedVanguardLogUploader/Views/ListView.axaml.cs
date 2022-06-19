@@ -8,18 +8,26 @@ using System.Threading.Tasks;
 
 namespace FadedVanguardLogUploader.Views
 {
-    public partial class EVTCListView : ReactiveUserControl<EVTCListViewModel>
+    public partial class ListView : ReactiveUserControl<ListViewModel>
     {
-        public EVTCListView()
+        public ListView()
         {
             InitializeComponent();
 
             this.WhenActivated(d => d(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
+
+            Initialized += OnInitialized;
+        }
+
+        private void OnInitialized(object? sender, System.EventArgs e)
+        {
+            if (DataContext != null && DataContext is ListViewModel)
+                ((ListViewModel)DataContext).Load();
         }
 
         private async Task DoShowDialogAsync(InteractionContext<PopupViewModel, bool> interaction)
         {
-            var dialog = new Popup();
+            Popup dialog = new();
             dialog.DataContext = interaction.Input;
             if (Application.Current == null)
                 return;

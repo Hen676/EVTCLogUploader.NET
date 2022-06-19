@@ -8,10 +8,10 @@ namespace FadedVanguardLogUploader.Util
         public DateTimeOffset timeOffsetMin = DateTimeOffset.MinValue;
         public DateTimeOffset timeOffsetMax = DateTimeOffset.MaxValue;
 
-        public bool Predicate(ListEVTC i)
+        public bool Predicate(ListItem i)
         {
-            return i.FileInfo.CreationTime >= timeOffsetMin &&
-                i.FileInfo.CreationTime <= timeOffsetMax;
+            return i.CreationDate >= timeOffsetMin &&
+                i.CreationDate <= timeOffsetMax;
         }
     }
 }

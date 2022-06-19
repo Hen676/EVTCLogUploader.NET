@@ -12,7 +12,7 @@ namespace FadedVanguardLogUploader
     public partial class App : Application
     {
         public static AppSettings settings = new();
-        public static FluentTheme Fluent = new FluentTheme(new Uri("avares://ControlCatalog/Styles"));
+        public static FluentTheme Fluent = new(new Uri("avares://ControlCatalog/Styles"));
         public override void Initialize()
         {
             Fluent.Mode = settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
@@ -26,7 +26,6 @@ namespace FadedVanguardLogUploader
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
                 };
             }
 

@@ -68,6 +68,9 @@
 							  Command="{Binding CloseCommand}"
 							  CommandParameter="{Binding ElementName=FadedVanguardLogUploaderWindow}"/>
 				</MenuItem>
+				<MenuItem Header="_Edit">
+					
+				</MenuItem>
 				<MenuItem Header="_View">
 					<MenuItem Header="_Dark Mode" Command="{Binding ModeCommand}">
 						<MenuItem.Icon>
@@ -138,9 +141,9 @@
 		</Grid>
 
 		<!-- Row 3 -->
-		<views:EVTCListView Grid.Column="1"
+		<views:ListView Grid.Column="1"
 							Grid.Row="3"
-							DataContext="{Binding List}"></views:EVTCListView>
+							DataContext="{Binding List}"></views:ListView>
 
 		<!-- Row 4  -->
 		<TextBlock Grid.Column="1"

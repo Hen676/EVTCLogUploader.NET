@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:local="clr-namespace:FadedVanguardLogUploader.Util;assembly=FadedVanguardLogUploader"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="FadedVanguardLogUploader.Views.EVTCListView">
+             x:Class="FadedVanguardLogUploader.Views.ListView">
 	<UserControl.Resources>
 		<local:PageConverter x:Key="pageConverter"/>
 	</UserControl.Resources>
@@ -47,8 +47,16 @@
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel>
-						<CheckBox Margin="4" Content="{Binding Name}" IsChecked="{Binding IsSelected}"/>
-						<TextBlock Text="{Binding FileInfo.CreationTime}" />
+						<StackPanel Orientation="Horizontal">
+							<CheckBox Margin="4" Content="{Binding BossName}" IsChecked="{Binding IsSelected}"/>
+							<TextBlock Text="{Binding CharcterName}" VerticalAlignment="Center" Padding="10,0,10,0"/>
+							<TextBlock Text="{Binding UserName}" VerticalAlignment="Center" Padding="10,0,10,0"/>
+							<CheckBox Margin="4" Content="Success" IsChecked="{Binding Success}" IsHitTestVisible="False" HorizontalAlignment="Right"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{Binding Name}" Padding="10,0,10,0"/>
+							<TextBlock Text="{Binding CreationDate}" HorizontalAlignment="Right" Padding="10,0,10,0"/>
+						</StackPanel>
 					</StackPanel>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
