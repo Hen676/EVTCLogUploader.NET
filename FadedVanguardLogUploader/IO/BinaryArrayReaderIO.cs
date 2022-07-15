@@ -3,7 +3,7 @@ using System.Text;
 
 namespace FadedVanguardLogUploader.IO
 {
-    class BinaryArrayReaderIO
+    public class BinaryArrayReaderIO
     {
         private readonly byte[] Reader;
         private readonly Encoding Encioding;
@@ -42,7 +42,9 @@ namespace FadedVanguardLogUploader.IO
         // 2 Bytes
         public ushort ReadUShort()
         {
-            return (ushort)ReadShort();
+            ushort val = BitConverter.ToUInt16(Reader, Pos);
+            Pos += 2;
+            return val;
         }
 
         // 4 Bytes
@@ -56,7 +58,9 @@ namespace FadedVanguardLogUploader.IO
         // 4 Bytes
         public uint ReadUInt()
         {
-            return (uint)ReadInt();
+            uint val = BitConverter.ToUInt32(Reader, Pos);
+            Pos += 4;
+            return val;
         }
 
         // 8 Bytes
@@ -70,7 +74,9 @@ namespace FadedVanguardLogUploader.IO
         // 8 Bytes
         public ulong ReadULong()
         {
-            return (ulong)ReadLong();
+            ulong val = BitConverter.ToUInt64(Reader, Pos);
+            Pos += 8;
+            return val;
         }
 
         // X Bytes (X = amount)

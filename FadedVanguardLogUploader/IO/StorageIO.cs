@@ -12,9 +12,15 @@ namespace FadedVanguardLogUploader.IO
     {
         private readonly static string storageName = "\\data.csv";
         private readonly string storagePath;
-        private readonly CsvConfiguration configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
+        private readonly CsvConfiguration configuration = new(CultureInfo.InvariantCulture)
         {
-            Delimiter = ","
+            Delimiter = ",",
+            HasHeaderRecord = true
+        };
+        private readonly CsvConfiguration updateConfiguration = new(CultureInfo.InvariantCulture)
+        {
+            Delimiter = ",",
+            HasHeaderRecord = false
         };
 
         public StorageIO()
@@ -28,6 +34,8 @@ namespace FadedVanguardLogUploader.IO
                 return new();
             using var streamReader = new StreamReader(storagePath);
             using var csv = new CsvReader(streamReader, configuration);
+            if (csv == null)
+                return new();
             return csv.GetRecords<ListItem>().ToList();
         }
 
@@ -42,7 +50,7 @@ namespace FadedVanguardLogUploader.IO
         {
             using var stream = File.Open(storagePath, FileMode.Append);
             using var streamWriter = new StreamWriter(stream);
-            using var csv = new CsvWriter(streamWriter, configuration);
+            using var csv = new CsvWriter(streamWriter, updateConfiguration);
             csv.WriteRecords(newValues);
         }
 
