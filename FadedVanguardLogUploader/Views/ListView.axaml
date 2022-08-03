@@ -2,11 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:local="clr-namespace:FadedVanguardLogUploader.Util;assembly=FadedVanguardLogUploader"
+			 xmlns:converter="clr-namespace:FadedVanguardLogUploader.Utils;assembly=FadedVanguardLogUploader"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FadedVanguardLogUploader.Views.ListView">
 	<UserControl.Resources>
-		<local:PageConverter x:Key="pageConverter"/>
+		<converter:PageConverter x:Key="pageConverter"></converter:PageConverter>
+		<converter:EncounterConverter x:Key="encounterConveter"></converter:EncounterConverter>
 	</UserControl.Resources>
 	
 	<DockPanel Margin="10">
@@ -26,7 +27,8 @@
 			<TextBlock Grid.Column="1" 
 					   VerticalAlignment="Center" 
 					   Text="{Binding Page, Mode=OneWay, 
-					   Converter={StaticResource pageConverter}}" Padding="8"></TextBlock>
+					   Converter={StaticResource pageConverter}}"
+					   Padding="8"></TextBlock>
 			<Button Grid.Column="2" 
 					DockPanel.Dock="Bottom" 
 					Command="{Binding PageUpCommand}" 
@@ -42,20 +44,43 @@
 					ToolTip.Tip="Uploads currently selected files">Upload</Button>
 		</Grid>
 		<TextBlock IsVisible="{Binding !Items.Count}"
-				   Background="{DynamicResource ListBoxBackgroundThemeBrush}">No files found</TextBlock>
-		<ListBox Items="{Binding Items}" IsVisible="{Binding !!Items.Count}">
+		   Background="{DynamicResource ListBoxBackgroundThemeBrush}">No files found</TextBlock>
+		<ListBox Items="{Binding Items}" 
+				 IsVisible="{Binding !!Items.Count}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<CheckBox Margin="4" Content="{Binding BossName}" IsChecked="{Binding IsSelected}"/>
-							<TextBlock Text="{Binding CharcterName}" VerticalAlignment="Center" Padding="10,0,10,0" Width="200"/>
-							<TextBlock Text="{Binding UserName}" VerticalAlignment="Center" Padding="10,0,10,0" Width="100"/>
-							<TextBlock Text="{Binding CharcterSpec}" VerticalAlignment="Center" Padding="10,0,10,0" Width="100"/>
-							<TextBlock Text="{Binding Encounter}" VerticalAlignment="Center" Padding="10,0,10,0" Width="200"/>
-							<TextBlock Text="{Binding Length}"  VerticalAlignment="Center" Padding="10,0,10,0" Width="100"/>
-							<TextBlock Text="{Binding CreationDate}" VerticalAlignment="Center" Padding="10,0,10,0" Width="200"/>
-							<TextBlock Text="{Binding Name}" VerticalAlignment="Center" Padding="10,0,10,0" Width="200"/>
+							<CheckBox Margin="4"
+									  IsChecked="{Binding IsSelected}"/>
+							<TextBlock Text="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"
+									   VerticalAlignment="Center"
+									   Padding="10,0,10,0"
+									   Width="200"/>
+							<TextBlock Text="{Binding CharcterName}" 
+									   VerticalAlignment="Center" 
+									   Padding="10,0,10,0" 
+									   Width="200"/>
+							<TextBlock Text="{Binding UserName}" 
+									   VerticalAlignment="Center" 
+									   Padding="10,0,10,0" 
+									   Width="100"/>
+							<TextBlock Text="{Binding CharcterSpec}" 
+									   VerticalAlignment="Center" 
+									   Padding="10,0,10,0" 
+									   Width="100"/>
+							<TextBlock Text="{Binding Length}"  
+									   VerticalAlignment="Center" 
+									   Padding="10,0,10,0"
+									   Width="100"/>
+							<TextBlock Text="{Binding CreationDate}" 
+									   VerticalAlignment="Center" 
+									   Padding="10,0,10,0"
+									   Width="200"/>
+							<TextBlock Text="{Binding Name}" 
+									   VerticalAlignment="Center" 
+									   Padding="10,0,10,0"
+									   Width="200"/>
 						</StackPanel>
 					</StackPanel>
 				</DataTemplate>

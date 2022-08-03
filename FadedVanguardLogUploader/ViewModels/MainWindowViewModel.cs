@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Themes.Fluent;
 using ReactiveUI;
 using System;
+using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Linq;
 
@@ -9,7 +10,7 @@ namespace FadedVanguardLogUploader.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public ListViewModel List { get; }
+        public ListViewModel List { get; } = new ListViewModel();
         public TimeSpan? Time
         {
             get => time;
@@ -40,6 +41,7 @@ namespace FadedVanguardLogUploader.ViewModels
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> ModeCommand { get; }
+        public ReactiveCommand<Unit, Unit> CSVOpenCommand { get; }
         public ReactiveCommand<Window, Unit> CloseCommand { get; }
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
         private TimeSpan? time = null;
@@ -48,13 +50,17 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public MainWindowViewModel()
         {
-            List = new ListViewModel();
-
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
             ModeCommand = ReactiveCommand.Create(Mode);
+            CSVOpenCommand = ReactiveCommand.Create(CSVOpen);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
+        }
+
+        private void CSVOpen()
+        {
+            List.storageIO.OpenCSV();
         }
 
         private void Close(Window window)
@@ -81,7 +87,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 Message = "Faded Vanguard Log Uploader\n\n" +
                 "Version: 1.0.0\n" +
                 "Creator: Hen676\n" +
-                "Repository:" //TODO:: Add Github link
+                "Repository: https://github.com/Hen676/FadedDiscordBot.NET"
             };
             await ShowDialog.Handle(popup);
         }

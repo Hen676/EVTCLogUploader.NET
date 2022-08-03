@@ -3,7 +3,7 @@ using DynamicData;
 using FadedVanguardLogUploader.IO;
 using FadedVanguardLogUploader.Models;
 using FadedVanguardLogUploader.Models.Responce;
-using FadedVanguardLogUploader.Util;
+using FadedVanguardLogUploader.Utils;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -62,7 +62,7 @@ namespace FadedVanguardLogUploader.ViewModels
         private int fileCount = 0;
         private int progressBarValue = 0;
         private int progressBarMax = 100;
-        private StorageIO storageIO = new();
+        public readonly StorageIO storageIO = new();
 
         public ListViewModel()
         {
@@ -178,7 +178,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 {
                     if (File.Exists(file) && !StoredItems.Exists(x => x.FullPath == file))
                     {
-                        ListItem item = new ListItem(file);
+                        ListItem item = new(file);
                         temp.Add(item);
                         StoredItems.Add(item);
                     }

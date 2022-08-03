@@ -22,7 +22,7 @@ namespace FadedVanguardLogUploader.Views
         private void OnInitialized(object? sender, System.EventArgs e)
         {
             if (DataContext != null && DataContext is ListViewModel model)
-                model.Load();
+               model.Load();
         }
 
         private async Task DoShowDialogAsync(InteractionContext<PopupViewModel, bool> interaction)

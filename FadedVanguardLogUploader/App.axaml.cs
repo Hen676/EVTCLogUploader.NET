@@ -3,7 +3,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Themes.Fluent;
 using FadedVanguardLogUploader.Settings;
-using FadedVanguardLogUploader.ViewModels;
 using FadedVanguardLogUploader.Views;
 using System;
 
@@ -28,7 +27,6 @@ namespace FadedVanguardLogUploader
                 {
                 };
             }
-
             base.OnFrameworkInitializationCompleted();
         }
     }

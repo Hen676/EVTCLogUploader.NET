@@ -10,6 +10,7 @@ namespace FadedVanguardLogUploader.Utils
     public class EncounterConverter : IValueConverter
     {
         public static readonly EncounterConverter Instance = new();
+
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is Encounter enc && targetType.IsAssignableTo(typeof(string)))

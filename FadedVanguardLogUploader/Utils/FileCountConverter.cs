@@ -3,7 +3,7 @@ using Avalonia.Data.Converters;
 using System;
 using System.Globalization;
 
-namespace FadedVanguardLogUploader.Util
+namespace FadedVanguardLogUploader.Utils
 {
     public class FileCountConverter : IValueConverter
     {

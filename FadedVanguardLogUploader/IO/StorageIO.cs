@@ -2,6 +2,7 @@
 using CsvHelper.Configuration;
 using FadedVanguardLogUploader.Models;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,12 @@ namespace FadedVanguardLogUploader.IO
             storagePath = Directory.GetCurrentDirectory() + storageName;
         }
 
+        public void OpenCSV() 
+        {
+            if (File.Exists(storagePath))
+                Process.Start(new ProcessStartInfo(storagePath) { UseShellExecute = true });
+        }
+
         public List<ListItem> Get()
         {
             if (!File.Exists(storagePath))
@@ -36,22 +43,32 @@ namespace FadedVanguardLogUploader.IO
             using var csv = new CsvReader(streamReader, configuration);
             if (csv == null)
                 return new();
-            return csv.GetRecords<ListItem>().ToList();
+            var x = csv.GetRecords<ListItem>().ToList();
+            streamReader.Close();
+            return x;
         }
 
         public void Create(List<ListItem> records)
         {
-            using var streamWriter = new StreamWriter(storagePath);
-            using var csv = new CsvWriter(streamWriter, configuration);
-            csv.WriteRecords(records);
+            var streamWriter = new StreamWriter(storagePath);
+            using (streamWriter)
+            {
+                using var csv = new CsvWriter(streamWriter, configuration);
+                csv.WriteRecords(records);
+            }
+            streamWriter.Close();
         }
 
         public void Update(List<ListItem> newValues)
         {
-            using var stream = File.Open(storagePath, FileMode.Append);
-            using var streamWriter = new StreamWriter(stream);
-            using var csv = new CsvWriter(streamWriter, updateConfiguration);
-            csv.WriteRecords(newValues);
+            var stream = File.Open(storagePath, FileMode.Append);
+            using (stream)
+            {
+                using var streamWriter = new StreamWriter(stream);
+                using var csv = new CsvWriter(streamWriter, updateConfiguration);
+                csv.WriteRecords(newValues);
+            }
+            stream.Close();
         }
 
         public void Delete()

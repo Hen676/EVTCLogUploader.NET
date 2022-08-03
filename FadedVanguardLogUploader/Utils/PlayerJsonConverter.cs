@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace FadedVanguardLogUploader.Util
+namespace FadedVanguardLogUploader.Utils
 {
     public class PlayerJsonConverter : JsonConverter<List<PlayerResponce>>
     {

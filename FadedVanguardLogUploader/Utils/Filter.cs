@@ -1,7 +1,7 @@
 ﻿using FadedVanguardLogUploader.Models;
 using System;
 
-namespace FadedVanguardLogUploader.Util
+namespace FadedVanguardLogUploader.Utils
 {
     internal class Filter
     {

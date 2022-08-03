@@ -1,4 +1,4 @@
-﻿using FadedVanguardLogUploader.Util;
+﻿using FadedVanguardLogUploader.Utils;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 

@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.ReactiveUI;
 using FadedVanguardLogUploader.ViewModels;
 using ReactiveUI;
@@ -11,8 +12,12 @@ namespace FadedVanguardLogUploader.Views
         public MainWindow()
         {
             InitializeComponent();
-            Closing += Closeing;
+            if (true)
+            {
+                //Code that throws the exception
+            }
 
+            Closing += Closeing;
             this.WhenActivated(d => d(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
         }
 
