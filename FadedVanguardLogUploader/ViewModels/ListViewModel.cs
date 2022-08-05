@@ -6,12 +6,14 @@ using FadedVanguardLogUploader.Models.Responce;
 using FadedVanguardLogUploader.Utils;
 using ReactiveUI;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace FadedVanguardLogUploader.ViewModels
 {
@@ -22,6 +24,11 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             get => page;
             set => this.RaiseAndSetIfChanged(ref page, value);
+        }
+        public int PageMax
+        {
+            get => pageMax;
+            set => this.RaiseAndSetIfChanged(ref pageMax, value);
         }
         public bool EnabledDown
         {
@@ -52,10 +59,11 @@ namespace FadedVanguardLogUploader.ViewModels
         public ReactiveCommand<Unit, Unit> PageDownCommand { get; }
         public ReactiveCommand<Unit, Unit> UploadCommand { get; }
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
-        private List<ListItem> StoredItems = new();
+        private ConcurrentBag<ListItem> StoredItems = new();
         private List<ListItem> FilteredItems = new();
         private readonly Filter FilterSettings = new();
-        private readonly int maxPage = 25;
+        private readonly int pageCount = 25;
+        private int pageMax = 1;
         private int page = 0;
         private bool enabledDown = false;
         private bool enabledUp = false;
@@ -104,8 +112,10 @@ namespace FadedVanguardLogUploader.ViewModels
                 ProgressBarValue++;
             }
 
-            List<string> clipborad = new();
-            clipborad.Add($"Raid Logs {DateTime.Now:D}\n");
+            List<string> clipborad = new()
+            {
+                $"Raid Logs {DateTime.Now:D}\n"
+            };
             responses.Sort((x, y) => x.encounterTime - y.encounterTime);
             string bossname = "";
             foreach (DpsReportResponse responce in responses)
@@ -134,25 +144,25 @@ namespace FadedVanguardLogUploader.ViewModels
             Items.Clear();
             Page = 0;
             EnabledDown = false;
-            EnabledUp = FilteredItems.Count >= maxPage;
+            EnabledUp = FilteredItems.Count >= pageCount;
             if (FilteredItems.Count == 0)
                 return;
-            Items.AddRange(FilteredItems.GetRange(0, Math.Min(FilteredItems.Count, maxPage)));
+            Items.AddRange(FilteredItems.GetRange(0, Math.Min(FilteredItems.Count, pageCount)));
         }
 
         private void PageUp()
         {
             Page++;
-            int total = Page * maxPage;
+            int total = Page * pageCount;
             EnabledDown = true;
             Items.Clear();
-            if (FilteredItems.Count <= total + maxPage)
+            if (FilteredItems.Count <= total + pageCount)
             {
                 EnabledUp = false;
                 Items.AddRange(FilteredItems.GetRange(total, FilteredItems.Count - total));
             }
             else
-                Items.AddRange(FilteredItems.GetRange(total, maxPage));
+                Items.AddRange(FilteredItems.GetRange(total, pageCount));
         }
 
         private void PageDown()
@@ -162,7 +172,7 @@ namespace FadedVanguardLogUploader.ViewModels
             EnabledUp = true;
             Page--;
             Items.Clear();
-            Items.AddRange(FilteredItems.GetRange(Page * maxPage, maxPage));
+            Items.AddRange(FilteredItems.GetRange(Page * pageCount, pageCount));
         }
 
         public void UpdateFolder()
@@ -171,25 +181,36 @@ namespace FadedVanguardLogUploader.ViewModels
                 return;
             IEnumerable<string> files = Directory.EnumerateFiles(App.settings.Path, "*.*", SearchOption.AllDirectories)
                 .Where(s => s.ToLower().EndsWith(".evtc") || s.ToLower().EndsWith(".evtc.zip") || s.ToLower().EndsWith(".zevtc"));
+            ConcurrentBag<ListItem> temp = new();
+            List<Task> bagTasks = new();
+            List<ListItem> x = StoredItems.ToList();
             try
             {
-                List<ListItem> temp = new();
+                ProgressBarMax = files.Count();
                 foreach (string file in files)
                 {
-                    if (File.Exists(file) && !StoredItems.Exists(x => x.FullPath == file))
+                    bagTasks.Add(Task.Run(() => 
                     {
-                        ListItem item = new(file);
-                        temp.Add(item);
-                        StoredItems.Add(item);
-                    }
+                        if (!File.Exists(file))
+                            return;  
+                        if (!x.Exists(x => x.FullPath == file))
+                        {
+                            ListItem item = new(file);
+                            temp.Add(item);
+                            StoredItems.Add(item);
+                        }
+                        ProgressBarValue++;
+                    }));
                 }
-                storageIO.Update(temp);
-                Filter();
             }
             catch (UnauthorizedAccessException ex)
             {
                 Console.Error.WriteLine(ex.Message);
             }
+            Task.WaitAll(bagTasks.ToArray());
+            storageIO.Update(temp);
+            Filter();
+            ProgressBarValue = 0;
         }
 
         public void SearchFolder(string path)
@@ -200,20 +221,28 @@ namespace FadedVanguardLogUploader.ViewModels
                 return;
             IEnumerable<string> files = Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
                 .Where(s => s.ToLower().EndsWith(".evtc") || s.ToLower().EndsWith(".evtc.zip") || s.ToLower().EndsWith(".zevtc"));
+            List<Task> bagTasks = new();
             try
             {
+                ProgressBarMax = files.Count();
                 foreach (string file in files)
                 {
-                    if (File.Exists(file))
-                        StoredItems.Add(new ListItem(file));
+                    bagTasks.Add(Task.Run(() =>
+                    {
+                        if (File.Exists(file))
+                            StoredItems.Add(new ListItem(file));
+                        ProgressBarValue++;
+                    }));
                 }
             }
             catch (UnauthorizedAccessException ex)
             {
                 Console.Error.WriteLine(ex.Message);
             }
+            Task.WaitAll(bagTasks.ToArray());
             storageIO.Create(StoredItems);
             Filter();
+            ProgressBarValue = 0;
         }
 
         public void Sort()
@@ -237,6 +266,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 return FilterSettings.Predicate(x);
             }).ToList();
             FileCount = FilteredItems.Count;
+            PageMax = (FilteredItems.Count - 1) / pageCount + 1;
             Sort();
         }
     }

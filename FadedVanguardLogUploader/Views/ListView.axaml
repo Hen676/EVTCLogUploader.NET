@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:converter="clr-namespace:FadedVanguardLogUploader.Utils;assembly=FadedVanguardLogUploader"
+			 xmlns:converter="clr-namespace:FadedVanguardLogUploader.Utils"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FadedVanguardLogUploader.Views.ListView">
 	<UserControl.Resources>
@@ -11,8 +11,10 @@
 	</UserControl.Resources>
 	
 	<DockPanel Margin="10">
-		<Grid DockPanel.Dock="Bottom">
+		<Grid DockPanel.Dock="Bottom" Margin="0,4">
 			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
 				<ColumnDefinition Width="auto"></ColumnDefinition>
 				<ColumnDefinition Width="auto"></ColumnDefinition>
 				<ColumnDefinition Width="*"></ColumnDefinition>
@@ -28,16 +30,22 @@
 					   VerticalAlignment="Center" 
 					   Text="{Binding Page, Mode=OneWay, 
 					   Converter={StaticResource pageConverter}}"
-					   Padding="8"></TextBlock>
-			<Button Grid.Column="2" 
+					   Padding="8,0,1,0"></TextBlock>
+			<TextBlock Grid.Column="2"
+					   VerticalAlignment="Center">/</TextBlock>
+			<TextBlock Grid.Column="3"
+					   VerticalAlignment="Center"
+					   Text="{Binding PageMax}"
+					   Padding="1,0,8,0"></TextBlock>
+			<Button Grid.Column="4" 
 					DockPanel.Dock="Bottom" 
 					Command="{Binding PageUpCommand}" 
 					IsEnabled="{Binding EnabledUp}">&gt;</Button>
-			<ProgressBar Grid.Column="3" 
+			<ProgressBar Grid.Column="5" 
 						 Value="{Binding ProgressBarValue}" 
 						 Maximum="{Binding ProgressBarMax}"
-						 ToolTip.Tip="Upload progress bar"></ProgressBar>
-			<Button Grid.Column="4" 
+						 ToolTip.Tip="Progress bar"></ProgressBar>
+			<Button Grid.Column="6" 
 					HorizontalAlignment="Right" 
 					DockPanel.Dock="Bottom" 
 					Command="{Binding UploadCommand}"

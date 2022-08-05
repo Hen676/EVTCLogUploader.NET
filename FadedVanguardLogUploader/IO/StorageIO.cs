@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using FadedVanguardLogUploader.Models;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -35,7 +36,7 @@ namespace FadedVanguardLogUploader.IO
                 Process.Start(new ProcessStartInfo(storagePath) { UseShellExecute = true });
         }
 
-        public List<ListItem> Get()
+        public ConcurrentBag<ListItem> Get()
         {
             if (!File.Exists(storagePath))
                 return new();
@@ -43,12 +44,12 @@ namespace FadedVanguardLogUploader.IO
             using var csv = new CsvReader(streamReader, configuration);
             if (csv == null)
                 return new();
-            var x = csv.GetRecords<ListItem>().ToList();
+            ConcurrentBag<ListItem> x = new(csv.GetRecords<ListItem>());
             streamReader.Close();
             return x;
         }
 
-        public void Create(List<ListItem> records)
+        public void Create(ConcurrentBag<ListItem> records)
         {
             var streamWriter = new StreamWriter(storagePath);
             using (streamWriter)
@@ -59,7 +60,7 @@ namespace FadedVanguardLogUploader.IO
             streamWriter.Close();
         }
 
-        public void Update(List<ListItem> newValues)
+        public void Update(ConcurrentBag<ListItem> newValues)
         {
             var stream = File.Open(storagePath, FileMode.Append);
             using (stream)
@@ -73,7 +74,8 @@ namespace FadedVanguardLogUploader.IO
 
         public void Delete()
         {
-            File.Delete(storagePath);
+            if (File.Exists(storagePath))
+                File.Delete(storagePath);
         }
     }
 }

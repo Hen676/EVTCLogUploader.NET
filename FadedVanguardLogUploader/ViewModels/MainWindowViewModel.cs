@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading;
 
 namespace FadedVanguardLogUploader.ViewModels
 {
@@ -42,6 +43,7 @@ namespace FadedVanguardLogUploader.ViewModels
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> ModeCommand { get; }
         public ReactiveCommand<Unit, Unit> CSVOpenCommand { get; }
+        public ReactiveCommand<Unit, Unit> CSVDeleteCommand { get; }
         public ReactiveCommand<Window, Unit> CloseCommand { get; }
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
         private TimeSpan? time = null;
@@ -54,8 +56,14 @@ namespace FadedVanguardLogUploader.ViewModels
             SaveCommand = ReactiveCommand.Create(Save);
             ModeCommand = ReactiveCommand.Create(Mode);
             CSVOpenCommand = ReactiveCommand.Create(CSVOpen);
+            CSVDeleteCommand = ReactiveCommand.Create(CSVDelete);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
+        }
+
+        private void CSVDelete()
+        {
+            List.storageIO.Delete();
         }
 
         private void CSVOpen()
@@ -105,7 +113,8 @@ namespace FadedVanguardLogUploader.ViewModels
                 {
                     App.settings.Path = responce;
                     App.settings.Save();
-                    List.SearchFolder(App.settings.Path);
+                    Thread thread = new Thread(() => List.SearchFolder(App.settings.Path));
+                    thread.Start();
                 }
             }
         }

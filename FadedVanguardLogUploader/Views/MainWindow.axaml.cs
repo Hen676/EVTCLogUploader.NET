@@ -12,19 +12,16 @@ namespace FadedVanguardLogUploader.Views
         public MainWindow()
         {
             InitializeComponent();
-            if (true)
-            {
-                //Code that throws the exception
-            }
-
             Closing += Closeing;
             this.WhenActivated(d => d(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
         }
 
         private async Task DoShowDialogAsync(InteractionContext<PopupViewModel, bool> interaction)
         {
-            Popup dialog = new();
-            dialog.DataContext = interaction.Input;
+            Popup dialog = new()
+            {
+                DataContext = interaction.Input
+            };
             await dialog.ShowDialog(this);
             interaction.SetOutput(true);
         }
