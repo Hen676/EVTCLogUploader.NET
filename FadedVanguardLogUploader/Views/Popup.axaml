@@ -9,7 +9,7 @@
         x:Class="FadedVanguardLogUploader.Views.Popup"
 		Icon="/Assets/Guild_Faded_Vanguard_Emblem.png"
 		ExtendClientAreaToDecorationsHint="True"
-		HasSystemDecorations="False"
+		SystemDecorations="1"
 		Title="Faded Vanguard Log Uploader - Message"
 		CanResize="False">
 	<Grid Margin="20,20,20,20" HorizontalAlignment="Center" VerticalAlignment="Center">

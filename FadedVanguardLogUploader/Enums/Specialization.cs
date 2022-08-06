@@ -3,6 +3,7 @@
     public enum Specialization
     {
         None = 0,
+        Empty = 1,
 
         Dragonhunter = 27,
         Firebrand = 62,

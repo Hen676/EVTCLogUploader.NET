@@ -2,8 +2,8 @@
 {
     public enum Encounter
     {
-        // Default
-        Unkown,
+        // Default + Filter
+        Empty, Unkown,
 
         // Raids
         // W1

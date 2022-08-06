@@ -3,7 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:converter="clr-namespace:FadedVanguardLogUploader.Utils"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" 
+			 d:DesignWidth="800" 
+			 d:DesignHeight="450"
+			 MinWidth="400"
+			 MinHeight="200"
              x:Class="FadedVanguardLogUploader.Views.ListView">
 	<UserControl.Resources>
 		<converter:PageConverter x:Key="pageConverter"></converter:PageConverter>
@@ -54,7 +58,8 @@
 		<TextBlock IsVisible="{Binding !Items.Count}"
 		   Background="{DynamicResource ListBoxBackgroundThemeBrush}">No files found</TextBlock>
 		<ListBox Items="{Binding Items}" 
-				 IsVisible="{Binding !!Items.Count}">
+				 IsVisible="{Binding !!Items.Count}"
+				 Padding="10">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel>

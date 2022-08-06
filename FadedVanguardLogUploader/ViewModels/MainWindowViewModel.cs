@@ -43,8 +43,11 @@ namespace FadedVanguardLogUploader.ViewModels
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> ModeCommand { get; }
         public ReactiveCommand<Unit, Unit> CSVOpenCommand { get; }
+        public ReactiveCommand<int, Unit> PageAmountCommand { get; }
         public ReactiveCommand<Unit, Unit> CSVDeleteCommand { get; }
         public ReactiveCommand<Window, Unit> CloseCommand { get; }
+        public ReactiveCommand<Window, Unit> MinimizedCommand { get; }
+        public ReactiveCommand<Window, Unit> MaxOrNormalCommand { get; }
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
         private TimeSpan? time = null;
         private DateTimeOffset? date = null;
@@ -56,9 +59,31 @@ namespace FadedVanguardLogUploader.ViewModels
             SaveCommand = ReactiveCommand.Create(Save);
             ModeCommand = ReactiveCommand.Create(Mode);
             CSVOpenCommand = ReactiveCommand.Create(CSVOpen);
+            PageAmountCommand = ReactiveCommand.Create<int>(PageAmount);
             CSVDeleteCommand = ReactiveCommand.Create(CSVDelete);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
+            MinimizedCommand = ReactiveCommand.Create<Window>(Minimized);
+            MaxOrNormalCommand = ReactiveCommand.Create<Window>(MaxOrNormal);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
+        }
+
+        private void MaxOrNormal(Window window)
+        {
+            window.WindowState = window.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+        }
+
+        private void Minimized(Window window)
+        {
+            window.WindowState = WindowState.Minimized;
+        }
+        private void Close(Window window)
+        {
+            window.Close();
+        }
+
+        private void PageAmount(int pageAmount)
+        {
+            List.SetPageCount(pageAmount);
         }
 
         private void CSVDelete()
@@ -69,11 +94,6 @@ namespace FadedVanguardLogUploader.ViewModels
         private void CSVOpen()
         {
             List.storageIO.OpenCSV();
-        }
-
-        private void Close(Window window)
-        {
-            window.Close();
         }
 
         private void Mode()

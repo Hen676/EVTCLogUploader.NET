@@ -62,7 +62,7 @@ namespace FadedVanguardLogUploader.ViewModels
         private ConcurrentBag<ListItem> StoredItems = new();
         private List<ListItem> FilteredItems = new();
         private readonly Filter FilterSettings = new();
-        private readonly int pageCount = 25;
+        private int pageCount = 25;
         private int pageMax = 1;
         private int page = 0;
         private bool enabledDown = false;
@@ -83,6 +83,12 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             StoredItems = storageIO.Get();
             UpdateFolder();
+            Filter();
+        }
+
+        public void SetPageCount(int pageAmount) 
+        {
+            pageCount = pageAmount;
             Filter();
         }
 

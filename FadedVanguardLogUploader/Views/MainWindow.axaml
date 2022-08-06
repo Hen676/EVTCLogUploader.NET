@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:FadedVanguardLogUploader.ViewModels"
+		xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:views="clr-namespace:FadedVanguardLogUploader.Views"
@@ -13,7 +14,8 @@
 		x:Name="FadedVanguardLogUploaderWindow"
         x:Class="FadedVanguardLogUploader.Views.MainWindow"
         Icon="/Assets/Guild_Faded_Vanguard_Emblem.png"
-        Title="Faded Vanguard Log Uploader">
+        Title="Faded Vanguard Log Uploader"
+		ExtendClientAreaToDecorationsHint="True">
 	
 	<Window.DataContext>
 		<vm:MainWindowViewModel/>
@@ -39,49 +41,93 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto"></RowDefinition>
 			<RowDefinition Height="auto"></RowDefinition>
-			<RowDefinition Height="auto"></RowDefinition>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="20"></RowDefinition>
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="auto"></ColumnDefinition>
 			<ColumnDefinition Width="*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 
-		<!-- Panels + Row 0-->
-		<StackPanel Grid.RowSpan="10"
-					Grid.Row="1"
-					Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+		<!-- Menu -->
+		<Grid Grid.Column="1"
+			  Grid.ColumnSpan="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
 
-		<!-- Row 1 -->
-		<DockPanel  Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
-			<Menu DockPanel.Dock="Top">
+			
+			<!-- Menu Backgound -->
+			<StackPanel Grid.Column="1"
+						Grid.ColumnSpan="10"
+						Grid.Row="0"
+						Name="TopRow"
+						Background="{DynamicResource 
+						SystemControlBackgroundBaseLowBrush}"/>
+
+			<!-- Menu Buttons -->
+			<Menu Grid.Column="1"
+				  Margin="4,0,0,0">
+				<!-- File -->
 				<MenuItem Header="_File">
-					<MenuItem Header="_Select Folder" 
-							  Command="{Binding FolderCommand}" 
-							  CommandParameter="{Binding ElementName=FadedVanguardLogUploaderWindow}"/>
+					<MenuItem Header="_Select Folder"
+							  Command="{Binding FolderCommand}"
+							  CommandParameter="{Binding 
+							  ElementName=FadedVanguardLogUploaderWindow}"/>
 					<MenuItem Header="_Save Settings"
 							  Command="{Binding SaveCommand}"/>
 					<Separator/>
 					<MenuItem Header="_Exit"
 							  Command="{Binding CloseCommand}"
-							  CommandParameter="{Binding ElementName=FadedVanguardLogUploaderWindow}"/>
+							  CommandParameter="{Binding 
+							  ElementName=FadedVanguardLogUploaderWindow}">
+					</MenuItem>
 				</MenuItem>
+				<!-- Edit -->
 				<MenuItem Header="_Edit">
 					<MenuItem Header="_Open CSV"
-								Command="{Binding CSVOpenCommand}"/>
+							  Command="{Binding CSVOpenCommand}"/>
 					<MenuItem Header="_Delete CSV"
 							  Command="{Binding CSVDeleteCommand}"/>
 				</MenuItem>
+				<!-- View -->
 				<MenuItem Header="_View">
-					<MenuItem Header="_Dark Mode" Command="{Binding ModeCommand}">
+					<MenuItem Header="_Dark Mode"
+							  Command="{Binding ModeCommand}">
 						<MenuItem.Icon>
 							<CheckBox BorderThickness="0"
 									  ClipToBounds="False"
 									  IsHitTestVisible="False"
 									  IsChecked="{Binding ModeToggle}"/>
 						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem Header="_Page Amount">
+						<MenuItem Header="_25"
+								  Command="{Binding PageAmountCommand}">
+							<MenuItem.CommandParameter>
+								<sys:Int32>25</sys:Int32>
+							</MenuItem.CommandParameter>
+						</MenuItem>
+						<MenuItem Header="_50"
+								  Command="{Binding PageAmountCommand}">
+							<MenuItem.CommandParameter>
+								<sys:Int32>50</sys:Int32>
+							</MenuItem.CommandParameter>
+						</MenuItem>
+						<MenuItem Header="_100"
+								  Command="{Binding PageAmountCommand}">
+							<MenuItem.CommandParameter>
+								<sys:Int32>100</sys:Int32>
+							</MenuItem.CommandParameter>
+						</MenuItem>
+					</MenuItem>
+				</MenuItem>
+				<!-- Filter -->
+				<MenuItem Header="_Filter">
+					<MenuItem Header="_Sort">
+
 					</MenuItem>
 					<MenuItem Header="_File Types">
 						<MenuItem Header="_.evtc">
@@ -110,22 +156,16 @@
 						</MenuItem>
 					</MenuItem>
 				</MenuItem>
+				<!-- Help -->
 				<MenuItem Header="_Help">
 					<MenuItem Header="_About"
 							  Command="{Binding AboutCommand}"/>
 				</MenuItem>
 			</Menu>
-		</DockPanel>
-		<Image Grid.Column="0"
-			   Grid.Row="0"
-			   Grid.RowSpan="4"
-			   VerticalAlignment="Top"
-			   Source="/Assets/Guild_Faded_Vanguard_Emblem.png"
-			   Width="80"/>
-
-		<!-- Row 2 add another grid? -->
-		<Grid Grid.Column="1"
-			  Grid.Row="2">
+		</Grid>
+		
+		<!-- Row 1 -->
+		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="auto"></ColumnDefinition>
 				<ColumnDefinition Width="auto"></ColumnDefinition>
@@ -143,17 +183,44 @@
 						VerticalAlignment="Center"/>
 		</Grid>
 
-		<!-- Row 3 -->
-		<views:ListView Grid.Column="1"
-							Grid.Row="3"
-							DataContext="{Binding List}"></views:ListView>
+		<!-- Row 2 -->
+		<views:ListView Grid.Row="2"
+						DataContext="{Binding List}"></views:ListView>
 
-		<!-- Row 4  -->
-		<TextBlock Grid.Column="1"
-				   Grid.Row="4"
+		<!-- Row 3  -->
+		<TextBlock Grid.Row="3"
 				   Margin="10,0,0,0"
 				   Classes="p2"
-				   Text="{Binding List.FileCount, Converter={StaticResource countConverter}}"></TextBlock>
-	</Grid>
+				   Text="{Binding List.FileCount, 
+				   Converter={StaticResource countConverter}}"></TextBlock>
 
+		<!-- Design -->
+		<StackPanel ZIndex="-3"
+					Grid.Column="0"
+					Grid.Row="0"
+					Grid.ColumnSpan="10"
+					Grid.RowSpan="10">
+			<StackPanel.RenderTransform>
+				<RotateTransform Angle="-55"></RotateTransform>
+			</StackPanel.RenderTransform>
+
+			<StackPanel Width="10000"
+						Height="16"
+						Margin="0,200,0,0"
+						Background="{DynamicResource 
+						SystemControlBackgroundBaseLowBrush}"
+						Opacity="1"/>
+			<StackPanel Width="10000"
+						Height="16"
+						Margin="0,4,0,0"
+						Background="Crimson"
+						Opacity="200"/>
+			<StackPanel Width="10000"
+						Height="10000"
+						Margin="0,4,0,0"
+						Background="{DynamicResource 
+						SystemControlBackgroundBaseLowBrush}"
+						Opacity="1"/>
+		</StackPanel>
+	</Grid>
 </Window>

@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 
 namespace FadedVanguardLogUploader.Views
@@ -12,6 +13,12 @@ namespace FadedVanguardLogUploader.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            PointerPressed += PointerPressedPopUp;
+        }
+
+        private void PointerPressedPopUp(object? sender, PointerPressedEventArgs e)
+        {
+            BeginMoveDrag(e);
         }
 
         private void InitializeComponent()

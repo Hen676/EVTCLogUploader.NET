@@ -1,4 +1,4 @@
-using Avalonia;
+using Avalonia.Input;
 using Avalonia.ReactiveUI;
 using FadedVanguardLogUploader.ViewModels;
 using ReactiveUI;
@@ -12,8 +12,14 @@ namespace FadedVanguardLogUploader.Views
         public MainWindow()
         {
             InitializeComponent();
-            Closing += Closeing;
+            Closing += ClosingMainWindow;
             this.WhenActivated(d => d(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
+            TopRow.PointerPressed += PointerPressedMainWindow;
+        }
+
+        private void PointerPressedMainWindow(object? sender, PointerPressedEventArgs e)
+        {
+            BeginMoveDrag(e);
         }
 
         private async Task DoShowDialogAsync(InteractionContext<PopupViewModel, bool> interaction)
@@ -26,7 +32,7 @@ namespace FadedVanguardLogUploader.Views
             interaction.SetOutput(true);
         }
 
-        private void Closeing(object? sender, CancelEventArgs e)
+        private void ClosingMainWindow(object? sender, CancelEventArgs e)
         {
             App.settings.Save();
         }
