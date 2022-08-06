@@ -79,21 +79,20 @@
 					<MenuItem Header="_Save Settings"
 							  Command="{Binding SaveCommand}"/>
 					<Separator/>
+					<MenuItem Header="_Open CSV"
+							  Command="{Binding CSVOpenCommand}"/>
+					<MenuItem Header="_Delete CSV"
+							  Command="{Binding CSVDeleteCommand}"/>
+					<Separator/>
 					<MenuItem Header="_Exit"
 							  Command="{Binding CloseCommand}"
 							  CommandParameter="{Binding 
 							  ElementName=FadedVanguardLogUploaderWindow}">
 					</MenuItem>
 				</MenuItem>
-				<!-- Edit -->
-				<MenuItem Header="_Edit">
-					<MenuItem Header="_Open CSV"
-							  Command="{Binding CSVOpenCommand}"/>
-					<MenuItem Header="_Delete CSV"
-							  Command="{Binding CSVDeleteCommand}"/>
-				</MenuItem>
-				<!-- View -->
-				<MenuItem Header="_View">
+				
+				<!-- Settings -->
+				<MenuItem Header="_Settings">
 					<MenuItem Header="_Dark Mode"
 							  Command="{Binding ModeCommand}">
 						<MenuItem.Icon>
@@ -101,6 +100,15 @@
 									  ClipToBounds="False"
 									  IsHitTestVisible="False"
 									  IsChecked="{Binding ModeToggle}"/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem Header="_GW2 Api"
+							  Command="{Binding UseGw2ApiCommand}">
+						<MenuItem.Icon>
+							<CheckBox BorderThickness="0"
+									  ClipToBounds="False"
+									  IsHitTestVisible="False"
+									  IsChecked="{Binding Gw2ApiToggle}"/>
 						</MenuItem.Icon>
 					</MenuItem>
 					<MenuItem Header="_Page Amount">
@@ -124,10 +132,22 @@
 						</MenuItem>
 					</MenuItem>
 				</MenuItem>
+				
 				<!-- Filter -->
 				<MenuItem Header="_Filter">
 					<MenuItem Header="_Sort">
-
+						<MenuItem Header="_Date Ascending"
+								  Command="{Binding DateAscendingCommand}">
+						</MenuItem>
+						<MenuItem Header="_Date Descending"
+								  Command="{Binding DateDescendingCommand}">
+						</MenuItem>
+						<MenuItem Header="Length Ascending"
+								  Command="{Binding LengthAscendingCommand}">
+						</MenuItem>
+						<MenuItem Header="Length Descending"
+								  Command="{Binding LengthDescendingCommand}">
+						</MenuItem>
 					</MenuItem>
 					<MenuItem Header="_File Types">
 						<MenuItem Header="_.evtc">

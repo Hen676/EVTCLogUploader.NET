@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Themes.Fluent;
+using FadedVanguardLogUploader.Enums;
 using ReactiveUI;
 using System;
 using System.Diagnostics;
@@ -38,10 +39,23 @@ namespace FadedVanguardLogUploader.ViewModels
                 this.RaiseAndSetIfChanged(ref modeToggle, value);
             }
         }
+        public bool Gw2ApiToggle
+        {
+            get => gw2ApiToggle;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref gw2ApiToggle, value);
+            }
+        }
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> ModeCommand { get; }
+        public ReactiveCommand<Unit, Unit> DateAscendingCommand { get; }
+        public ReactiveCommand<Unit, Unit> DateDescendingCommand { get; }
+        public ReactiveCommand<Unit, Unit> LengthAscendingCommand { get; }
+        public ReactiveCommand<Unit, Unit> LengthDescendingCommand { get; }
+        public ReactiveCommand<Unit, Unit> UseGw2ApiCommand { get; }
         public ReactiveCommand<Unit, Unit> CSVOpenCommand { get; }
         public ReactiveCommand<int, Unit> PageAmountCommand { get; }
         public ReactiveCommand<Unit, Unit> CSVDeleteCommand { get; }
@@ -52,30 +66,48 @@ namespace FadedVanguardLogUploader.ViewModels
         private TimeSpan? time = null;
         private DateTimeOffset? date = null;
         private bool modeToggle = App.settings.ModeToggle;
+        private bool gw2ApiToggle = App.settings.ApiToggle;
 
         public MainWindowViewModel()
         {
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
             ModeCommand = ReactiveCommand.Create(Mode);
+            DateAscendingCommand = ReactiveCommand.Create(DateAscending);
+            DateDescendingCommand = ReactiveCommand.Create(DateDescending);
+            LengthAscendingCommand = ReactiveCommand.Create(LengthAscending);
+            LengthDescendingCommand = ReactiveCommand.Create(LengthDescending);
+            UseGw2ApiCommand = ReactiveCommand.Create(UseGw2Api);
             CSVOpenCommand = ReactiveCommand.Create(CSVOpen);
             PageAmountCommand = ReactiveCommand.Create<int>(PageAmount);
             CSVDeleteCommand = ReactiveCommand.Create(CSVDelete);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
-            MinimizedCommand = ReactiveCommand.Create<Window>(Minimized);
-            MaxOrNormalCommand = ReactiveCommand.Create<Window>(MaxOrNormal);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
         }
 
-        private void MaxOrNormal(Window window)
+        // Set sorting types
+        private void DateAscending()
         {
-            window.WindowState = window.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+            App.settings.SortingType = SortingType.DateAscending;
+            List.Sort();
+        }
+        private void DateDescending()
+        {
+            App.settings.SortingType = SortingType.DateDescending;
+            List.Sort();
+        }
+        private void LengthAscending()
+        {
+            App.settings.SortingType = SortingType.LengthAscending;
+            List.Sort();
+        }
+        private void LengthDescending()
+        {
+            App.settings.SortingType = SortingType.LengthDescending;
+            List.Sort();
         }
 
-        private void Minimized(Window window)
-        {
-            window.WindowState = WindowState.Minimized;
-        }
+
         private void Close(Window window)
         {
             window.Close();
@@ -83,7 +115,8 @@ namespace FadedVanguardLogUploader.ViewModels
 
         private void PageAmount(int pageAmount)
         {
-            List.SetPageCount(pageAmount);
+            App.settings.PageAmount = pageAmount;
+            List.Filter();
         }
 
         private void CSVDelete()
@@ -94,6 +127,11 @@ namespace FadedVanguardLogUploader.ViewModels
         private void CSVOpen()
         {
             List.storageIO.OpenCSV();
+        }
+        private void UseGw2Api()
+        {
+            Gw2ApiToggle = !Gw2ApiToggle;
+            App.settings.ApiToggle = Gw2ApiToggle;
         }
 
         private void Mode()

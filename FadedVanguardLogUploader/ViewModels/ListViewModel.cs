@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using DynamicData;
+using FadedVanguardLogUploader.Enums;
 using FadedVanguardLogUploader.IO;
 using FadedVanguardLogUploader.Models;
 using FadedVanguardLogUploader.Models.Responce;
@@ -62,7 +63,6 @@ namespace FadedVanguardLogUploader.ViewModels
         private ConcurrentBag<ListItem> StoredItems = new();
         private List<ListItem> FilteredItems = new();
         private readonly Filter FilterSettings = new();
-        private int pageCount = 25;
         private int pageMax = 1;
         private int page = 0;
         private bool enabledDown = false;
@@ -83,12 +83,6 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             StoredItems = storageIO.Get();
             UpdateFolder();
-            Filter();
-        }
-
-        public void SetPageCount(int pageAmount) 
-        {
-            pageCount = pageAmount;
             Filter();
         }
 
@@ -150,25 +144,25 @@ namespace FadedVanguardLogUploader.ViewModels
             Items.Clear();
             Page = 0;
             EnabledDown = false;
-            EnabledUp = FilteredItems.Count >= pageCount;
+            EnabledUp = FilteredItems.Count >= App.settings.PageAmount;
             if (FilteredItems.Count == 0)
                 return;
-            Items.AddRange(FilteredItems.GetRange(0, Math.Min(FilteredItems.Count, pageCount)));
+            Items.AddRange(FilteredItems.GetRange(0, Math.Min(FilteredItems.Count, App.settings.PageAmount)));
         }
 
         private void PageUp()
         {
             Page++;
-            int total = Page * pageCount;
+            int total = Page * App.settings.PageAmount;
             EnabledDown = true;
             Items.Clear();
-            if (FilteredItems.Count <= total + pageCount)
+            if (FilteredItems.Count <= total + App.settings.PageAmount)
             {
                 EnabledUp = false;
                 Items.AddRange(FilteredItems.GetRange(total, FilteredItems.Count - total));
             }
             else
-                Items.AddRange(FilteredItems.GetRange(total, pageCount));
+                Items.AddRange(FilteredItems.GetRange(total, App.settings.PageAmount));
         }
 
         private void PageDown()
@@ -178,7 +172,7 @@ namespace FadedVanguardLogUploader.ViewModels
             EnabledUp = true;
             Page--;
             Items.Clear();
-            Items.AddRange(FilteredItems.GetRange(Page * pageCount, pageCount));
+            Items.AddRange(FilteredItems.GetRange(Page * App.settings.PageAmount, App.settings.PageAmount));
         }
 
         public void UpdateFolder()
@@ -253,10 +247,41 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public void Sort()
         {
-            FilteredItems.Sort(delegate (ListItem x, ListItem y)
+            switch (App.settings.SortingType)
             {
-                return x.CreationDate.CompareTo(y.CreationDate);
-            });
+                case SortingType.DateDescending:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return y.CreationDate.CompareTo(x.CreationDate);
+                    });
+                    break;
+                case SortingType.DateAscending:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return x.CreationDate.CompareTo(y.CreationDate);
+                    });
+                    break;
+                case SortingType.LengthDescending:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return y.Length.CompareTo(x.Length);
+                    });
+                    break;
+                case SortingType.LengthAscending:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return x.Length.CompareTo(y.Length);
+                    });
+                    break;
+
+
+                default:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return y.CreationDate.CompareTo(x.CreationDate);
+                    });
+                    break;
+            }
             PageZero();
         }
 
@@ -272,7 +297,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 return FilterSettings.Predicate(x);
             }).ToList();
             FileCount = FilteredItems.Count;
-            PageMax = (FilteredItems.Count - 1) / pageCount + 1;
+            PageMax = (FilteredItems.Count - 1) / App.settings.PageAmount + 1;
             Sort();
         }
     }
