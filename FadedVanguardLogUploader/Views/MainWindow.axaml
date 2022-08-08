@@ -35,6 +35,11 @@
 		<Style Selector="TextBlock.p2">
 			<Setter Property="FontSize" Value="8"/>
 		</Style>
+		<Style Selector="CheckBox.Menu">
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="ClipToBounds" Value="False"/>
+			<Setter Property="IsHitTestVisible" Value="False"/>
+		</Style>
 	</Window.Styles>
 
 	<Grid>
@@ -96,21 +101,18 @@
 					<MenuItem Header="_Dark Mode"
 							  Command="{Binding ModeCommand}">
 						<MenuItem.Icon>
-							<CheckBox BorderThickness="0"
-									  ClipToBounds="False"
-									  IsHitTestVisible="False"
-									  IsChecked="{Binding ModeToggle}"/>
+							<CheckBox IsChecked="{Binding ModeToggle}"
+									  Classes="Menu"/>
 						</MenuItem.Icon>
 					</MenuItem>
 					<MenuItem Header="_GW2 Api"
 							  Command="{Binding UseGw2ApiCommand}">
 						<MenuItem.Icon>
-							<CheckBox BorderThickness="0"
-									  ClipToBounds="False"
-									  IsHitTestVisible="False"
-									  IsChecked="{Binding Gw2ApiToggle}"/>
+							<CheckBox IsChecked="{Binding Gw2ApiToggle}"
+									  Classes="Menu"/>
 						</MenuItem.Icon>
 					</MenuItem>
+					<Separator/>
 					<MenuItem Header="_Page Amount">
 						<MenuItem Header="_25"
 								  Command="{Binding PageAmountCommand}">
@@ -131,6 +133,33 @@
 							</MenuItem.CommandParameter>
 						</MenuItem>
 					</MenuItem>
+					<MenuItem Header="_File Types">
+						<MenuItem Header="_.evtc">
+							<MenuItem.Icon>
+								<CheckBox IsChecked="True"
+										  Classes="Menu"/>
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="_.zevtc">
+							<MenuItem.Icon>
+								<CheckBox IsChecked="True"
+										  Classes="Menu"/>
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="_.evtc.zip">
+							<MenuItem.Icon>
+								<CheckBox IsChecked="True"
+										  Classes="Menu"/>
+							</MenuItem.Icon>
+						</MenuItem>
+					</MenuItem>
+					<MenuItem Header="_Error Encounters Hidden"
+							  Command="{Binding ErrorHiddenCommand}">
+						<MenuItem.Icon>
+							<CheckBox IsChecked="{Binding ErrorFilterToggle}"
+									  Classes="Menu"/>
+						</MenuItem.Icon>
+					</MenuItem>
 				</MenuItem>
 				
 				<!-- Filter -->
@@ -148,31 +177,17 @@
 						<MenuItem Header="Length Descending"
 								  Command="{Binding LengthDescendingCommand}">
 						</MenuItem>
-					</MenuItem>
-					<MenuItem Header="_File Types">
-						<MenuItem Header="_.evtc">
-							<MenuItem.Icon>
-								<CheckBox BorderThickness="0"
-										  ClipToBounds="False"
-										  IsHitTestVisible="False"
-										  IsChecked="True"/>
-							</MenuItem.Icon>
+						<MenuItem Header="Username Ascending"
+								  Command="{Binding UserAscendingCommand}">
 						</MenuItem>
-						<MenuItem Header="_.zevtc">
-							<MenuItem.Icon>
-								<CheckBox BorderThickness="0"
-										  ClipToBounds="False"
-										  IsHitTestVisible="False"
-										  IsChecked="True"/>
-							</MenuItem.Icon>
+						<MenuItem Header="Username Descending"
+								  Command="{Binding UserDescendingCommand}">
 						</MenuItem>
-						<MenuItem Header="_.evtc.zip">
-							<MenuItem.Icon>
-								<CheckBox BorderThickness="0"
-										  ClipToBounds="False"
-										  IsHitTestVisible="False"
-										  IsChecked="True"/>
-							</MenuItem.Icon>
+						<MenuItem Header="Charcter Name Ascending"
+								  Command="{Binding NameAscendingCommand}">
+						</MenuItem>
+						<MenuItem Header="Charcter Name Descending"
+								  Command="{Binding NameDescendingCommand}">
 						</MenuItem>
 					</MenuItem>
 				</MenuItem>

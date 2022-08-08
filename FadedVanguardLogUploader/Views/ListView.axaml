@@ -63,7 +63,7 @@
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel>
-						<StackPanel Orientation="Horizontal">
+						<StackPanel Orientation="Horizontal" ToolTip.Tip="{Binding Name}">
 							<CheckBox Margin="4"
 									  IsChecked="{Binding IsSelected}"/>
 							<TextBlock Text="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"
@@ -87,10 +87,6 @@
 									   Padding="10,0,10,0"
 									   Width="100"/>
 							<TextBlock Text="{Binding CreationDate}" 
-									   VerticalAlignment="Center" 
-									   Padding="10,0,10,0"
-									   Width="200"/>
-							<TextBlock Text="{Binding Name}" 
 									   VerticalAlignment="Center" 
 									   Padding="10,0,10,0"
 									   Width="200"/>

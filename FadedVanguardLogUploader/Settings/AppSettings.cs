@@ -55,5 +55,15 @@ namespace FadedVanguardLogUploader.Settings
                 this[nameof(PageAmount)] = value;
             }
         }
+
+        [DefaultSettingValue("true"), UserScopedSetting]
+        public bool ErrorFilterToggle
+        {
+            get => (bool)this[nameof(ErrorFilterToggle)];
+            set
+            {
+                this[nameof(ErrorFilterToggle)] = value;
+            }
+        }
     }
 }

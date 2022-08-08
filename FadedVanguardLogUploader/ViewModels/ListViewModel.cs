@@ -273,6 +273,30 @@ namespace FadedVanguardLogUploader.ViewModels
                         return x.Length.CompareTo(y.Length);
                     });
                     break;
+                case SortingType.UserAscending:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return y.UserName.CompareTo(x.UserName);
+                    });
+                    break;
+                case SortingType.UserDescending:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return x.UserName.CompareTo(y.UserName);
+                    });
+                    break;
+                case SortingType.CharcterAscending:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return y.CharcterName.CompareTo(x.CharcterName);
+                    });
+                    break;
+                case SortingType.CharcterDescending:
+                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
+                    {
+                        return x.CharcterName.CompareTo(y.CharcterName);
+                    });
+                    break;
 
 
                 default:
@@ -294,6 +318,8 @@ namespace FadedVanguardLogUploader.ViewModels
 
             FilteredItems = StoredItems.Where(x =>
             {
+                if (App.settings.ErrorFilterToggle && x.Encounter == Encounter.Unkown)
+                    return false;
                 return FilterSettings.Predicate(x);
             }).ToList();
             FileCount = FilteredItems.Count;

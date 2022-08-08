@@ -6,6 +6,9 @@
         DateDescending,
         LengthAscending,
         LengthDescending,
-
+        UserAscending,
+        UserDescending,
+        CharcterAscending,
+        CharcterDescending,
     }
 }
