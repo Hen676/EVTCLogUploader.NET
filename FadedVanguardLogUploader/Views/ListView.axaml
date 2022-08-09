@@ -78,6 +78,10 @@
 									   VerticalAlignment="Center" 
 									   Padding="10,0,10,0" 
 									   Width="100"/>
+							<TextBlock Text="{Binding CharcterClass}"
+									   VerticalAlignment="Center"
+									   Padding="10,0,10,0"
+									   Width="100"/>
 							<TextBlock Text="{Binding CharcterSpec}" 
 									   VerticalAlignment="Center" 
 									   Padding="10,0,10,0" 

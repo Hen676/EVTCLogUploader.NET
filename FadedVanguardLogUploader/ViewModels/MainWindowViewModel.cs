@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Themes.Fluent;
 using FadedVanguardLogUploader.Enums;
+using FadedVanguardLogUploader.IO;
 using ReactiveUI;
 using System;
-using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
@@ -162,10 +162,11 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             List.storageIO.OpenCSV();
         }
-        private void UseGw2Api()
+        private async void UseGw2Api()
         {
             Gw2ApiToggle = !Gw2ApiToggle;
             App.settings.ApiToggle = Gw2ApiToggle;
+            Console.WriteLine(await GW2ApiHttps.GetSpecializationIcons());
         }
         private void ErrorHidden()
         {

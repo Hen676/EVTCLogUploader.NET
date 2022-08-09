@@ -22,9 +22,7 @@ namespace FadedVanguardLogUploader.IO
                 response = await client.PostAsync(dpsReportUrl, form);
             }
             if (!response.IsSuccessStatusCode)
-            {
                 return null;
-            }
 
             string json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<DpsReportResponse>(json);
