@@ -34,7 +34,7 @@ namespace FadedVanguardLogUploader.Views
 
         private void ClosingMainWindow(object? sender, CancelEventArgs e)
         {
-            App.settings.Save();
+            App.Settings.Save();
         }
     }
 }

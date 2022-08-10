@@ -3,17 +3,17 @@ using Avalonia.Data.Converters;
 using System;
 using System.Globalization;
 
-namespace FadedVanguardLogUploader.Utils
+namespace FadedVanguardLogUploader.Utils.Converter
 {
-    public class PageConverter : IValueConverter
+    public class FileCountConverter : IValueConverter
     {
-        public static readonly PageConverter Instance = new();
+        public static readonly FileCountConverter Instance = new();
 
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is int sourceInt && targetType.IsAssignableTo(typeof(string)))
             {
-                return (sourceInt + 1).ToString();
+                return sourceInt + " EVTC Files";
             }
             // converter used for the wrong type
             return new BindingNotification(new InvalidCastException(), BindingErrorType.Error);

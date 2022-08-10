@@ -76,9 +76,9 @@ namespace FadedVanguardLogUploader.ViewModels
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
         private TimeSpan? time = null;
         private DateTimeOffset? date = null;
-        private bool modeToggle = App.settings.ModeToggle;
-        private bool gw2ApiToggle = App.settings.ApiToggle;
-        private bool errorFilterToggle = App.settings.ErrorFilterToggle;
+        private bool modeToggle = App.Settings.ModeToggle;
+        private bool gw2ApiToggle = App.Settings.ApiToggle;
+        private bool errorFilterToggle = App.Settings.ErrorFilterToggle;
 
         public MainWindowViewModel()
         {
@@ -105,42 +105,42 @@ namespace FadedVanguardLogUploader.ViewModels
         // Set sorting types
         private void DateAscending()
         {
-            App.settings.SortingType = SortingType.DateAscending;
+            App.Settings.SortingType = SortingType.DateAscending;
             List.Sort();
         }
         private void DateDescending()
         {
-            App.settings.SortingType = SortingType.DateDescending;
+            App.Settings.SortingType = SortingType.DateDescending;
             List.Sort();
         }
         private void LengthAscending()
         {
-            App.settings.SortingType = SortingType.LengthAscending;
+            App.Settings.SortingType = SortingType.LengthAscending;
             List.Sort();
         }
         private void LengthDescending()
         {
-            App.settings.SortingType = SortingType.LengthDescending;
+            App.Settings.SortingType = SortingType.LengthDescending;
             List.Sort();
         }
         private void UserAscending()
         {
-            App.settings.SortingType = SortingType.UserAscending;
+            App.Settings.SortingType = SortingType.UserAscending;
             List.Sort();
         }
         private void UserDescending()
         {
-            App.settings.SortingType = SortingType.UserDescending;
+            App.Settings.SortingType = SortingType.UserDescending;
             List.Sort();
         }
         private void NameAscending()
         {
-            App.settings.SortingType = SortingType.CharcterAscending;
+            App.Settings.SortingType = SortingType.CharcterAscending;
             List.Sort();
         }
         private void NameDescending()
         {
-            App.settings.SortingType = SortingType.CharcterDescending;
+            App.Settings.SortingType = SortingType.CharcterDescending;
             List.Sort();
         }
 
@@ -151,7 +151,7 @@ namespace FadedVanguardLogUploader.ViewModels
         }
         private void PageAmount(int pageAmount)
         {
-            App.settings.PageAmount = pageAmount;
+            App.Settings.PageAmount = pageAmount;
             List.Filter();
         }
         private void CSVDelete()
@@ -162,29 +162,30 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             List.storageIO.OpenCSV();
         }
-        private async void UseGw2Api()
+        private void UseGw2Api()
         {
             Gw2ApiToggle = !Gw2ApiToggle;
-            App.settings.ApiToggle = Gw2ApiToggle;
-            Console.WriteLine(await GW2ApiHttps.GetSpecializationIcons());
+            App.Settings.ApiToggle = Gw2ApiToggle;
+            if (Gw2ApiToggle)
+                GW2ApiHttps.Init();
         }
         private void ErrorHidden()
         {
             ErrorFilterToggle = !ErrorFilterToggle;
-            App.settings.ErrorFilterToggle = ErrorFilterToggle;
+            App.Settings.ErrorFilterToggle = ErrorFilterToggle;
             List.Filter();
         }
 
         private void Mode()
         {
             ModeToggle = !ModeToggle;
-            App.settings.ModeToggle = ModeToggle;
-            App.Fluent.Mode = App.settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
+            App.Settings.ModeToggle = ModeToggle;
+            App.Fluent.Mode = App.Settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
         }
 
         private void Save()
         {
-            App.settings.Save();
+            App.Settings.Save();
         }
 
         public async void About()
@@ -205,14 +206,14 @@ namespace FadedVanguardLogUploader.ViewModels
             if (fileDialog != null && window != null)
             {
                 fileDialog.Title = "Open Folder";
-                if (App.settings.Path != "")
-                    fileDialog.Directory = App.settings.Path;
+                if (App.Settings.Path != "")
+                    fileDialog.Directory = App.Settings.Path;
                 string? responce = await fileDialog.ShowAsync(window);
                 if (responce != null)
                 {
-                    App.settings.Path = responce;
-                    App.settings.Save();
-                    Thread thread = new Thread(() => List.SearchFolder(App.settings.Path));
+                    App.Settings.Path = responce;
+                    App.Settings.Save();
+                    Thread thread = new Thread(() => List.SearchFolder(App.Settings.Path));
                     thread.Start();
                 }
             }

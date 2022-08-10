@@ -13,28 +13,35 @@ namespace FadedVanguardLogUploader.IO
         private static readonly Uri gw2ApiBaseUrl = new("https://api.guildwars2.com/v2/");
         private static readonly HttpClient client = new();
 
-        public static async Task<Dictionary<Profession, string>?> GetProfessionIcons()
+        public static Dictionary<Profession, string> ProfIcons = new();
+        public static Dictionary<Specialization, string> SpecIcons = new();
+
+        public static void Init() 
         {
-            Dictionary<Profession, string> keyValues = new();
+            GetProfessionIcons();
+            GetSpecializationIcons();
+        }
+
+        private static async void GetProfessionIcons()
+        {
+            ProfIcons.Clear();
             foreach (Profession prof in (Profession[])Enum.GetValues(typeof(Profession)))
             {
                 HttpResponseMessage response = await client.GetAsync(gw2ApiBaseUrl + "professions/" + nameof(prof));
                 if (!response.IsSuccessStatusCode)
-                    return null;
+                    return;
 
                 string json = await response.Content.ReadAsStringAsync();
                 ProfessionResponce? professionResponce = JsonConvert.DeserializeObject<ProfessionResponce>(json);
                 if (professionResponce == null)
-                    return null;
+                    return;
 
-                keyValues.Add(prof, professionResponce.icon);
+                ProfIcons.Add(prof, professionResponce.icon);
             }
-            return keyValues;
         }
 
-        public static async Task<Dictionary<Specialization, string>?> GetSpecializationIcons()
+        private static async void GetSpecializationIcons()
         {
-            Dictionary<Specialization, string> keyValues = new();
             foreach (Specialization spec in (Specialization[])Enum.GetValues(typeof(Specialization)))
             {
                 if (spec == Specialization.None || spec == Specialization.Empty)
@@ -42,16 +49,15 @@ namespace FadedVanguardLogUploader.IO
 
                 HttpResponseMessage response = await client.GetAsync(gw2ApiBaseUrl + "specializations/" + ((int)spec));
                 if (!response.IsSuccessStatusCode)
-                    return null;
+                    return;
 
                 var json = await response.Content.ReadAsStringAsync();
                 SpecializationIconResponce? SpecializationResponce = JsonConvert.DeserializeObject<SpecializationIconResponce>(json);
                 if (SpecializationResponce == null)
-                    continue;
+                    return;
 
-                keyValues.Add(spec, SpecializationResponce.profession_icon);
+                SpecIcons.Add(spec, SpecializationResponce.profession_icon);
             }
-            return keyValues;
         }
     }
 }

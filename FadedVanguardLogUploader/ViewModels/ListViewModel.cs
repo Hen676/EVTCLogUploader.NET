@@ -144,25 +144,25 @@ namespace FadedVanguardLogUploader.ViewModels
             Items.Clear();
             Page = 0;
             EnabledDown = false;
-            EnabledUp = FilteredItems.Count >= App.settings.PageAmount;
+            EnabledUp = FilteredItems.Count >= App.Settings.PageAmount;
             if (FilteredItems.Count == 0)
                 return;
-            Items.AddRange(FilteredItems.GetRange(0, Math.Min(FilteredItems.Count, App.settings.PageAmount)));
+            Items.AddRange(FilteredItems.GetRange(0, Math.Min(FilteredItems.Count, App.Settings.PageAmount)));
         }
 
         private void PageUp()
         {
             Page++;
-            int total = Page * App.settings.PageAmount;
+            int total = Page * App.Settings.PageAmount;
             EnabledDown = true;
             Items.Clear();
-            if (FilteredItems.Count <= total + App.settings.PageAmount)
+            if (FilteredItems.Count <= total + App.Settings.PageAmount)
             {
                 EnabledUp = false;
                 Items.AddRange(FilteredItems.GetRange(total, FilteredItems.Count - total));
             }
             else
-                Items.AddRange(FilteredItems.GetRange(total, App.settings.PageAmount));
+                Items.AddRange(FilteredItems.GetRange(total, App.Settings.PageAmount));
         }
 
         private void PageDown()
@@ -172,14 +172,14 @@ namespace FadedVanguardLogUploader.ViewModels
             EnabledUp = true;
             Page--;
             Items.Clear();
-            Items.AddRange(FilteredItems.GetRange(Page * App.settings.PageAmount, App.settings.PageAmount));
+            Items.AddRange(FilteredItems.GetRange(Page * App.Settings.PageAmount, App.Settings.PageAmount));
         }
 
         public void UpdateFolder()
         {
-            if (App.settings.Path == "/")
+            if (App.Settings.Path == "/")
                 return;
-            IEnumerable<string> files = Directory.EnumerateFiles(App.settings.Path, "*.*", SearchOption.AllDirectories)
+            IEnumerable<string> files = Directory.EnumerateFiles(App.Settings.Path, "*.*", SearchOption.AllDirectories)
                 .Where(s => s.ToLower().EndsWith(".evtc") || s.ToLower().EndsWith(".evtc.zip") || s.ToLower().EndsWith(".zevtc"));
             ConcurrentBag<ListItem> temp = new();
             List<Task> bagTasks = new();
@@ -247,7 +247,7 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public void Sort()
         {
-            switch (App.settings.SortingType)
+            switch (App.Settings.SortingType)
             {
                 case SortingType.DateDescending:
                     FilteredItems.Sort(delegate (ListItem x, ListItem y)
@@ -318,12 +318,12 @@ namespace FadedVanguardLogUploader.ViewModels
 
             FilteredItems = StoredItems.Where(x =>
             {
-                if (App.settings.ErrorFilterToggle && x.Encounter == Encounter.Unkown)
+                if (App.Settings.ErrorFilterToggle && x.Encounter == Encounter.Unkown)
                     return false;
                 return FilterSettings.Predicate(x);
             }).ToList();
             FileCount = FilteredItems.Count;
-            PageMax = (FilteredItems.Count - 1) / App.settings.PageAmount + 1;
+            PageMax = (FilteredItems.Count - 1) / App.Settings.PageAmount + 1;
             Sort();
         }
     }

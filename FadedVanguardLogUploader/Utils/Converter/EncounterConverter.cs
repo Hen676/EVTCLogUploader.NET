@@ -5,7 +5,7 @@ using FadedVanguardLogUploader.Utils.Determiners;
 using System;
 using System.Globalization;
 
-namespace FadedVanguardLogUploader.Utils
+namespace FadedVanguardLogUploader.Utils.Converter
 {
     public class EncounterConverter : IValueConverter
     {
