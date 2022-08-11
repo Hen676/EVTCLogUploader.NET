@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace FadedVanguardLogUploader.IO
 {
@@ -16,7 +15,7 @@ namespace FadedVanguardLogUploader.IO
         public static Dictionary<Profession, string> ProfIcons = new();
         public static Dictionary<Specialization, string> SpecIcons = new();
 
-        public static void Init() 
+        public static void Init()
         {
             GetProfessionIcons();
             GetSpecializationIcons();
@@ -27,6 +26,9 @@ namespace FadedVanguardLogUploader.IO
             ProfIcons.Clear();
             foreach (Profession prof in (Profession[])Enum.GetValues(typeof(Profession)))
             {
+                if (prof == Profession.Unknown)
+                    continue;
+
                 HttpResponseMessage response = await client.GetAsync(gw2ApiBaseUrl + "professions/" + nameof(prof));
                 if (!response.IsSuccessStatusCode)
                     return;

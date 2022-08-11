@@ -20,7 +20,10 @@ namespace FadedVanguardLogUploader.Models
         public Specialization CharcterSpec { get; set; } = Specialization.None;
         public Encounter Encounter { get; set; } = Encounter.Unkown;
 
-
+        [Ignore]
+        public string ProfAndSpec { get; set; } = string.Empty;
+        [Ignore]
+        public string ProfAndSpecIcon { get; set; } = string.Empty;
         [Ignore]
         public bool IsSelected { get; set; }
 
@@ -29,9 +32,11 @@ namespace FadedVanguardLogUploader.Models
         private static int i = 0;
 #endif
 
-        public ListItem()
+        public ListItem(Profession CharcterClass, Specialization CharcterSpec)
         {
+
             IsSelected = false;
+            LoadDisplayInfomation(CharcterClass, CharcterSpec);
         }
 
         public ListItem(string path)
@@ -42,6 +47,7 @@ namespace FadedVanguardLogUploader.Models
             CreationDate = fileInfo.CreationTime;
             IsSelected = false;
             LoadData();
+            LoadDisplayInfomation(CharcterClass, CharcterSpec);
 #if DEBUG
             Name += i;
             i++;
@@ -83,6 +89,22 @@ namespace FadedVanguardLogUploader.Models
             CharcterSpec = handler.GetCharcterSpec();
             CreationDate = handler.GetServerDateTime();
             Length = handler.GetLength();
+        }
+
+        public void LoadDisplayInfomation(Profession prof, Specialization spec) 
+        {
+            if (spec == Specialization.None)
+            {
+                if (prof == Profession.Unknown)
+                    ProfAndSpec = "Error, Unkown profession";
+                ProfAndSpec = prof.ToString();
+            }
+            else
+            {
+                if (spec == Specialization.Empty)
+                    ProfAndSpec = "Error, Unkown specialization";
+                ProfAndSpec = spec.ToString();
+            }
         }
     }
 }
