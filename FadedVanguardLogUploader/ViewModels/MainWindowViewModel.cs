@@ -55,18 +55,25 @@ namespace FadedVanguardLogUploader.ViewModels
                 this.RaiseAndSetIfChanged(ref errorFilterToggle, value);
             }
         }
+        public string AscDesToggleHeader
+        {
+            get => ascDesToggleHeader;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref ascDesToggleHeader, value);
+            }
+        }
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> ModeCommand { get; }
-        public ReactiveCommand<Unit, Unit> DateAscendingCommand { get; }
-        public ReactiveCommand<Unit, Unit> DateDescendingCommand { get; }
-        public ReactiveCommand<Unit, Unit> LengthAscendingCommand { get; }
-        public ReactiveCommand<Unit, Unit> LengthDescendingCommand { get; }
-        public ReactiveCommand<Unit, Unit> UserAscendingCommand { get; }
-        public ReactiveCommand<Unit, Unit> UserDescendingCommand { get; }
-        public ReactiveCommand<Unit, Unit> NameAscendingCommand { get; }
-        public ReactiveCommand<Unit, Unit> NameDescendingCommand { get; }
+
+        public ReactiveCommand<Unit, Unit> AscDesToggleCommand { get; }
+        public ReactiveCommand<Unit, Unit> DateSortCommand { get; }
+        public ReactiveCommand<Unit, Unit> LengthSortCommand { get; }
+        public ReactiveCommand<Unit, Unit> UserSortCommand { get; }
+        public ReactiveCommand<Unit, Unit> NameSortCommand { get; }
+
         public ReactiveCommand<Unit, Unit> UseGw2ApiCommand { get; }
         public ReactiveCommand<Unit, Unit> ErrorHiddenCommand { get; }
         public ReactiveCommand<Unit, Unit> CSVOpenCommand { get; }
@@ -79,20 +86,23 @@ namespace FadedVanguardLogUploader.ViewModels
         private bool modeToggle = App.Settings.ModeToggle;
         private bool gw2ApiToggle = App.Settings.ApiToggle;
         private bool errorFilterToggle = App.Settings.ErrorFilterToggle;
+        private string ascDesToggleHeader = "Error";
 
         public MainWindowViewModel()
         {
+            AscDesToggleHeader = AscDesToggleString(App.Settings.SortingToggle);
+
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
             ModeCommand = ReactiveCommand.Create(Mode);
-            DateAscendingCommand = ReactiveCommand.Create(DateAscending);
-            DateDescendingCommand = ReactiveCommand.Create(DateDescending);
-            LengthAscendingCommand = ReactiveCommand.Create(LengthAscending);
-            LengthDescendingCommand = ReactiveCommand.Create(LengthDescending);
-            UserAscendingCommand = ReactiveCommand.Create(UserAscending);
-            UserDescendingCommand = ReactiveCommand.Create(UserDescending);
-            NameAscendingCommand = ReactiveCommand.Create(NameAscending);
-            NameDescendingCommand = ReactiveCommand.Create(NameDescending);
+
+            AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
+
+            DateSortCommand = ReactiveCommand.Create(DateSort);
+            LengthSortCommand = ReactiveCommand.Create(LengthSort);
+            UserSortCommand = ReactiveCommand.Create(UserSort);
+            NameSortCommand = ReactiveCommand.Create(NameSort);
+
             UseGw2ApiCommand = ReactiveCommand.Create(UseGw2Api);
             ErrorHiddenCommand = ReactiveCommand.Create(ErrorHidden);
             CSVOpenCommand = ReactiveCommand.Create(CSVOpen);
@@ -102,46 +112,39 @@ namespace FadedVanguardLogUploader.ViewModels
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
         }
 
+        private void AscDesToggle()
+        {
+            App.Settings.SortingToggle = !App.Settings.SortingToggle;
+            AscDesToggleHeader = AscDesToggleString(App.Settings.SortingToggle);
+            List.Filter();
+        }
+
+        private static string AscDesToggleString(bool toggle)
+        {
+            return toggle ? "\u2191 Ascending" : "\u2193 Descending";
+        }
+
         // Set sorting types
-        private void DateAscending()
+        // TODO:: Refine to simple sort types, remove asc/des from enum
+        private void DateSort()
         {
-            App.Settings.SortingType = SortingType.DateAscending;
-            List.Sort();
+            App.Settings.SortingType = SortingType.Date;
+            List.Filter();
         }
-        private void DateDescending()
+        private void LengthSort()
         {
-            App.Settings.SortingType = SortingType.DateDescending;
-            List.Sort();
+            App.Settings.SortingType = SortingType.Length;
+            List.Filter();
         }
-        private void LengthAscending()
+        private void UserSort()
         {
-            App.Settings.SortingType = SortingType.LengthAscending;
-            List.Sort();
+            App.Settings.SortingType = SortingType.User;
+            List.Filter();
         }
-        private void LengthDescending()
+        private void NameSort()
         {
-            App.Settings.SortingType = SortingType.LengthDescending;
-            List.Sort();
-        }
-        private void UserAscending()
-        {
-            App.Settings.SortingType = SortingType.UserAscending;
-            List.Sort();
-        }
-        private void UserDescending()
-        {
-            App.Settings.SortingType = SortingType.UserDescending;
-            List.Sort();
-        }
-        private void NameAscending()
-        {
-            App.Settings.SortingType = SortingType.CharcterAscending;
-            List.Sort();
-        }
-        private void NameDescending()
-        {
-            App.Settings.SortingType = SortingType.CharcterDescending;
-            List.Sort();
+            App.Settings.SortingType = SortingType.Charcter;
+            List.Filter();
         }
 
 
@@ -213,7 +216,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 {
                     App.Settings.Path = responce;
                     App.Settings.Save();
-                    Thread thread = new Thread(() => List.SearchFolder(App.Settings.Path));
+                    Thread thread = new(() => List.SearchFolder());
                     thread.Start();
                 }
             }

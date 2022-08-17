@@ -82,7 +82,10 @@ namespace FadedVanguardLogUploader.ViewModels
         public void Load()
         {
             StoredItems = storageIO.Get();
-            UpdateFolder();
+            if (StoredItems.Count == 0)
+                SearchFolder();
+            else
+                UpdateFolder();
             Filter();
         }
 
@@ -177,30 +180,30 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public void UpdateFolder()
         {
-            if (App.Settings.Path == "/")
+            if (App.Settings.Path == "")
                 return;
-            IEnumerable<string> files = Directory.EnumerateFiles(App.Settings.Path, "*.*", SearchOption.AllDirectories)
-                .Where(s => s.ToLower().EndsWith(".evtc") || s.ToLower().EndsWith(".evtc.zip") || s.ToLower().EndsWith(".zevtc"));
+            IEnumerable<string> files = Directory.EnumerateFiles(App.Settings.Path, "*evtc*", SearchOption.AllDirectories)
+                .Where(s => 
+                (s.ToLower().EndsWith(".evtc") ||
+                s.ToLower().EndsWith(".evtc.zip") || 
+                s.ToLower().EndsWith(".zevtc")) &&
+                !StoredItems.Any(val => s.Equals(val.FullPath)));
+            if (files.Count() == 0)
+                return;
             ConcurrentBag<ListItem> temp = new();
             List<Task> bagTasks = new();
-            List<ListItem> x = StoredItems.ToList();
             try
             {
                 ProgressBarMax = files.Count();
                 foreach (string file in files)
                 {
-                    bagTasks.Add(Task.Run(() => 
+                    bagTasks.Add(Task.Run(() =>
                     {
-                        if (!File.Exists(file))
-                            return;  
-                        if (!x.Exists(x => x.FullPath == file))
-                        {
-                            ListItem item = new(file);
-                            temp.Add(item);
-                            StoredItems.Add(item);
-                        }
-                        ProgressBarValue++;
+                        ListItem item = new(file);
+                        temp.Add(item);
+                        StoredItems.Add(item);
                     }));
+                    ProgressBarValue++;
                 }
             }
             catch (UnauthorizedAccessException ex)
@@ -213,13 +216,13 @@ namespace FadedVanguardLogUploader.ViewModels
             ProgressBarValue = 0;
         }
 
-        public void SearchFolder(string path)
+        public void SearchFolder()
         {
             StoredItems.Clear();
             storageIO.Delete();
-            if (path == "/")
+            if (App.Settings.Path == "")
                 return;
-            IEnumerable<string> files = Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
+            IEnumerable<string> files = Directory.EnumerateFiles(App.Settings.Path, "*.*", SearchOption.AllDirectories)
                 .Where(s => s.ToLower().EndsWith(".evtc") || s.ToLower().EndsWith(".evtc.zip") || s.ToLower().EndsWith(".zevtc"));
             List<Task> bagTasks = new();
             try
@@ -249,60 +252,28 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             switch (App.Settings.SortingType)
             {
-                case SortingType.DateDescending:
+                case SortingType.Date:
                     FilteredItems.Sort(delegate (ListItem x, ListItem y)
                     {
-                        return y.CreationDate.CompareTo(x.CreationDate);
+                        return App.Settings.SortingToggle ? x.CreationDate.CompareTo(y.CreationDate) : y.CreationDate.CompareTo(x.CreationDate);
                     });
                     break;
-                case SortingType.DateAscending:
+                case SortingType.Length:
                     FilteredItems.Sort(delegate (ListItem x, ListItem y)
                     {
-                        return x.CreationDate.CompareTo(y.CreationDate);
+                        return App.Settings.SortingToggle ? x.Length.CompareTo(y.Length) : y.Length.CompareTo(x.Length);
                     });
                     break;
-                case SortingType.LengthDescending:
+                case SortingType.User:
                     FilteredItems.Sort(delegate (ListItem x, ListItem y)
                     {
-                        return y.Length.CompareTo(x.Length);
+                        return App.Settings.SortingToggle ? x.UserName.CompareTo(y.UserName) : y.UserName.CompareTo(x.UserName);
                     });
                     break;
-                case SortingType.LengthAscending:
+                case SortingType.Charcter:
                     FilteredItems.Sort(delegate (ListItem x, ListItem y)
                     {
-                        return x.Length.CompareTo(y.Length);
-                    });
-                    break;
-                case SortingType.UserAscending:
-                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
-                    {
-                        return y.UserName.CompareTo(x.UserName);
-                    });
-                    break;
-                case SortingType.UserDescending:
-                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
-                    {
-                        return x.UserName.CompareTo(y.UserName);
-                    });
-                    break;
-                case SortingType.CharcterAscending:
-                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
-                    {
-                        return y.CharcterName.CompareTo(x.CharcterName);
-                    });
-                    break;
-                case SortingType.CharcterDescending:
-                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
-                    {
-                        return x.CharcterName.CompareTo(y.CharcterName);
-                    });
-                    break;
-
-
-                default:
-                    FilteredItems.Sort(delegate (ListItem x, ListItem y)
-                    {
-                        return y.CreationDate.CompareTo(x.CreationDate);
+                        return App.Settings.SortingToggle ? x.CharcterName.CompareTo(y.CharcterName) : y.CharcterName.CompareTo(x.CharcterName);
                     });
                     break;
             }

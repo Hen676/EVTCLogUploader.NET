@@ -32,9 +32,17 @@ namespace FadedVanguardLogUploader.Models
         private static int i = 0;
 #endif
 
-        public ListItem(Profession CharcterClass, Specialization CharcterSpec)
+        public ListItem(string FullPath, string Name, DateTime CreationDate, string UserName, string CharcterName, TimeSpan Length, Profession CharcterClass, Specialization CharcterSpec, Encounter Encounter)
         {
-
+            this.FullPath = FullPath;
+            this.Name = Name;
+            this.CreationDate = CreationDate;
+            this.UserName = UserName;
+            this.CharcterName = CharcterName;
+            this.Length = Length;
+            this.CharcterClass = CharcterClass;
+            this.CharcterSpec = CharcterSpec;
+            this.Encounter = Encounter;
             IsSelected = false;
             LoadDisplayInfomation(CharcterClass, CharcterSpec);
         }

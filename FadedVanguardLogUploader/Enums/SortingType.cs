@@ -2,13 +2,9 @@
 {
     public enum SortingType
     {
-        DateAscending,
-        DateDescending,
-        LengthAscending,
-        LengthDescending,
-        UserAscending,
-        UserDescending,
-        CharcterAscending,
-        CharcterDescending,
+        Date,
+        Length,
+        User,
+        Charcter,
     }
 }

@@ -1,5 +1,4 @@
 ﻿using FadedVanguardLogUploader.Enums;
-using System;
 using System.Configuration;
 
 namespace FadedVanguardLogUploader.Settings
@@ -36,7 +35,7 @@ namespace FadedVanguardLogUploader.Settings
             }
         }
 
-        [DefaultSettingValue(nameof(SortingType.DateDescending)), UserScopedSetting]
+        [DefaultSettingValue(nameof(SortingType.Date)), UserScopedSetting]
         public SortingType SortingType
         {
             get => (SortingType)this[nameof(SortingType)];
@@ -63,6 +62,16 @@ namespace FadedVanguardLogUploader.Settings
             set
             {
                 this[nameof(ErrorFilterToggle)] = value;
+            }
+        }
+
+        [DefaultSettingValue("true"), UserScopedSetting]
+        public bool SortingToggle
+        {
+            get => (bool)this[nameof(SortingToggle)];
+            set
+            {
+                this[nameof(SortingToggle)] = value;
             }
         }
     }

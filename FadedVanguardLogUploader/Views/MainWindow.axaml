@@ -165,29 +165,21 @@
 				<!-- Filter -->
 				<MenuItem Header="_Filter">
 					<MenuItem Header="_Sort">
-						<MenuItem Header="_Date Ascending"
-								  Command="{Binding DateAscendingCommand}">
+						<MenuItem Header="{Binding AscDesToggleHeader}"
+								  Command="{Binding AscDesToggleCommand}">
 						</MenuItem>
-						<MenuItem Header="_Date Descending"
-								  Command="{Binding DateDescendingCommand}">
+						<Separator/>
+						<MenuItem Header="Date"
+								  Command="{Binding DateSortCommand}">
 						</MenuItem>
-						<MenuItem Header="Length Ascending"
-								  Command="{Binding LengthAscendingCommand}">
+						<MenuItem Header="Length"
+								  Command="{Binding LengthSortCommand}">
 						</MenuItem>
-						<MenuItem Header="Length Descending"
-								  Command="{Binding LengthDescendingCommand}">
+						<MenuItem Header="Username"
+								  Command="{Binding UserSortCommand}">
 						</MenuItem>
-						<MenuItem Header="Username Ascending"
-								  Command="{Binding UserAscendingCommand}">
-						</MenuItem>
-						<MenuItem Header="Username Descending"
-								  Command="{Binding UserDescendingCommand}">
-						</MenuItem>
-						<MenuItem Header="Charcter Name Ascending"
-								  Command="{Binding NameAscendingCommand}">
-						</MenuItem>
-						<MenuItem Header="Charcter Name Descending"
-								  Command="{Binding NameDescendingCommand}">
+						<MenuItem Header="Charcter Name"
+								  Command="{Binding NameSortCommand}">
 						</MenuItem>
 					</MenuItem>
 				</MenuItem>
