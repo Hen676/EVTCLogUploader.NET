@@ -133,26 +133,6 @@
 							</MenuItem.CommandParameter>
 						</MenuItem>
 					</MenuItem>
-					<MenuItem Header="_File Types">
-						<MenuItem Header="_.evtc">
-							<MenuItem.Icon>
-								<CheckBox IsChecked="True"
-										  Classes="Menu"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="_.zevtc">
-							<MenuItem.Icon>
-								<CheckBox IsChecked="True"
-										  Classes="Menu"/>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="_.evtc.zip">
-							<MenuItem.Icon>
-								<CheckBox IsChecked="True"
-										  Classes="Menu"/>
-							</MenuItem.Icon>
-						</MenuItem>
-					</MenuItem>
 					<MenuItem Header="_Error Encounters Hidden"
 							  Command="{Binding ErrorHiddenCommand}">
 						<MenuItem.Icon>

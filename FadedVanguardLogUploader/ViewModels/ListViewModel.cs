@@ -99,19 +99,23 @@ namespace FadedVanguardLogUploader.ViewModels
                 await ShowDialog.Handle(popup);
                 return;
             }
+            uploadlist.Sort((x, y) => x.CreationDate.CompareTo(y.CreationDate));
             ProgressBarMax = uploadlist.Count;
-
-            List<DpsReportResponse> responses = new();
 
             foreach (ListItem file in uploadlist)
             {
-                if (!file.IsSelected)
-                    continue;
-                DpsReportResponse? responce = await UploaderHttps.UploadEVTCAsync(file.FullPath);
-                if (responce == null || responce.permalink == null)
+                if (file.UploadUrl != string.Empty)
                     continue;
                 else
-                    responses.Add(responce);
+                {
+                    DpsReportResponse? responce = await UploaderHttps.UploadEVTCAsync(file.FullPath);
+                    if (responce == null || responce.permalink == null)
+                        continue;
+                    else
+                    {
+                        file.UploadUrl = responce.permalink;
+                    }
+                }
                 ProgressBarValue++;
             }
 
@@ -119,16 +123,18 @@ namespace FadedVanguardLogUploader.ViewModels
             {
                 $"Raid Logs {DateTime.Now:D}\n"
             };
-            responses.Sort((x, y) => x.encounterTime - y.encounterTime);
-            string bossname = "";
-            foreach (DpsReportResponse responce in responses)
+            Encounter lastboss = Encounter.Empty;
+            foreach (ListItem file in uploadlist)
             {
-                if (responce.encounter == null)
+                if (file.UploadUrl == string.Empty)
                     continue;
-                if (bossname.Equals("") || bossname.Equals(responce.encounter.boss))
-                    clipborad.Add($"{responce.encounter.boss}");
 
-                clipborad.Add(responce.encounter.success ? $"{responce.permalink} (Kill)" : $"{responce.permalink}");
+                if (lastboss == Encounter.Empty || lastboss != file.Encounter) 
+                {
+                    clipborad.Add($"{file.Encounter}");
+                    lastboss = file.Encounter;
+                }
+                clipborad.Add($"{file.UploadUrl}");
             }
 
             var result = string.Join("\n", clipborad.ToArray());

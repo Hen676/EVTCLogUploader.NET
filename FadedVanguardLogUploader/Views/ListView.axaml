@@ -56,45 +56,46 @@
 					ToolTip.Tip="Uploads currently selected files">Upload</Button>
 		</Grid>
 		<TextBlock IsVisible="{Binding !Items.Count}"
-		   Background="{DynamicResource ListBoxBackgroundThemeBrush}">No files found</TextBlock>
+				   Background="{DynamicResource ListBoxBackgroundThemeBrush}"
+				   VerticalAlignment="Center"
+				   HorizontalAlignment="Center"
+				   DockPanel.Dock="Top">No files found</TextBlock>
 		<ListBox Items="{Binding Items}" 
 				 IsVisible="{Binding !!Items.Count}"
 				 Padding="10">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<StackPanel>
-						<StackPanel Orientation="Horizontal" ToolTip.Tip="{Binding Name}">
-							<CheckBox Margin="4"
-									  IsChecked="{Binding IsSelected}"/>
-							<TextBlock Text="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"
-									   VerticalAlignment="Center"
-									   Padding="10,0,10,0"
-									   Width="200"/>
-							<TextBlock Text="{Binding CharcterName}" 
-									   VerticalAlignment="Center" 
-									   Padding="10,0,10,0" 
-									   Width="200"/>
-							<TextBlock Text="{Binding UserName}" 
-									   VerticalAlignment="Center" 
-									   Padding="10,0,10,0" 
-									   Width="100"/>
-							<TextBlock Text="{Binding CharcterClass}"
-									   VerticalAlignment="Center"
-									   Padding="10,0,10,0"
-									   Width="100"/>
-							<TextBlock Text="{Binding CharcterSpec}" 
-									   VerticalAlignment="Center" 
-									   Padding="10,0,10,0" 
-									   Width="100"/>
-							<TextBlock Text="{Binding Length}"  
-									   VerticalAlignment="Center" 
-									   Padding="10,0,10,0"
-									   Width="100"/>
-							<TextBlock Text="{Binding CreationDate}" 
-									   VerticalAlignment="Center" 
-									   Padding="10,0,10,0"
-									   Width="200"/>
-						</StackPanel>
+					<StackPanel Orientation="Horizontal" ToolTip.Tip="{Binding Name}">
+						<CheckBox Margin="4"
+								  IsChecked="{Binding IsSelected}"/>
+						<TextBlock Text="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"
+								   VerticalAlignment="Center"
+								   Padding="10,0,10,0"
+								   Width="200"/>
+						<TextBlock Text="{Binding CharcterName}" 
+								   VerticalAlignment="Center" 
+								   Padding="10,0,10,0" 
+								   Width="200"/>
+						<TextBlock Text="{Binding UserName}" 
+								   VerticalAlignment="Center" 
+								   Padding="10,0,10,0" 
+								   Width="100"/>
+						<TextBlock Text="{Binding CharcterClass}"
+								   VerticalAlignment="Center"
+								   Padding="10,0,10,0"
+								   Width="100"/>
+						<TextBlock Text="{Binding CharcterSpec}" 
+								   VerticalAlignment="Center" 
+								   Padding="10,0,10,0" 
+								   Width="100"/>
+						<TextBlock Text="{Binding Length}"  
+								   VerticalAlignment="Center" 
+								   Padding="10,0,10,0"
+								   Width="100"/>
+						<TextBlock Text="{Binding CreationDate}" 
+								   VerticalAlignment="Center" 
+								   Padding="10,0,10,0"
+								   Width="200"/>
 					</StackPanel>
 				</DataTemplate>
 			</ListBox.ItemTemplate>

@@ -19,20 +19,21 @@ namespace FadedVanguardLogUploader.Models
         public Profession CharcterClass { get; set; } = Profession.Unknown;
         public Specialization CharcterSpec { get; set; } = Specialization.None;
         public Encounter Encounter { get; set; } = Encounter.Unkown;
+        public string UploadUrl { get; set; } = string.Empty;
 
         [Ignore]
         public string ProfAndSpec { get; set; } = string.Empty;
         [Ignore]
         public string ProfAndSpecIcon { get; set; } = string.Empty;
         [Ignore]
-        public bool IsSelected { get; set; }
+        public bool IsSelected { get; set; } = false;
 
 #if DEBUG
         [Ignore]
         private static int i = 0;
 #endif
 
-        public ListItem(string FullPath, string Name, DateTime CreationDate, string UserName, string CharcterName, TimeSpan Length, Profession CharcterClass, Specialization CharcterSpec, Encounter Encounter)
+        public ListItem(string FullPath, string Name, DateTime CreationDate, string UserName, string CharcterName, TimeSpan Length, Profession CharcterClass, Specialization CharcterSpec, Encounter Encounter, string UploadUrl)
         {
             this.FullPath = FullPath;
             this.Name = Name;
@@ -43,7 +44,7 @@ namespace FadedVanguardLogUploader.Models
             this.CharcterClass = CharcterClass;
             this.CharcterSpec = CharcterSpec;
             this.Encounter = Encounter;
-            IsSelected = false;
+            this.UploadUrl = UploadUrl;
             LoadDisplayInfomation(CharcterClass, CharcterSpec);
         }
 
@@ -53,7 +54,6 @@ namespace FadedVanguardLogUploader.Models
             FileInfo fileInfo = new(FullPath);
             Name = fileInfo.Name;
             CreationDate = fileInfo.CreationTime;
-            IsSelected = false;
             LoadData();
             LoadDisplayInfomation(CharcterClass, CharcterSpec);
 #if DEBUG
