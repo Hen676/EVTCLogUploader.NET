@@ -1,5 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
-using FadedVanguardLogUploader.Enums;
+﻿using FadedVanguardLogUploader.Enums;
 using FadedVanguardLogUploader.IO;
 using System;
 using System.IO;
@@ -20,16 +19,13 @@ namespace FadedVanguardLogUploader.Models
         public Specialization CharcterSpec { get; set; } = Specialization.None;
         public Encounter Encounter { get; set; } = Encounter.Unkown;
         public string UploadUrl { get; set; } = string.Empty;
+        public bool Success { get; set; } = false;
 
-        [Ignore]
         public string ProfAndSpec { get; set; } = string.Empty;
-        [Ignore]
         public string ProfAndSpecIcon { get; set; } = string.Empty;
-        [Ignore]
         public bool IsSelected { get; set; } = false;
 
 #if DEBUG
-        [Ignore]
         private static int i = 0;
 #endif
 
