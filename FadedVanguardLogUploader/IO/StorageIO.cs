@@ -3,8 +3,11 @@ using FadedVanguardLogUploader.Models;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FadedVanguardLogUploader.IO
 {
@@ -67,10 +70,11 @@ namespace FadedVanguardLogUploader.IO
             command.CommandText = "SELECT * FROM EVTCFile;";
             SqliteDataReader reader = command.ExecuteReader();
             ConcurrentBag<ListItem> x = new();
+
             while (reader.Read())
             {
                 string url;
-                if (reader.GetValue("UploadUrl") is DBNull)
+                if (reader.IsDBNull("UploadUrl"))
                     url = "";
                 else
                     url = (string)reader.GetValue("UploadUrl");
@@ -81,12 +85,13 @@ namespace FadedVanguardLogUploader.IO
                     (string)reader.GetValue("UserName"),
                     (string)reader.GetValue("CharcterName"),
                     new((long)reader.GetValue("Length")),
-                    (Profession)((long)reader.GetValue("CharcterClass")),
-                    (Specialization)((long)reader.GetValue("CharcterSpec")),
-                    (Encounter)((long)reader.GetValue("Encounter")),
+                    (Profession)(long)reader.GetValue("CharcterClass"),
+                    (Specialization)(long)reader.GetValue("CharcterSpec"),
+                    (Encounter)(long)reader.GetValue("Encounter"),
                     url
                     ));
             }
+
             connection.Close();
             return x;
         }
@@ -126,7 +131,7 @@ namespace FadedVanguardLogUploader.IO
             connection.Close();
         }
 
-        public void UpdateRecordsURL(ConcurrentBag<ListItem> newValues)
+        public void UpdateRecordsURL(List<ListItem> newValues)
         {
             using SqliteConnection connection = new(connectionString);
             connection.Open();
@@ -135,7 +140,7 @@ namespace FadedVanguardLogUploader.IO
                 using SqliteCommand command = new();
                 command.Connection = connection;
                 command.CommandText = "UPDATE EVTCFile SET " +
-                    "UploadUrl = @UploadUrl" +
+                    "UploadUrl = @UploadUrl " +
                     "WHERE " +
                     "FullPath = @FullPath";
                 command.Parameters.Add("@UploadUrl", SqliteType.Text).Value = item.UploadUrl;

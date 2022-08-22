@@ -118,6 +118,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 }
                 ProgressBarValue++;
             }
+            storageIO.UpdateRecordsURL(uploadlist);
 
             List<string> clipborad = new()
             {

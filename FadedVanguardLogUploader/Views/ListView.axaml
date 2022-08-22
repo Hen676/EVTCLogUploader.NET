@@ -65,7 +65,13 @@
 				 Padding="10">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<StackPanel Orientation="Horizontal" ToolTip.Tip="{Binding Name}">
+					<StackPanel Orientation="Horizontal">
+						<ToolTip.Tip>
+							<StackPanel>
+								<TextBlock Text="{Binding Name}"></TextBlock>
+								<TextBlock Text="{Binding UploadUrl}"></TextBlock>
+							</StackPanel>
+						</ToolTip.Tip>
 						<CheckBox Margin="4"
 								  IsChecked="{Binding IsSelected}"/>
 						<TextBlock Text="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"
