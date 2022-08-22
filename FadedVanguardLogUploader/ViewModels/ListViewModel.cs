@@ -81,7 +81,7 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public void Load()
         {
-            StoredItems = storageIO.Get();
+            StoredItems = storageIO.GetRecords();
             if (StoredItems.Count == 0)
                 SearchFolder();
             else
@@ -118,6 +118,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 }
                 ProgressBarValue++;
             }
+            storageIO.UpdateRecordsURL(uploadlist);
 
             List<string> clipborad = new()
             {
@@ -217,7 +218,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 Console.Error.WriteLine(ex.Message);
             }
             Task.WaitAll(bagTasks.ToArray());
-            storageIO.Update(temp);
+            storageIO.AddRecords(temp);
             Filter();
             ProgressBarValue = 0;
         }
@@ -225,7 +226,7 @@ namespace FadedVanguardLogUploader.ViewModels
         public void SearchFolder()
         {
             StoredItems.Clear();
-            storageIO.Delete();
+            //storageIO.Delete();
             if (App.Settings.Path == "")
                 return;
             IEnumerable<string> files = Directory.EnumerateFiles(App.Settings.Path, "*.*", SearchOption.AllDirectories)
@@ -249,7 +250,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 Console.Error.WriteLine(ex.Message);
             }
             Task.WaitAll(bagTasks.ToArray());
-            storageIO.Create(StoredItems);
+            storageIO.AddRecords(StoredItems);
             Filter();
             ProgressBarValue = 0;
         }

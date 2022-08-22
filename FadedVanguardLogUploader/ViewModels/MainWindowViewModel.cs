@@ -159,7 +159,7 @@ namespace FadedVanguardLogUploader.ViewModels
         }
         private void CSVDelete()
         {
-            List.storageIO.Delete();
+            List.storageIO.WipeDB();
         }
         private void CSVOpen()
         {
