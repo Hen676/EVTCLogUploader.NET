@@ -32,13 +32,16 @@
 					IsEnabled="{Binding EnabledDown}">&lt;</Button>
 			<TextBlock Grid.Column="1" 
 					   VerticalAlignment="Center" 
+					   TextAlignment="Right"
+					   Width="30"
 					   Text="{Binding Page, Mode=OneWay, 
-					   Converter={StaticResource pageConverter}}"
-					   Padding="8,0,1,0"></TextBlock>
+					   Converter={StaticResource pageConverter}}"></TextBlock>
 			<TextBlock Grid.Column="2"
+					   Padding="0,0,0,0"
 					   VerticalAlignment="Center">/</TextBlock>
 			<TextBlock Grid.Column="3"
 					   VerticalAlignment="Center"
+					   Width="30"
 					   Text="{Binding PageMax}"
 					   Padding="1,0,8,0"></TextBlock>
 			<Button Grid.Column="4" 
@@ -55,13 +58,7 @@
 					Command="{Binding UploadCommand}"
 					ToolTip.Tip="Uploads currently selected files">Upload</Button>
 		</Grid>
-		<TextBlock IsVisible="{Binding !Items.Count}"
-				   Background="{DynamicResource ListBoxBackgroundThemeBrush}"
-				   VerticalAlignment="Center"
-				   HorizontalAlignment="Center"
-				   DockPanel.Dock="Top">No files found</TextBlock>
-		<ListBox Items="{Binding Items}" 
-				 IsVisible="{Binding !!Items.Count}"
+		<ListBox Items="{Binding Items}"
 				 Padding="10">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
@@ -86,13 +83,9 @@
 								   VerticalAlignment="Center" 
 								   Padding="10,0,10,0" 
 								   Width="100"/>
-						<TextBlock Text="{Binding CharcterClass}"
+						<TextBlock Text="{Binding ProfAndSpec}"
 								   VerticalAlignment="Center"
 								   Padding="10,0,10,0"
-								   Width="100"/>
-						<TextBlock Text="{Binding CharcterSpec}" 
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0" 
 								   Width="100"/>
 						<TextBlock Text="{Binding Length}"  
 								   VerticalAlignment="Center" 
