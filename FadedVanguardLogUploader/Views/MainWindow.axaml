@@ -84,10 +84,8 @@
 					<MenuItem Header="_Save Settings"
 							  Command="{Binding SaveCommand}"/>
 					<Separator/>
-					<MenuItem Header="_Open CSV"
-							  Command="{Binding CSVOpenCommand}"/>
-					<MenuItem Header="_Delete CSV"
-							  Command="{Binding CSVDeleteCommand}"/>
+					<MenuItem Header="_Wipe Data"
+							  Command="{Binding WipeDBCommand}"/>
 					<Separator/>
 					<MenuItem Header="_Exit"
 							  Command="{Binding CloseCommand}"

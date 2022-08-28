@@ -76,9 +76,8 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public ReactiveCommand<Unit, Unit> UseGw2ApiCommand { get; }
         public ReactiveCommand<Unit, Unit> ErrorHiddenCommand { get; }
-        public ReactiveCommand<Unit, Unit> CSVOpenCommand { get; }
         public ReactiveCommand<int, Unit> PageAmountCommand { get; }
-        public ReactiveCommand<Unit, Unit> CSVDeleteCommand { get; }
+        public ReactiveCommand<Unit, Unit> WipeDBCommand { get; }
         public ReactiveCommand<Window, Unit> CloseCommand { get; }
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
         private TimeSpan? time = null;
@@ -105,9 +104,8 @@ namespace FadedVanguardLogUploader.ViewModels
 
             UseGw2ApiCommand = ReactiveCommand.Create(UseGw2Api);
             ErrorHiddenCommand = ReactiveCommand.Create(ErrorHidden);
-            CSVOpenCommand = ReactiveCommand.Create(CSVOpen);
             PageAmountCommand = ReactiveCommand.Create<int>(PageAmount);
-            CSVDeleteCommand = ReactiveCommand.Create(CSVDelete);
+            WipeDBCommand = ReactiveCommand.Create(WipeDB);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
         }
@@ -157,14 +155,11 @@ namespace FadedVanguardLogUploader.ViewModels
             App.Settings.PageAmount = pageAmount;
             List.Filter();
         }
-        private void CSVDelete()
+        private void WipeDB()
         {
             List.storageIO.WipeDB();
         }
-        private void CSVOpen()
-        {
-            List.storageIO.OpenCSV();
-        }
+
         private void UseGw2Api()
         {
             Gw2ApiToggle = !Gw2ApiToggle;

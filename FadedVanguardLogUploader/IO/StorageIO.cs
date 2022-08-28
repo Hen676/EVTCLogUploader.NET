@@ -20,11 +20,7 @@ namespace FadedVanguardLogUploader.IO
         public StorageIO()
         {
             storagePath = Directory.GetCurrentDirectory() + storageName;
-            //#if DEBUG
-            //connectionString = "Data Source =:memory:;";
-            //#else
             connectionString = "Data Source =" + storagePath + ";";
-            //#endif
             if (!File.Exists(storagePath))
             {
                 CreateDB();
@@ -52,13 +48,6 @@ namespace FadedVanguardLogUploader.IO
                 "PRIMARY KEY(FullPath));";
             command.ExecuteNonQuery();
             connection.Close();
-        }
-
-        public void OpenCSV()
-        {
-            throw new NotImplementedException();
-            /*if (File.Exists(storagePath))
-                Process.Start(new ProcessStartInfo(storagePath) { UseShellExecute = true });*/
         }
 
         public ConcurrentBag<ListItem> GetRecords()
