@@ -20,7 +20,7 @@ namespace FadedVanguardLogUploader.ViewModels
 {
     public class ListViewModel : ViewModelBase
     {
-        public List<ListItem> Items { get; set; } = new();
+        public ObservableCollection<ListItem> Items { get; } = new();
         public int FileCount
         {
             get => fileCount;
@@ -102,7 +102,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 if (file.UploadUrl == string.Empty)
                     continue;
 
-                if (lastboss == Encounter.Empty || lastboss != file.Encounter) 
+                if (lastboss == Encounter.Empty || lastboss != file.Encounter)
                 {
                     clipborad.Add($"{file.Encounter}");
                     lastboss = file.Encounter;
@@ -126,9 +126,9 @@ namespace FadedVanguardLogUploader.ViewModels
             if (App.Settings.Path == "")
                 return;
             IEnumerable<string> files = Directory.EnumerateFiles(App.Settings.Path, "*evtc*", SearchOption.AllDirectories)
-                .Where(s => 
+                .Where(s =>
                 (s.ToLower().EndsWith(".evtc") ||
-                s.ToLower().EndsWith(".evtc.zip") || 
+                s.ToLower().EndsWith(".evtc.zip") ||
                 s.ToLower().EndsWith(".zevtc")) &&
                 !StoredItems.Any(val => s.Equals(val.FullPath)));
             if (!files.Any())
@@ -220,6 +220,7 @@ namespace FadedVanguardLogUploader.ViewModels
                     });
                     break;
             }
+            Items.Clear();
             Items.AddRange(FilteredItems);
         }
 

@@ -19,41 +19,14 @@
 		<Grid DockPanel.Dock="Bottom" Margin="0,4">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="*"></ColumnDefinition>
-				<ColumnDefinition Width="*"></ColumnDefinition>
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 			
-			<Button Grid.Column="0" 
-					DockPanel.Dock="Bottom" 
-					Command="{Binding PageDownCommand}" 
-					IsEnabled="{Binding EnabledDown}">&lt;</Button>
-			<TextBlock Grid.Column="1" 
-					   VerticalAlignment="Center" 
-					   TextAlignment="Right"
-					   Width="30"
-					   Text="{Binding Page, Mode=OneWay, 
-					   Converter={StaticResource pageConverter}}"></TextBlock>
-			<TextBlock Grid.Column="2"
-					   Padding="0,0,0,0"
-					   VerticalAlignment="Center">/</TextBlock>
-			<TextBlock Grid.Column="3"
-					   VerticalAlignment="Center"
-					   Width="30"
-					   Text="{Binding PageMax}"
-					   Padding="1,0,8,0"></TextBlock>
-			<Button Grid.Column="4" 
-					DockPanel.Dock="Bottom" 
-					Command="{Binding PageUpCommand}" 
-					IsEnabled="{Binding EnabledUp}">&gt;</Button>
-			<ProgressBar Grid.Column="5" 
+			<ProgressBar Grid.Column="0" 
 						 Value="{Binding ProgressBarValue}" 
 						 Maximum="{Binding ProgressBarMax}"
 						 ToolTip.Tip="{x:Static p:Resources.LNG_List_Bar_Tooltip}"/>
-			<Button Grid.Column="6" 
+			<Button Grid.Column="1" 
 					HorizontalAlignment="Right" 
 					DockPanel.Dock="Bottom" 
 					Command="{Binding UploadCommand}"
@@ -66,7 +39,8 @@
 			<DataGrid Items="{Binding Items}" 
 					  AutoGenerateColumns="False"
 					  CanUserReorderColumns="True"
-					  CanUserResizeColumns="True">
+					  CanUserResizeColumns="True"
+					  Name="Test">
 				<DataGrid.Columns>
 					<DataGridCheckBoxColumn Header="✔" 
 											Binding="{Binding IsSelected}"/>

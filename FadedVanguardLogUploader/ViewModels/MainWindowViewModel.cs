@@ -140,6 +140,7 @@ namespace FadedVanguardLogUploader.ViewModels
             List.Filter();
         }
 
+        // TODO: Force restart for change
         private void ChangeLanguage(string code)
         {
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(code);
@@ -174,6 +175,7 @@ namespace FadedVanguardLogUploader.ViewModels
             List.Filter();
         }
 
+        // TODO: Force restart for change
         private void Mode()
         {
             ModeToggle = !ModeToggle;
