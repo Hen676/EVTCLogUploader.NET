@@ -4,8 +4,8 @@
 		xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:p="clr-namespace:FadedVanguardLogUploader.Resources.Lang"
 		xmlns:views="clr-namespace:FadedVanguardLogUploader.Views"
-		xmlns:local="clr-namespace:FadedVanguardLogUploader.Utils.Converter"
         mc:Ignorable="d"
 		d:DesignWidth="800"
 		d:DesignHeight="450"
@@ -20,9 +20,6 @@
 	<Window.DataContext>
 		<vm:MainWindowViewModel/>
 	</Window.DataContext>
-	<Window.Resources>
-		<local:FileCountConverter x:Key="countConverter"/>
-	</Window.Resources>
 
 	<Window.Styles>
 		<Style Selector="TextBlock.h1">
@@ -76,18 +73,18 @@
 			<Menu Grid.Column="1"
 				  Margin="4,0,0,0">
 				<!-- File -->
-				<MenuItem Header="_File">
-					<MenuItem Header="_Select Folder"
+				<MenuItem Header="{x:Static p:Resources.LNG_Menu_File}">
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_SelectFolder}"
 							  Command="{Binding FolderCommand}"
 							  CommandParameter="{Binding 
 							  ElementName=FadedVanguardLogUploaderWindow}"/>
-					<MenuItem Header="_Save Settings"
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_SaveSettings}"
 							  Command="{Binding SaveCommand}"/>
 					<Separator/>
-					<MenuItem Header="_Wipe Data"
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_WipeData}"
 							  Command="{Binding WipeDBCommand}"/>
 					<Separator/>
-					<MenuItem Header="_Exit"
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_Exit}"
 							  Command="{Binding CloseCommand}"
 							  CommandParameter="{Binding 
 							  ElementName=FadedVanguardLogUploaderWindow}">
@@ -95,15 +92,25 @@
 				</MenuItem>
 				
 				<!-- Settings -->
-				<MenuItem Header="_Settings">
-					<MenuItem Header="_Dark Mode"
+				<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings}">
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_DarkMode}"
 							  Command="{Binding ModeCommand}">
 						<MenuItem.Icon>
 							<CheckBox IsChecked="{Binding ModeToggle}"
 									  Classes="Menu"/>
 						</MenuItem.Icon>
 					</MenuItem>
-					<MenuItem Header="_GW2 Api"
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_Lang}">
+						<MenuItem Header="English"
+								  Command="{Binding LanguageCommand}"
+								  CommandParameter="en-GB">
+						</MenuItem>
+						<MenuItem Header="Polski"
+								  Command="{Binding LanguageCommand}"
+								  CommandParameter="pl-PL">
+						</MenuItem>
+					</MenuItem>
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_GW2Api}"
 							  Command="{Binding UseGw2ApiCommand}">
 						<MenuItem.Icon>
 							<CheckBox IsChecked="{Binding Gw2ApiToggle}"
@@ -111,27 +118,27 @@
 						</MenuItem.Icon>
 					</MenuItem>
 					<Separator/>
-					<MenuItem Header="_Page Amount">
-						<MenuItem Header="_25"
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_PageAmount}">
+						<MenuItem Header="25"
 								  Command="{Binding PageAmountCommand}">
 							<MenuItem.CommandParameter>
 								<sys:Int32>25</sys:Int32>
 							</MenuItem.CommandParameter>
 						</MenuItem>
-						<MenuItem Header="_50"
+						<MenuItem Header="50"
 								  Command="{Binding PageAmountCommand}">
 							<MenuItem.CommandParameter>
 								<sys:Int32>50</sys:Int32>
 							</MenuItem.CommandParameter>
 						</MenuItem>
-						<MenuItem Header="_100"
+						<MenuItem Header="100"
 								  Command="{Binding PageAmountCommand}">
 							<MenuItem.CommandParameter>
 								<sys:Int32>100</sys:Int32>
 							</MenuItem.CommandParameter>
 						</MenuItem>
 					</MenuItem>
-					<MenuItem Header="_Error Encounters Hidden"
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_HideErrors}"
 							  Command="{Binding ErrorHiddenCommand}">
 						<MenuItem.Icon>
 							<CheckBox IsChecked="{Binding ErrorFilterToggle}"
@@ -141,29 +148,34 @@
 				</MenuItem>
 				
 				<!-- Filter -->
-				<MenuItem Header="_Filter">
-					<MenuItem Header="_Sort">
-						<MenuItem Header="{Binding AscDesToggleHeader}"
+				<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter}">
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort}">
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Asc}"
+								  IsVisible="{Binding AscDesToggleHeader}"
+								  Command="{Binding AscDesToggleCommand}">
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Des}"
+								  IsVisible="{Binding !AscDesToggleHeader}"
 								  Command="{Binding AscDesToggleCommand}">
 						</MenuItem>
 						<Separator/>
-						<MenuItem Header="Date"
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Date}"
 								  Command="{Binding DateSortCommand}">
 						</MenuItem>
-						<MenuItem Header="Length"
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Length}"
 								  Command="{Binding LengthSortCommand}">
 						</MenuItem>
-						<MenuItem Header="Username"
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Username}"
 								  Command="{Binding UserSortCommand}">
 						</MenuItem>
-						<MenuItem Header="Charcter Name"
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_CharName}"
 								  Command="{Binding NameSortCommand}">
 						</MenuItem>
 					</MenuItem>
 				</MenuItem>
 				<!-- Help -->
-				<MenuItem Header="_Help">
-					<MenuItem Header="_About"
+				<MenuItem Header="{x:Static p:Resources.LNG_Menu_Help}">
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Help_About}"
 							  Command="{Binding AboutCommand}"/>
 				</MenuItem>
 			</Menu>
@@ -179,7 +191,8 @@
 
 			<TextBlock Grid.Column="0"
 					   Margin="10,0,10,0"
-					   VerticalAlignment="Center">From:</TextBlock>
+					   VerticalAlignment="Center"
+					   Text="{x:Static p:Resources.LNG_Filter_From_SemiColon}"/>
 			<DatePicker Grid.Column="1"
 						SelectedDate="{Binding Date, Mode=TwoWay}"
 						VerticalAlignment="Center"/>
@@ -193,11 +206,12 @@
 						DataContext="{Binding List}"></views:ListView>
 
 		<!-- Row 3  -->
-		<TextBlock Grid.Row="3"
-				   Margin="10,0,0,0"
-				   Classes="p2"
-				   Text="{Binding List.FileCount, 
-				   Converter={StaticResource countConverter}}"></TextBlock>
+		<StackPanel Grid.Row="3" Margin="10,0,0,0" Orientation="Horizontal">
+			<TextBlock Classes="p2"
+					   Text="{Binding List.FileCount}"></TextBlock>
+			<TextBlock Classes="p2"
+					   Text="{x:Static p:Resources.LNG_File_Count}"></TextBlock>
+		</StackPanel>
 
 		<!-- Design -->
 		<StackPanel ZIndex="-3"

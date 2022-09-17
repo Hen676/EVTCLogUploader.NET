@@ -74,5 +74,15 @@ namespace FadedVanguardLogUploader.Settings
                 this[nameof(SortingToggle)] = value;
             }
         }
+
+        [DefaultSettingValue("en-GB"), UserScopedSetting]
+        public string Lang 
+        {
+            get => (string)this[nameof(Lang)];
+            set
+            {
+                this[nameof(Lang)] = value;
+            }
+        }
     }
 }

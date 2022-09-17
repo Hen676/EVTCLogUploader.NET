@@ -4,6 +4,7 @@ using FadedVanguardLogUploader.Enums;
 using FadedVanguardLogUploader.IO;
 using ReactiveUI;
 using System;
+using System.Globalization;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
@@ -55,7 +56,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 this.RaiseAndSetIfChanged(ref errorFilterToggle, value);
             }
         }
-        public string AscDesToggleHeader
+        public bool AscDesToggleHeader
         {
             get => ascDesToggleHeader;
             set
@@ -66,8 +67,9 @@ namespace FadedVanguardLogUploader.ViewModels
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-        public ReactiveCommand<Unit, Unit> ModeCommand { get; }
 
+        public ReactiveCommand<Unit, Unit> ModeCommand { get; }
+        public ReactiveCommand<string, Unit> LanguageCommand { get; }
         public ReactiveCommand<Unit, Unit> AscDesToggleCommand { get; }
         public ReactiveCommand<Unit, Unit> DateSortCommand { get; }
         public ReactiveCommand<Unit, Unit> LengthSortCommand { get; }
@@ -85,15 +87,14 @@ namespace FadedVanguardLogUploader.ViewModels
         private bool modeToggle = App.Settings.ModeToggle;
         private bool gw2ApiToggle = App.Settings.ApiToggle;
         private bool errorFilterToggle = App.Settings.ErrorFilterToggle;
-        private string ascDesToggleHeader = "Error";
+        private bool ascDesToggleHeader = App.Settings.SortingToggle;
 
         public MainWindowViewModel()
         {
-            AscDesToggleHeader = AscDesToggleString(App.Settings.SortingToggle);
-
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
             ModeCommand = ReactiveCommand.Create(Mode);
+            LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguage);
 
             AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
 
@@ -113,13 +114,8 @@ namespace FadedVanguardLogUploader.ViewModels
         private void AscDesToggle()
         {
             App.Settings.SortingToggle = !App.Settings.SortingToggle;
-            AscDesToggleHeader = AscDesToggleString(App.Settings.SortingToggle);
+            AscDesToggleHeader = App.Settings.SortingToggle;
             List.Filter();
-        }
-
-        private static string AscDesToggleString(bool toggle)
-        {
-            return toggle ? "\u2191 Ascending" : "\u2193 Descending";
         }
 
         // Set sorting types
@@ -145,6 +141,11 @@ namespace FadedVanguardLogUploader.ViewModels
             List.Filter();
         }
 
+        private void ChangeLanguage(string code)
+        {
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(code);
+            App.Settings.Lang = code;
+        }
 
         private void Close(Window window)
         {

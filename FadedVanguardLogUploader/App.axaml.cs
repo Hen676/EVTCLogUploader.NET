@@ -6,6 +6,8 @@ using FadedVanguardLogUploader.IO;
 using FadedVanguardLogUploader.Settings;
 using FadedVanguardLogUploader.Views;
 using System;
+using System.Globalization;
+using System.Threading;
 
 namespace FadedVanguardLogUploader
 {
@@ -20,6 +22,9 @@ namespace FadedVanguardLogUploader
                 GW2ApiHttps.Init();
 
             Fluent.Mode = Settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
+
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(Settings.Lang);
+
             Styles.Insert(0, Fluent);
             AvaloniaXamlLoader.Load(this);
         }
