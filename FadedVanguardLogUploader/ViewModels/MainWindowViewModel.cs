@@ -119,7 +119,6 @@ namespace FadedVanguardLogUploader.ViewModels
         }
 
         // Set sorting types
-        // TODO:: Refine to simple sort types, remove asc/des from enum
         private void DateSort()
         {
             App.Settings.SortingType = SortingType.Date;

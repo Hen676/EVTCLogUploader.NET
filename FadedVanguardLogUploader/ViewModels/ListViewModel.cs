@@ -20,27 +20,7 @@ namespace FadedVanguardLogUploader.ViewModels
 {
     public class ListViewModel : ViewModelBase
     {
-        public ObservableCollection<ListItem> Items { get; } = new();
-        public int Page
-        {
-            get => page;
-            set => this.RaiseAndSetIfChanged(ref page, value);
-        }
-        public int PageMax
-        {
-            get => pageMax;
-            set => this.RaiseAndSetIfChanged(ref pageMax, value);
-        }
-        public bool EnabledDown
-        {
-            get => enabledDown;
-            set => this.RaiseAndSetIfChanged(ref enabledDown, value);
-        }
-        public bool EnabledUp
-        {
-            get => enabledUp;
-            set => this.RaiseAndSetIfChanged(ref enabledUp, value);
-        }
+        public List<ListItem> Items { get; set; } = new();
         public int FileCount
         {
             get => fileCount;
@@ -56,17 +36,11 @@ namespace FadedVanguardLogUploader.ViewModels
             get => progressBarMax;
             set => this.RaiseAndSetIfChanged(ref progressBarMax, value);
         }
-        public ReactiveCommand<Unit, Unit> PageUpCommand { get; }
-        public ReactiveCommand<Unit, Unit> PageDownCommand { get; }
         public ReactiveCommand<Unit, Unit> UploadCommand { get; }
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         private ConcurrentBag<ListItem> StoredItems = new();
         private List<ListItem> FilteredItems = new();
         private readonly Filter FilterSettings = new();
-        private int pageMax = 1;
-        private int page = 0;
-        private bool enabledDown = false;
-        private bool enabledUp = false;
         private int fileCount = 0;
         private int progressBarValue = 0;
         private int progressBarMax = 100;
@@ -74,15 +48,13 @@ namespace FadedVanguardLogUploader.ViewModels
 
         public ListViewModel()
         {
-            PageUpCommand = ReactiveCommand.Create(PageUp);
-            PageDownCommand = ReactiveCommand.Create(PageDown);
             UploadCommand = ReactiveCommand.Create(UploadAsync);
         }
 
         public void Load()
         {
             StoredItems = storageIO.GetRecords();
-            if (StoredItems.Count == 0)
+            if (StoredItems.IsEmpty)
                 SearchFolder();
             else
                 UpdateFolder();
@@ -149,42 +121,6 @@ namespace FadedVanguardLogUploader.ViewModels
             ProgressBarValue = 0;
         }
 
-        private void PageZero()
-        {
-            Items.Clear();
-            Page = 0;
-            EnabledDown = false;
-            EnabledUp = FilteredItems.Count >= App.Settings.PageAmount;
-            if (FilteredItems.Count == 0)
-                return;
-            Items.AddRange(FilteredItems.GetRange(0, Math.Min(FilteredItems.Count, App.Settings.PageAmount)));
-        }
-
-        private void PageUp()
-        {
-            Page++;
-            int total = Page * App.Settings.PageAmount;
-            EnabledDown = true;
-            Items.Clear();
-            if (FilteredItems.Count <= total + App.Settings.PageAmount)
-            {
-                EnabledUp = false;
-                Items.AddRange(FilteredItems.GetRange(total, FilteredItems.Count - total));
-            }
-            else
-                Items.AddRange(FilteredItems.GetRange(total, App.Settings.PageAmount));
-        }
-
-        private void PageDown()
-        {
-            if (Page == 1)
-                EnabledDown = false;
-            EnabledUp = true;
-            Page--;
-            Items.Clear();
-            Items.AddRange(FilteredItems.GetRange(Page * App.Settings.PageAmount, App.Settings.PageAmount));
-        }
-
         public void UpdateFolder()
         {
             if (App.Settings.Path == "")
@@ -195,7 +131,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 s.ToLower().EndsWith(".evtc.zip") || 
                 s.ToLower().EndsWith(".zevtc")) &&
                 !StoredItems.Any(val => s.Equals(val.FullPath)));
-            if (files.Count() == 0)
+            if (!files.Any())
                 return;
             ConcurrentBag<ListItem> temp = new();
             List<Task> bagTasks = new();
@@ -226,7 +162,7 @@ namespace FadedVanguardLogUploader.ViewModels
         public void SearchFolder()
         {
             StoredItems.Clear();
-            //storageIO.Delete();
+            storageIO.WipeDB();
             if (App.Settings.Path == "")
                 return;
             IEnumerable<string> files = Directory.EnumerateFiles(App.Settings.Path, "*.*", SearchOption.AllDirectories)
@@ -284,7 +220,7 @@ namespace FadedVanguardLogUploader.ViewModels
                     });
                     break;
             }
-            PageZero();
+            Items.AddRange(FilteredItems);
         }
 
         public void Filter(DateTimeOffset? date = null, TimeSpan? time = null)
@@ -301,7 +237,6 @@ namespace FadedVanguardLogUploader.ViewModels
                 return FilterSettings.Predicate(x);
             }).ToList();
             FileCount = FilteredItems.Count;
-            PageMax = (FilteredItems.Count - 1) / App.Settings.PageAmount + 1;
             Sort();
         }
     }

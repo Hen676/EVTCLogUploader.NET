@@ -60,46 +60,54 @@
 					ToolTip.Tip="{x:Static p:Resources.LNG_List_Upload_Tooltip}"
 					Content="{x:Static p:Resources.LNG_List_Upload}"/>
 		</Grid>
-		<ListBox Items="{Binding Items}"
-				 Padding="10">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel Orientation="Horizontal">
-						<ToolTip.Tip>
-							<StackPanel>
-								<TextBlock Text="{Binding Name}"></TextBlock>
-								<TextBlock Text="{Binding UploadUrl}"></TextBlock>
+
+		<!-- TODO: Implement DataGrid instead of ListBox -->
+		<Grid>
+			<DataGrid Items="{Binding Items}" 
+					  AutoGenerateColumns="False"
+					  CanUserReorderColumns="True"
+					  CanUserResizeColumns="True">
+				<DataGrid.Columns>
+					<DataGridCheckBoxColumn Header="✔" 
+											Binding="{Binding IsSelected}"/>
+					<DataGridTextColumn IsReadOnly="True"
+										Header="Encounter"  
+										Binding="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"/>
+					<DataGridTextColumn IsReadOnly="True"
+										Header="Charcter Name" 
+										Binding="{Binding CharcterName}" />
+					<DataGridTextColumn IsReadOnly="True"
+										Header="Username"
+										Binding="{Binding UserName}"/>
+					<DataGridTextColumn IsReadOnly="True"
+										Header="Profesion"
+										Binding="{Binding ProfAndSpec}"/>
+					<DataGridTextColumn IsReadOnly="True"
+										Header="Length"
+										Binding="{Binding Length}"/>
+					<DataGridTextColumn IsReadOnly="True"
+										Header="Creation Date"
+										Binding="{Binding CreationDate}"/>
+				</DataGrid.Columns>
+				<DataGrid.RowDetailsTemplate>
+					<DataTemplate>
+						<StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="File Name: "/>
+								<TextBlock Text="{Binding Name}"/>
 							</StackPanel>
-						</ToolTip.Tip>
-						<CheckBox Margin="4"
-								  IsChecked="{Binding IsSelected}"/>
-						<TextBlock Text="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"
-								   VerticalAlignment="Center"
-								   Padding="10,0,10,0"
-								   Width="200"/>
-						<TextBlock Text="{Binding CharcterName}" 
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0" 
-								   Width="200"/>
-						<TextBlock Text="{Binding UserName}" 
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0" 
-								   Width="100"/>
-						<TextBlock Text="{Binding ProfAndSpec}"
-								   VerticalAlignment="Center"
-								   Padding="10,0,10,0"
-								   Width="100"/>
-						<TextBlock Text="{Binding Length}"  
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0"
-								   Width="100"/>
-						<TextBlock Text="{Binding CreationDate}" 
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0"
-								   Width="200"/>
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="File Path: "/>
+								<TextBlock Text="{Binding FullPath}"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Upload Url: "/>
+								<TextBlock Text="{Binding UploadUrl}"/>
+							</StackPanel>
+						</StackPanel>
+					</DataTemplate>
+				</DataGrid.RowDetailsTemplate>
+			</DataGrid>
+		</Grid>
 	</DockPanel>
 </UserControl>

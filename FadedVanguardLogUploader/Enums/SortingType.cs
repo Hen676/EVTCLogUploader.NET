@@ -5,6 +5,6 @@
         Date,
         Length,
         User,
-        Charcter,
+        Charcter
     }
 }
