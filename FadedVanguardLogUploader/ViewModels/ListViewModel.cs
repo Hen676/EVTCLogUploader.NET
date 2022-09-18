@@ -40,7 +40,7 @@ namespace FadedVanguardLogUploader.ViewModels
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         private ConcurrentBag<ListItem> StoredItems = new();
         private List<ListItem> FilteredItems = new();
-        private readonly Filter FilterSettings = new();
+        internal readonly Filter FilterSettings = new();
         private int fileCount = 0;
         private int progressBarValue = 0;
         private int progressBarMax = 100;
@@ -49,6 +49,7 @@ namespace FadedVanguardLogUploader.ViewModels
         public ListViewModel()
         {
             UploadCommand = ReactiveCommand.Create(UploadAsync);
+            FilterSettings.encounter = App.Settings.FilterEncounter;
         }
 
         public void Load()
@@ -59,6 +60,21 @@ namespace FadedVanguardLogUploader.ViewModels
             else
                 UpdateFolder();
             Filter();
+        }
+
+        public void FilterAddOrRemoveEncounter(Encounter encounter)
+        {
+            if (!FilterSettings.encounter.Contains(encounter))
+                FilterSettings.encounter.Add(encounter);
+            else
+                FilterSettings.encounter.Remove(encounter);
+
+            App.Settings.FilterEncounter = FilterSettings.encounter;
+        }
+        public void ClearFilter()
+        {
+            FilterSettings.encounter.Clear();
+            App.Settings.FilterEncounter.Clear();
         }
 
         private async void UploadAsync()

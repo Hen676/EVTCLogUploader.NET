@@ -5,6 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:p="clr-namespace:FadedVanguardLogUploader.Resources.Lang"
+		xmlns:enums="clr-namespace:FadedVanguardLogUploader.Enums"
+		xmlns:converter="clr-namespace:FadedVanguardLogUploader.Utils.Converter"
 		xmlns:views="clr-namespace:FadedVanguardLogUploader.Views"
         mc:Ignorable="d"
 		d:DesignWidth="800"
@@ -20,6 +22,9 @@
 	<Window.DataContext>
 		<vm:MainWindowViewModel/>
 	</Window.DataContext>
+	<Window.Resources>
+		<converter:EnumConverter x:Key="sortConverter"/>
+	</Window.Resources>
 
 	<Window.Styles>
 		<Style Selector="TextBlock.h1">
@@ -117,34 +122,6 @@
 									  Classes="Menu"/>
 						</MenuItem.Icon>
 					</MenuItem>
-					<Separator/>
-					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_PageAmount}">
-						<MenuItem Header="25"
-								  Command="{Binding PageAmountCommand}">
-							<MenuItem.CommandParameter>
-								<sys:Int32>25</sys:Int32>
-							</MenuItem.CommandParameter>
-						</MenuItem>
-						<MenuItem Header="50"
-								  Command="{Binding PageAmountCommand}">
-							<MenuItem.CommandParameter>
-								<sys:Int32>50</sys:Int32>
-							</MenuItem.CommandParameter>
-						</MenuItem>
-						<MenuItem Header="100"
-								  Command="{Binding PageAmountCommand}">
-							<MenuItem.CommandParameter>
-								<sys:Int32>100</sys:Int32>
-							</MenuItem.CommandParameter>
-						</MenuItem>
-					</MenuItem>
-					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_HideErrors}"
-							  Command="{Binding ErrorHiddenCommand}">
-						<MenuItem.Icon>
-							<CheckBox IsChecked="{Binding ErrorFilterToggle}"
-									  Classes="Menu"/>
-						</MenuItem.Icon>
-					</MenuItem>
 				</MenuItem>
 				
 				<!-- Filter -->
@@ -160,17 +137,368 @@
 						</MenuItem>
 						<Separator/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Date}"
-								  Command="{Binding DateSortCommand}">
+								  Command="{Binding SortCommand}">
+							<MenuItem.Icon>
+								<CheckBox IsChecked="{Binding SortType,
+										  Converter={StaticResource sortConverter},
+										  ConverterParameter={x:Static enums:SortingType.Date}}"
+										  Classes="Menu">
+								</CheckBox>
+							</MenuItem.Icon>
+							<MenuItem.CommandParameter>
+								<sys:Int32>0</sys:Int32>
+							</MenuItem.CommandParameter>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Length}"
-								  Command="{Binding LengthSortCommand}">
+								  Command="{Binding SortCommand}">
+							<MenuItem.Icon>
+								<CheckBox IsChecked="{Binding SortType,
+										  Converter={StaticResource sortConverter},
+										  ConverterParameter={x:Static enums:SortingType.Length}}"
+										  Classes="Menu">
+								</CheckBox>
+							</MenuItem.Icon>
+							<MenuItem.CommandParameter>
+								<sys:Int32>1</sys:Int32>
+							</MenuItem.CommandParameter>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Username}"
-								  Command="{Binding UserSortCommand}">
+								  Command="{Binding SortCommand}">
+							<MenuItem.Icon>
+								<CheckBox IsChecked="{Binding SortType,
+										  Converter={StaticResource sortConverter},
+										  ConverterParameter={x:Static enums:SortingType.User}}"
+										  Classes="Menu">
+								</CheckBox>
+							</MenuItem.Icon>
+							<MenuItem.CommandParameter>
+								<sys:Int32>2</sys:Int32>
+							</MenuItem.CommandParameter>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_CharName}"
-								  Command="{Binding NameSortCommand}">
+								  Command="{Binding SortCommand}">
+							<MenuItem.Icon>
+								<CheckBox IsChecked="{Binding SortType,
+										  Converter={StaticResource sortConverter},
+										  ConverterParameter={x:Static enums:SortingType.Charcter}}"
+										  Classes="Menu">
+								</CheckBox>
+							</MenuItem.Icon>
+							<MenuItem.CommandParameter>
+								<sys:Int32>3</sys:Int32>
+							</MenuItem.CommandParameter>
 						</MenuItem>
+					</MenuItem>
+					<Separator/>
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Raids}">
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W1}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ValeGuardian}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>2</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Gorseval}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>3</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Sabetha}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>4</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W2}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Slothasor}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>5</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_BanditTrio}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>6</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Mattias}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>7</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W3}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Escort}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>8</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_KeepConstruct}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>9</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_TwistedCastle}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>10</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Xera}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>11</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W4}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Cairn}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>12</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_MursaatOverseer}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>13</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Samarog}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>14</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Deimos}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>15</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<Separator/>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W5}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_SoullessHorror}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>16</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_RiverOfSouls}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>17</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_BrokenKing}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>18</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_EaterOfSouls}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>19</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Eyes}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>20</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Dhuum}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>21</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W6}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ConjuredAmalgamate}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>22</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_TwinLargos}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>23</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Qadim}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>24</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W7}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Adina}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>25</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Sabir}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>26</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_QadimThePeerless}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>27</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+					</MenuItem>
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Strikes}">
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_LW5}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ShiverpeaksPass}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>29</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_VoiceAndClawOfTheFallen}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>30</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_FraenirOfJormag}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>31</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Boneskinner}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>32</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_WhisperOfJormag}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>33</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ForgingSteel}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>34</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ColdWar}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>35</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_EOD}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_AetherbladeHideout}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>36</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_XunlaiJadeJunkyard}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>37</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_KainengOverlook}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>38</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_HarvestTemple}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>39</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Freezie}"
+									  Command="{Binding FilterCommand}">
+							<MenuItem.CommandParameter>
+								<sys:Int32>28</sys:Int32>
+							</MenuItem.CommandParameter>
+						</MenuItem>
+					</MenuItem>
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Fractels}">
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Nightmare}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_MAMA}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>40</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Siax}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>41</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Ensolyss}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>42</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ShatteredObservatory}">
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Skorvald}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>43</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Artsariiv}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>44</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Arkk}"
+									  Command="{Binding FilterCommand}">
+								<MenuItem.CommandParameter>
+									<sys:Int32>45</sys:Int32>
+								</MenuItem.CommandParameter>
+							</MenuItem>
+						</MenuItem>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_SunquaPeak}"
+									  Command="{Binding FilterCommand}">
+							<MenuItem.CommandParameter>
+								<sys:Int32>46</sys:Int32>
+							</MenuItem.CommandParameter>
+						</MenuItem>
+					</MenuItem>
+					<Separator/>
+					<MenuItem Header="Clear Filter"
+							  Command="{Binding ClearFilterCommand}">
+					</MenuItem>
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_HideErrors}"
+							  Command="{Binding ErrorHiddenCommand}">
+						<MenuItem.Icon>
+							<CheckBox IsChecked="{Binding ErrorFilterToggle}"
+									  Classes="Menu"/>
+						</MenuItem.Icon>
 					</MenuItem>
 				</MenuItem>
 				<!-- Help -->

@@ -1,4 +1,5 @@
 ﻿using FadedVanguardLogUploader.Enums;
+using System.Collections.Generic;
 using System.Configuration;
 
 namespace FadedVanguardLogUploader.Settings
@@ -45,16 +46,6 @@ namespace FadedVanguardLogUploader.Settings
             }
         }
 
-        [DefaultSettingValue("25"), UserScopedSetting]
-        public int PageAmount
-        {
-            get => (int)this[nameof(PageAmount)];
-            set
-            {
-                this[nameof(PageAmount)] = value;
-            }
-        }
-
         [DefaultSettingValue("true"), UserScopedSetting]
         public bool ErrorFilterToggle
         {
@@ -82,6 +73,16 @@ namespace FadedVanguardLogUploader.Settings
             set
             {
                 this[nameof(Lang)] = value;
+            }
+        }
+
+        [DefaultSettingValue(""), UserScopedSetting]
+        public List<Encounter> FilterEncounter
+        {
+            get => (List<Encounter>)this[nameof(FilterEncounter)];
+            set
+            {
+                this[nameof(FilterEncounter)] = value;
             }
         }
     }

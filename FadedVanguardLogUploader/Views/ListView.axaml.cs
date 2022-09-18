@@ -4,7 +4,6 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using FadedVanguardLogUploader.ViewModels;
 using ReactiveUI;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace FadedVanguardLogUploader.Views

@@ -64,21 +64,27 @@ namespace FadedVanguardLogUploader.ViewModels
                 this.RaiseAndSetIfChanged(ref ascDesToggleHeader, value);
             }
         }
+        public SortingType SortType
+        {
+            get => sort;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref sort, value);
+            }
+        }
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
         public ReactiveCommand<Unit, Unit> ModeCommand { get; }
         public ReactiveCommand<string, Unit> LanguageCommand { get; }
-        public ReactiveCommand<Unit, Unit> AscDesToggleCommand { get; }
-        public ReactiveCommand<Unit, Unit> DateSortCommand { get; }
-        public ReactiveCommand<Unit, Unit> LengthSortCommand { get; }
-        public ReactiveCommand<Unit, Unit> UserSortCommand { get; }
-        public ReactiveCommand<Unit, Unit> NameSortCommand { get; }
 
+        public ReactiveCommand<Unit, Unit> AscDesToggleCommand { get; }
+        public ReactiveCommand<int, Unit> SortCommand { get; }
+        public ReactiveCommand<int, Unit> FilterCommand { get; }
+        public ReactiveCommand<Unit, Unit> ClearFilterCommand { get; }
         public ReactiveCommand<Unit, Unit> UseGw2ApiCommand { get; }
         public ReactiveCommand<Unit, Unit> ErrorHiddenCommand { get; }
-        public ReactiveCommand<int, Unit> PageAmountCommand { get; }
         public ReactiveCommand<Unit, Unit> WipeDBCommand { get; }
         public ReactiveCommand<Window, Unit> CloseCommand { get; }
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
@@ -88,6 +94,7 @@ namespace FadedVanguardLogUploader.ViewModels
         private bool gw2ApiToggle = App.Settings.ApiToggle;
         private bool errorFilterToggle = App.Settings.ErrorFilterToggle;
         private bool ascDesToggleHeader = App.Settings.SortingToggle;
+        private SortingType sort = App.Settings.SortingType;
 
         public MainWindowViewModel()
         {
@@ -97,15 +104,12 @@ namespace FadedVanguardLogUploader.ViewModels
             LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguage);
 
             AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
-
-            DateSortCommand = ReactiveCommand.Create(DateSort);
-            LengthSortCommand = ReactiveCommand.Create(LengthSort);
-            UserSortCommand = ReactiveCommand.Create(UserSort);
-            NameSortCommand = ReactiveCommand.Create(NameSort);
+            SortCommand = ReactiveCommand.Create<int>(Sort);
+            FilterCommand = ReactiveCommand.Create<int>(Filter);
+            ClearFilterCommand = ReactiveCommand.Create(ClearFilter);
 
             UseGw2ApiCommand = ReactiveCommand.Create(UseGw2Api);
             ErrorHiddenCommand = ReactiveCommand.Create(ErrorHidden);
-            PageAmountCommand = ReactiveCommand.Create<int>(PageAmount);
             WipeDBCommand = ReactiveCommand.Create(WipeDB);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
@@ -113,30 +117,27 @@ namespace FadedVanguardLogUploader.ViewModels
 
         private void AscDesToggle()
         {
-            App.Settings.SortingToggle = !App.Settings.SortingToggle;
-            AscDesToggleHeader = App.Settings.SortingToggle;
+            App.Settings.SortingToggle = AscDesToggleHeader = !App.Settings.SortingToggle;
             List.Filter();
         }
-
-        // Set sorting types
-        private void DateSort()
+        private void Sort(int type)
         {
-            App.Settings.SortingType = SortingType.Date;
+            App.Settings.SortingType = SortType = (SortingType)type;
             List.Filter();
         }
-        private void LengthSort()
+        private void Filter(int encounter)
         {
-            App.Settings.SortingType = SortingType.Length;
+            List.FilterAddOrRemoveEncounter((Encounter)encounter);
             List.Filter();
         }
-        private void UserSort()
+        private void ClearFilter()
         {
-            App.Settings.SortingType = SortingType.User;
+            List.ClearFilter();
             List.Filter();
         }
-        private void NameSort()
+        private void ErrorHidden()
         {
-            App.Settings.SortingType = SortingType.Charcter;
+            App.Settings.ErrorFilterToggle = ErrorFilterToggle = !ErrorFilterToggle;
             List.Filter();
         }
 
@@ -151,35 +152,21 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             window.Close();
         }
-        private void PageAmount(int pageAmount)
-        {
-            App.Settings.PageAmount = pageAmount;
-            List.Filter();
-        }
         private void WipeDB()
         {
             List.storageIO.WipeDB();
         }
-
         private void UseGw2Api()
         {
-            Gw2ApiToggle = !Gw2ApiToggle;
-            App.Settings.ApiToggle = Gw2ApiToggle;
+            App.Settings.ApiToggle = Gw2ApiToggle = !Gw2ApiToggle;
             if (Gw2ApiToggle)
                 GW2ApiHttps.Init();
-        }
-        private void ErrorHidden()
-        {
-            ErrorFilterToggle = !ErrorFilterToggle;
-            App.Settings.ErrorFilterToggle = ErrorFilterToggle;
-            List.Filter();
         }
 
         // TODO: Force restart for change
         private void Mode()
         {
-            ModeToggle = !ModeToggle;
-            App.Settings.ModeToggle = ModeToggle;
+            App.Settings.ModeToggle = ModeToggle = !ModeToggle;
             App.Fluent.Mode = App.Settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
         }
 
