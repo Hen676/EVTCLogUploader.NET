@@ -1,10 +1,9 @@
 using Avalonia.Controls;
-using Avalonia.Themes.Fluent;
 using FadedVanguardLogUploader.Enums;
 using FadedVanguardLogUploader.IO;
 using ReactiveUI;
 using System;
-using System.Globalization;
+using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
@@ -72,6 +71,7 @@ namespace FadedVanguardLogUploader.ViewModels
                 this.RaiseAndSetIfChanged(ref sort, value);
             }
         }
+        public ObservableCollection<Encounter> FilterList { get; } = new(App.Settings.FilterEncounter);
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
@@ -80,8 +80,8 @@ namespace FadedVanguardLogUploader.ViewModels
         public ReactiveCommand<string, Unit> LanguageCommand { get; }
 
         public ReactiveCommand<Unit, Unit> AscDesToggleCommand { get; }
-        public ReactiveCommand<int, Unit> SortCommand { get; }
-        public ReactiveCommand<int, Unit> FilterCommand { get; }
+        public ReactiveCommand<SortingType, Unit> SortCommand { get; }
+        public ReactiveCommand<Encounter, Unit> FilterCommand { get; }
         public ReactiveCommand<Unit, Unit> ClearFilterCommand { get; }
         public ReactiveCommand<Unit, Unit> UseGw2ApiCommand { get; }
         public ReactiveCommand<Unit, Unit> ErrorHiddenCommand { get; }
@@ -100,12 +100,12 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
-            ModeCommand = ReactiveCommand.Create(Mode);
-            LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguage);
+            ModeCommand = ReactiveCommand.Create(ModeAsync);
+            LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
 
             AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
-            SortCommand = ReactiveCommand.Create<int>(Sort);
-            FilterCommand = ReactiveCommand.Create<int>(Filter);
+            SortCommand = ReactiveCommand.Create<SortingType>(Sort);
+            FilterCommand = ReactiveCommand.Create<Encounter>(Filter);
             ClearFilterCommand = ReactiveCommand.Create(ClearFilter);
 
             UseGw2ApiCommand = ReactiveCommand.Create(UseGw2Api);
@@ -120,32 +120,29 @@ namespace FadedVanguardLogUploader.ViewModels
             App.Settings.SortingToggle = AscDesToggleHeader = !App.Settings.SortingToggle;
             List.Filter();
         }
-        private void Sort(int type)
+        private void Sort(SortingType type)
         {
-            App.Settings.SortingType = SortType = (SortingType)type;
+            App.Settings.SortingType = SortType = type;
             List.Filter();
         }
-        private void Filter(int encounter)
+        private void Filter(Encounter encounter)
         {
-            List.FilterAddOrRemoveEncounter((Encounter)encounter);
+            if (!FilterList.Contains(encounter))
+                FilterList.Add(encounter);
+            else
+                FilterList.Remove(encounter);
+            App.Settings.FilterEncounter = new(FilterList);
             List.Filter();
         }
         private void ClearFilter()
         {
-            List.ClearFilter();
+            App.Settings.FilterEncounter.Clear();
             List.Filter();
         }
         private void ErrorHidden()
         {
             App.Settings.ErrorFilterToggle = ErrorFilterToggle = !ErrorFilterToggle;
             List.Filter();
-        }
-
-        // TODO: Force restart for change
-        private void ChangeLanguage(string code)
-        {
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(code);
-            App.Settings.Lang = code;
         }
 
         private void Close(Window window)
@@ -163,11 +160,28 @@ namespace FadedVanguardLogUploader.ViewModels
                 GW2ApiHttps.Init();
         }
 
-        // TODO: Force restart for change
-        private void Mode()
+
+        private async void ModeAsync()
         {
             App.Settings.ModeToggle = ModeToggle = !ModeToggle;
-            App.Fluent.Mode = App.Settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
+            var popup = new PopupViewModel
+            {
+                Title = Resources.Lang.Resources.LNG_Restart_Theme_Title,
+                Body = string.Format(Resources.Lang.Resources.LNG_Restart_Theme_Body, ModeToggle)
+            };
+            await ShowDialog.Handle(popup);
+        }
+        private async void ChangeLanguageAsync(string code)
+        {
+            if (App.Settings.Lang == code)
+                return;
+            App.Settings.Lang = code; ;
+            var popup = new PopupViewModel
+            {
+                Title = Resources.Lang.Resources.LNG_Restart_Language_Title,
+                Body = string.Format(Resources.Lang.Resources.LNG_Restart_Language_Body, code)
+            };
+            await ShowDialog.Handle(popup);
         }
 
         private void Save()
@@ -179,7 +193,7 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             var popup = new PopupViewModel
             {
-                Message = "Faded Vanguard Log Uploader\n\n" +
+                Title = "Faded Vanguard Log Uploader\n\n" +
                 "Version: 1.0.0\n" +
                 "Creator: Hen676\n" +
                 "Repository: https://github.com/Hen676/FadedDiscordBot.NET"

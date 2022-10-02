@@ -35,53 +35,57 @@
 		</Grid>
 
 		<!-- TODO: Implement DataGrid instead of ListBox -->
-		<Grid>
-			<DataGrid Items="{Binding Items}" 
-					  AutoGenerateColumns="False"
-					  CanUserReorderColumns="True"
-					  CanUserResizeColumns="True"
-					  Name="Test">
-				<DataGrid.Columns>
-					<DataGridCheckBoxColumn Header="✔" 
-											Binding="{Binding IsSelected}"/>
-					<DataGridTextColumn IsReadOnly="True"
-										Header="Encounter"  
-										Binding="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"/>
-					<DataGridTextColumn IsReadOnly="True"
-										Header="Charcter Name" 
-										Binding="{Binding CharcterName}" />
-					<DataGridTextColumn IsReadOnly="True"
-										Header="Username"
-										Binding="{Binding UserName}"/>
-					<DataGridTextColumn IsReadOnly="True"
-										Header="Profesion"
-										Binding="{Binding ProfAndSpec}"/>
-					<DataGridTextColumn IsReadOnly="True"
-										Header="Length"
-										Binding="{Binding Length}"/>
-					<DataGridTextColumn IsReadOnly="True"
-										Header="Creation Date"
-										Binding="{Binding CreationDate}"/>
-				</DataGrid.Columns>
-				<DataGrid.RowDetailsTemplate>
-					<DataTemplate>
-						<StackPanel>
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="File Name: "/>
-								<TextBlock Text="{Binding Name}"/>
+		<Border Background="{DynamicResource SystemControlBackgroundListLowBrush}"
+				BorderBrush="{DynamicResource SystemControlBackgroundListMediumBrush}"
+				BorderThickness="2">
+			<Grid>
+				<DataGrid Items="{Binding Items}"
+						  AutoGenerateColumns="False"
+						  CanUserReorderColumns="True"
+						  CanUserResizeColumns="True"
+						  Name="Test">
+					<DataGrid.Columns>
+						<DataGridCheckBoxColumn Header="✔"
+												Binding="{Binding IsSelected}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Encounter"
+											Binding="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Charcter Name"
+											Binding="{Binding CharcterName}" />
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Username"
+											Binding="{Binding UserName}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Profesion"
+											Binding="{Binding ProfAndSpec}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Length"
+											Binding="{Binding Length}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Creation Date"
+											Binding="{Binding CreationDate}"/>
+					</DataGrid.Columns>
+					<DataGrid.RowDetailsTemplate>
+						<DataTemplate>
+							<StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="File Name: "/>
+									<TextBlock Text="{Binding Name}"/>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="File Path: "/>
+									<TextBlock Text="{Binding FullPath}"/>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Upload Url: "/>
+									<TextBlock Text="{Binding UploadUrl}"/>
+								</StackPanel>
 							</StackPanel>
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="File Path: "/>
-								<TextBlock Text="{Binding FullPath}"/>
-							</StackPanel>
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="Upload Url: "/>
-								<TextBlock Text="{Binding UploadUrl}"/>
-							</StackPanel>
-						</StackPanel>
-					</DataTemplate>
-				</DataGrid.RowDetailsTemplate>
-			</DataGrid>
-		</Grid>
+						</DataTemplate>
+					</DataGrid.RowDetailsTemplate>
+				</DataGrid>
+			</Grid>
+		</Border>
 	</DockPanel>
 </UserControl>

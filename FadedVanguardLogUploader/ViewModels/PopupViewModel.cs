@@ -6,11 +6,13 @@ namespace FadedVanguardLogUploader.ViewModels
 {
     public class PopupViewModel : ViewModelBase
     {
-        public string Message { get; set; }
+        public string Title { get; set; }
+        public string Body { get; set; }
         public ReactiveCommand<Window, Unit> CloseCommand { get; private set; }
         public PopupViewModel()
         {
-            Message = "Error: Popup failed to get message";
+            Title = "Error: Popup failed to get message";
+            Body = string.Empty;
             CloseCommand = ReactiveCommand.Create<Window>(CloseWindow);
         }
 

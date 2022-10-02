@@ -49,7 +49,6 @@ namespace FadedVanguardLogUploader.ViewModels
         public ListViewModel()
         {
             UploadCommand = ReactiveCommand.Create(UploadAsync);
-            FilterSettings.encounter = App.Settings.FilterEncounter;
         }
 
         public void Load()
@@ -62,28 +61,13 @@ namespace FadedVanguardLogUploader.ViewModels
             Filter();
         }
 
-        public void FilterAddOrRemoveEncounter(Encounter encounter)
-        {
-            if (!FilterSettings.encounter.Contains(encounter))
-                FilterSettings.encounter.Add(encounter);
-            else
-                FilterSettings.encounter.Remove(encounter);
-
-            App.Settings.FilterEncounter = FilterSettings.encounter;
-        }
-        public void ClearFilter()
-        {
-            FilterSettings.encounter.Clear();
-            App.Settings.FilterEncounter.Clear();
-        }
-
         private async void UploadAsync()
         {
             var popup = new PopupViewModel();
             var uploadlist = StoredItems.Where(x => x.IsSelected).ToList();
             if (uploadlist.Count > 50 || uploadlist.Count == 0)
             {
-                popup.Message = "Error: Inavlid amount of files to upload " + uploadlist.Count + "/50";
+                popup.Title = "Error: Inavlid amount of files to upload " + uploadlist.Count + "/50";
                 await ShowDialog.Handle(popup);
                 return;
             }
@@ -132,7 +116,7 @@ namespace FadedVanguardLogUploader.ViewModels
                     await Application.Current.Clipboard.SetTextAsync(result);
 
             ProgressBarValue = ProgressBarMax;
-            popup.Message = result;
+            popup.Title = result;
             await ShowDialog.Handle(popup);
             ProgressBarValue = 0;
         }

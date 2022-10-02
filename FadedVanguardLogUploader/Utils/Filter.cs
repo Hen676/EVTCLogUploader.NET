@@ -9,13 +9,12 @@ namespace FadedVanguardLogUploader.Utils
     {
         public DateTimeOffset timeOffsetMin = DateTimeOffset.MinValue;
         public DateTimeOffset timeOffsetMax = DateTimeOffset.MaxValue;
-        public List<Encounter> encounter = new();
         // TODO Implement Spec filtering
         //public Specialization specialization = Specialization.Empty; 
 
         public bool Predicate(ListItem i)
         {
-            return (encounter.Count == 0 || encounter.Contains(i.Encounter)) 
+            return (App.Settings.FilterEncounter.Count == 0 || App.Settings.FilterEncounter.Contains(i.Encounter)) 
                 && i.CreationDate >= timeOffsetMin 
                 && i.CreationDate <= timeOffsetMax;
         }

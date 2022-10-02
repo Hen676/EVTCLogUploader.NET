@@ -790,6 +790,15 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear Encounter Filter.
+        /// </summary>
+        public static string LNG_Menu_Settings_ClearFilter {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Settings_ClearFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark Mode.
         /// </summary>
         public static string LNG_Menu_Settings_DarkMode {
@@ -831,6 +840,42 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         public static string LNG_Menu_Settings_PageAmount {
             get {
                 return ResourceManager.GetString("LNG_Menu_Settings_PageAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language code: {0}.
+        /// </summary>
+        public static string LNG_Restart_Language_Body {
+            get {
+                return ResourceManager.GetString("LNG_Restart_Language_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart required for language change to take effect.
+        /// </summary>
+        public static string LNG_Restart_Language_Title {
+            get {
+                return ResourceManager.GetString("LNG_Restart_Language_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark Theme: {0}.
+        /// </summary>
+        public static string LNG_Restart_Theme_Body {
+            get {
+                return ResourceManager.GetString("LNG_Restart_Theme_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart required for theme change to take effect.
+        /// </summary>
+        public static string LNG_Restart_Theme_Title {
+            get {
+                return ResourceManager.GetString("LNG_Restart_Theme_Title", resourceCulture);
             }
         }
     }
