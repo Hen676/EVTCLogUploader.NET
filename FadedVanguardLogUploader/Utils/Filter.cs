@@ -1,6 +1,7 @@
 ﻿using FadedVanguardLogUploader.Enums;
 using FadedVanguardLogUploader.Models;
 using System;
+using System.Collections.Generic;
 
 namespace FadedVanguardLogUploader.Utils
 {
@@ -8,26 +9,14 @@ namespace FadedVanguardLogUploader.Utils
     {
         public DateTimeOffset timeOffsetMin = DateTimeOffset.MinValue;
         public DateTimeOffset timeOffsetMax = DateTimeOffset.MaxValue;
-        public Encounter encounter = Encounter.Empty;
-        public Specialization specialization = Specialization.Empty;
+        // TODO Implement Spec filtering
+        //public Specialization specialization = Specialization.Empty; 
 
         public bool Predicate(ListItem i)
         {
-            if (encounter == Encounter.Empty && specialization == Specialization.Empty)
-                return i.CreationDate >= timeOffsetMin &&
-                    i.CreationDate <= timeOffsetMax;
-            if (encounter == Encounter.Empty && specialization != Specialization.Empty)
-                return i.CreationDate >= timeOffsetMin &&
-                    i.CreationDate <= timeOffsetMax &&
-                    i.CharcterSpec == specialization;
-            if(encounter != Encounter.Empty && specialization == Specialization.Empty)
-                return i.CreationDate >= timeOffsetMin &&
-                    i.CreationDate <= timeOffsetMax &&
-                    i.Encounter == encounter;
-            return i.CreationDate >= timeOffsetMin &&
-                i.CreationDate <= timeOffsetMax &&
-                i.Encounter == encounter &&
-                i.CharcterSpec == specialization;
+            return (App.Settings.FilterEncounter.Count == 0 || App.Settings.FilterEncounter.Contains(i.Encounter)) 
+                && i.CreationDate >= timeOffsetMin 
+                && i.CreationDate <= timeOffsetMax;
         }
     }
 }

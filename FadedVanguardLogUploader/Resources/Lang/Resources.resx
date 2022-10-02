@@ -136,6 +136,174 @@
   <data name="LNG_List_Upload_Tooltip" xml:space="preserve">
     <value>Uploads selected files</value>
   </data>
+  <data name="LNG_Menu_Encounter_Adina" xml:space="preserve">
+    <value>Cardinal Sabir</value>
+  </data>
+  <data name="LNG_Menu_Encounter_AetherbladeHideout" xml:space="preserve">
+    <value>Aetherblade Hideout</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Arkk" xml:space="preserve">
+    <value>Arkk</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Artsariiv" xml:space="preserve">
+    <value>Artsariiv</value>
+  </data>
+  <data name="LNG_Menu_Encounter_BanditTrio" xml:space="preserve">
+    <value>Prison Camp</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Boneskinner" xml:space="preserve">
+    <value>Boneskinner</value>
+  </data>
+  <data name="LNG_Menu_Encounter_BrokenKing" xml:space="preserve">
+    <value>Broken King</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Cairn" xml:space="preserve">
+    <value>Cairn the Indomitable</value>
+  </data>
+  <data name="LNG_Menu_Encounter_ColdWar" xml:space="preserve">
+    <value>Cold War</value>
+  </data>
+  <data name="LNG_Menu_Encounter_ConjuredAmalgamate" xml:space="preserve">
+    <value>Conjured Amalgamate</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Deimos" xml:space="preserve">
+    <value>Deimos</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Dhuum" xml:space="preserve">
+    <value>Dhuum</value>
+  </data>
+  <data name="LNG_Menu_Encounter_EaterOfSouls" xml:space="preserve">
+    <value>Eater of Souls</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Ensolyss" xml:space="preserve">
+    <value>Ensolyss of the Endless Torment</value>
+  </data>
+  <data name="LNG_Menu_Encounter_EOD" xml:space="preserve">
+    <value>End of Dragons</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Escort" xml:space="preserve">
+    <value>Siege the Stronghold</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Eyes" xml:space="preserve">
+    <value>Eye of Judgment &amp; Eye of Fate</value>
+  </data>
+  <data name="LNG_Menu_Encounter_ForgingSteel" xml:space="preserve">
+    <value>Forging Steel</value>
+  </data>
+  <data name="LNG_Menu_Encounter_FraenirOfJormag" xml:space="preserve">
+    <value>Fraenir of Jormag</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Freezie" xml:space="preserve">
+    <value>Secret Lair of the Snowmen</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Gorseval" xml:space="preserve">
+    <value>Gorseval the Multifarious</value>
+  </data>
+  <data name="LNG_Menu_Encounter_HarvestTemple" xml:space="preserve">
+    <value>Harvest Temple</value>
+  </data>
+  <data name="LNG_Menu_Encounter_KainengOverlook" xml:space="preserve">
+    <value>Kaineng Overlook</value>
+  </data>
+  <data name="LNG_Menu_Encounter_KeepConstruct" xml:space="preserve">
+    <value>Keep Construct</value>
+  </data>
+  <data name="LNG_Menu_Encounter_LW5" xml:space="preserve">
+    <value>The Icebrood Saga</value>
+  </data>
+  <data name="LNG_Menu_Encounter_MAMA" xml:space="preserve">
+    <value>MAMA</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Mattias" xml:space="preserve">
+    <value>Matthias Gabrel</value>
+  </data>
+  <data name="LNG_Menu_Encounter_MursaatOverseer" xml:space="preserve">
+    <value>Mursaat Overseer</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Nightmare" xml:space="preserve">
+    <value>Nightmare Fractal</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Qadim" xml:space="preserve">
+    <value>Qadim</value>
+  </data>
+  <data name="LNG_Menu_Encounter_QadimThePeerless" xml:space="preserve">
+    <value>Qadim the Peerless</value>
+  </data>
+  <data name="LNG_Menu_Encounter_RiverOfSouls" xml:space="preserve">
+    <value>River of Souls</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Sabetha" xml:space="preserve">
+    <value>Sabetha the Saboteur</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Sabir" xml:space="preserve">
+    <value>Cardinal Adina</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Samarog" xml:space="preserve">
+    <value>Samarog</value>
+  </data>
+  <data name="LNG_Menu_Encounter_ShatteredObservatory" xml:space="preserve">
+    <value>Shattered Observatory Fractal</value>
+  </data>
+  <data name="LNG_Menu_Encounter_ShiverpeaksPass" xml:space="preserve">
+    <value>Shiverpeaks Pass</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Siax" xml:space="preserve">
+    <value>Siax the Corrupted</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Skorvald" xml:space="preserve">
+    <value>Skorvald the Shattered</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Slothasor" xml:space="preserve">
+    <value>Slothasor</value>
+  </data>
+  <data name="LNG_Menu_Encounter_SoullessHorror" xml:space="preserve">
+    <value>Soulless Horror</value>
+  </data>
+  <data name="LNG_Menu_Encounter_SunquaPeak" xml:space="preserve">
+    <value>Sunqua Peak Fractal</value>
+  </data>
+  <data name="LNG_Menu_Encounter_TwinLargos" xml:space="preserve">
+    <value>Twin Largos</value>
+  </data>
+  <data name="LNG_Menu_Encounter_TwistedCastle" xml:space="preserve">
+    <value>Twisted Castle</value>
+  </data>
+  <data name="LNG_Menu_Encounter_ValeGuardian" xml:space="preserve">
+    <value>Vale Guardian</value>
+  </data>
+  <data name="LNG_Menu_Encounter_VoiceAndClawOfTheFallen" xml:space="preserve">
+    <value>Voice of the Fallen and Claw of the Fallen</value>
+  </data>
+  <data name="LNG_Menu_Encounter_W1" xml:space="preserve">
+    <value>Spirit Vale</value>
+  </data>
+  <data name="LNG_Menu_Encounter_W2" xml:space="preserve">
+    <value>Salvation Pass</value>
+  </data>
+  <data name="LNG_Menu_Encounter_W3" xml:space="preserve">
+    <value>Stronghold of the Faithful</value>
+  </data>
+  <data name="LNG_Menu_Encounter_W4" xml:space="preserve">
+    <value>Bastion of the Penitent</value>
+  </data>
+  <data name="LNG_Menu_Encounter_W5" xml:space="preserve">
+    <value>Hall of Chains</value>
+  </data>
+  <data name="LNG_Menu_Encounter_W6" xml:space="preserve">
+    <value>Mythwright Gambit</value>
+  </data>
+  <data name="LNG_Menu_Encounter_W7" xml:space="preserve">
+    <value>The Key of Ahdashim</value>
+  </data>
+  <data name="LNG_Menu_Encounter_WhisperOfJormag" xml:space="preserve">
+    <value>Whisper of Jormag</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Xera" xml:space="preserve">
+    <value>Xera</value>
+  </data>
+  <data name="LNG_Menu_Encounter_XunlaiJadeJunkyard" xml:space="preserve">
+    <value>Xunlai Jade Junkyard</value>
+  </data>
   <data name="LNG_Menu_File" xml:space="preserve">
     <value>_File</value>
   </data>
@@ -153,6 +321,12 @@
   </data>
   <data name="LNG_Menu_Filter" xml:space="preserve">
     <value>_Filter</value>
+  </data>
+  <data name="LNG_Menu_Filter_Fractels" xml:space="preserve">
+    <value>Fractels</value>
+  </data>
+  <data name="LNG_Menu_Filter_Raids" xml:space="preserve">
+    <value>Raids</value>
   </data>
   <data name="LNG_Menu_Filter_Sort" xml:space="preserve">
     <value>_Sort</value>
@@ -175,6 +349,9 @@
   <data name="LNG_Menu_Filter_Sort_Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="LNG_Menu_Filter_Strikes" xml:space="preserve">
+    <value>Strikes</value>
+  </data>
   <data name="LNG_Menu_Help" xml:space="preserve">
     <value>_Help</value>
   </data>
@@ -183,6 +360,9 @@
   </data>
   <data name="LNG_Menu_Settings" xml:space="preserve">
     <value>_Settings</value>
+  </data>
+  <data name="LNG_Menu_Settings_ClearFilter" xml:space="preserve">
+    <value>Clear Encounter Filter</value>
   </data>
   <data name="LNG_Menu_Settings_DarkMode" xml:space="preserve">
     <value>Dark Mode</value>
@@ -198,5 +378,17 @@
   </data>
   <data name="LNG_Menu_Settings_PageAmount" xml:space="preserve">
     <value>Page Amount</value>
+  </data>
+  <data name="LNG_Restart_Language_Body" xml:space="preserve">
+    <value>Language code: {0}</value>
+  </data>
+  <data name="LNG_Restart_Language_Title" xml:space="preserve">
+    <value>Restart required for language change to take effect</value>
+  </data>
+  <data name="LNG_Restart_Theme_Body" xml:space="preserve">
+    <value>Dark Theme: {0}</value>
+  </data>
+  <data name="LNG_Restart_Theme_Title" xml:space="preserve">
+    <value>Restart required for theme change to take effect</value>
   </data>
 </root>

@@ -14,15 +14,13 @@ namespace FadedVanguardLogUploader
     public partial class App : Application
     {
         public static AppSettings Settings = new();
-        public static FluentTheme Fluent = new(new Uri("avares://ControlCatalog/Styles"));
-
+        private static FluentTheme Fluent = new(new Uri("avares://ControlCatalog/Styles"));
         public override void Initialize()
         {
             if (Settings.ApiToggle)
                 GW2ApiHttps.Init();
 
             Fluent.Mode = Settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
-
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(Settings.Lang);
 
             Styles.Insert(0, Fluent);

@@ -11,95 +11,81 @@
 			 MinHeight="200"
              x:Class="FadedVanguardLogUploader.Views.ListView">
 	<UserControl.Resources>
-		<converter:PageConverter x:Key="pageConverter"></converter:PageConverter>
 		<converter:EncounterConverter x:Key="encounterConveter"></converter:EncounterConverter>
 	</UserControl.Resources>
 	
 	<DockPanel Margin="10">
 		<Grid DockPanel.Dock="Bottom" Margin="0,4">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
 				<ColumnDefinition Width="*"></ColumnDefinition>
-				<ColumnDefinition Width="*"></ColumnDefinition>
-				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 			
-			<Button Grid.Column="0" 
-					DockPanel.Dock="Bottom" 
-					Command="{Binding PageDownCommand}" 
-					IsEnabled="{Binding EnabledDown}">&lt;</Button>
-			<TextBlock Grid.Column="1" 
-					   VerticalAlignment="Center" 
-					   TextAlignment="Right"
-					   Width="30"
-					   Text="{Binding Page, Mode=OneWay, 
-					   Converter={StaticResource pageConverter}}"></TextBlock>
-			<TextBlock Grid.Column="2"
-					   Padding="0,0,0,0"
-					   VerticalAlignment="Center">/</TextBlock>
-			<TextBlock Grid.Column="3"
-					   VerticalAlignment="Center"
-					   Width="30"
-					   Text="{Binding PageMax}"
-					   Padding="1,0,8,0"></TextBlock>
-			<Button Grid.Column="4" 
-					DockPanel.Dock="Bottom" 
-					Command="{Binding PageUpCommand}" 
-					IsEnabled="{Binding EnabledUp}">&gt;</Button>
-			<ProgressBar Grid.Column="5" 
+			<ProgressBar Grid.Column="0" 
 						 Value="{Binding ProgressBarValue}" 
 						 Maximum="{Binding ProgressBarMax}"
-						 ToolTip.Tip="{x:Static p:Resources.LNG_List_Bar_Tooltip}"/>
-			<Button Grid.Column="6" 
+						 ToolTip.Tip="{x:Static p:Resources.LNG_List_Bar_Tooltip}"
+						 Margin="10,0"/>
+			<Button Grid.Column="1" 
 					HorizontalAlignment="Right" 
 					DockPanel.Dock="Bottom" 
 					Command="{Binding UploadCommand}"
 					ToolTip.Tip="{x:Static p:Resources.LNG_List_Upload_Tooltip}"
 					Content="{x:Static p:Resources.LNG_List_Upload}"/>
 		</Grid>
-		<ListBox Items="{Binding Items}"
-				 Padding="10">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel Orientation="Horizontal">
-						<ToolTip.Tip>
+
+		<!-- TODO: Implement DataGrid instead of ListBox -->
+		<Border Background="{DynamicResource SystemControlBackgroundListLowBrush}"
+				BorderBrush="{DynamicResource SystemControlBackgroundListMediumBrush}"
+				BorderThickness="2">
+			<Grid>
+				<DataGrid Items="{Binding Items}"
+						  AutoGenerateColumns="False"
+						  CanUserReorderColumns="True"
+						  CanUserResizeColumns="True"
+						  Name="Test">
+					<DataGrid.Columns>
+						<DataGridCheckBoxColumn Header="✔"
+												Binding="{Binding IsSelected}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Encounter"
+											Binding="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Charcter Name"
+											Binding="{Binding CharcterName}" />
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Username"
+											Binding="{Binding UserName}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Profesion"
+											Binding="{Binding ProfAndSpec}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Length"
+											Binding="{Binding Length}"/>
+						<DataGridTextColumn IsReadOnly="True"
+											Header="Creation Date"
+											Binding="{Binding CreationDate}"/>
+					</DataGrid.Columns>
+					<DataGrid.RowDetailsTemplate>
+						<DataTemplate>
 							<StackPanel>
-								<TextBlock Text="{Binding Name}"></TextBlock>
-								<TextBlock Text="{Binding UploadUrl}"></TextBlock>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="File Name: "/>
+									<TextBlock Text="{Binding Name}"/>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="File Path: "/>
+									<TextBlock Text="{Binding FullPath}"/>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Upload Url: "/>
+									<TextBlock Text="{Binding UploadUrl}"/>
+								</StackPanel>
 							</StackPanel>
-						</ToolTip.Tip>
-						<CheckBox Margin="4"
-								  IsChecked="{Binding IsSelected}"/>
-						<TextBlock Text="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"
-								   VerticalAlignment="Center"
-								   Padding="10,0,10,0"
-								   Width="200"/>
-						<TextBlock Text="{Binding CharcterName}" 
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0" 
-								   Width="200"/>
-						<TextBlock Text="{Binding UserName}" 
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0" 
-								   Width="100"/>
-						<TextBlock Text="{Binding ProfAndSpec}"
-								   VerticalAlignment="Center"
-								   Padding="10,0,10,0"
-								   Width="100"/>
-						<TextBlock Text="{Binding Length}"  
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0"
-								   Width="100"/>
-						<TextBlock Text="{Binding CreationDate}" 
-								   VerticalAlignment="Center" 
-								   Padding="10,0,10,0"
-								   Width="200"/>
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
+						</DataTemplate>
+					</DataGrid.RowDetailsTemplate>
+				</DataGrid>
+			</Grid>
+		</Border>
 	</DockPanel>
 </UserControl>

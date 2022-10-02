@@ -4,7 +4,6 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using FadedVanguardLogUploader.ViewModels;
 using ReactiveUI;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace FadedVanguardLogUploader.Views
@@ -26,15 +25,19 @@ namespace FadedVanguardLogUploader.Views
         {
             if (DataContext != null && DataContext is ListViewModel model)
             {
-                Thread thread = new Thread(() => model.Load());
-                thread.Start();
+                // TODO: Redo threading
+                //Thread thread = new Thread(() => model.Load());
+                //thread.Start();
+                model.Load();
             }
         }
 
         private async Task DoShowDialogAsync(InteractionContext<PopupViewModel, bool> interaction)
         {
-            Popup dialog = new();
-            dialog.DataContext = interaction.Input;
+            Popup dialog = new()
+            {
+                DataContext = interaction.Input
+            };
             if (Application.Current == null)
                 return;
             if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
