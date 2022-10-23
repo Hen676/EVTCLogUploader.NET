@@ -86,55 +86,52 @@ namespace FadedVanguardLogUploader.IO
             return new Header(buildVersision, revision, id);
         }
 
-        private List<AgentItem> EVTCAgent(ushort id)
+        private List<AgentItem> EVTCAgent(uint id)
         {
             int agentCount = reader.ReadInt();
             List<AgentItem> val = new();
-            List<ushort> ids = new();
+            List<uint> ids = new();
+            ids.Add(id);
 
-            if (id >> 8 != 0xffff)
+            switch (id)
             {
-                switch (id)
-                {
-                    case NPCIds.Berg:
-                    case NPCIds.Zane:
-                    case NPCIds.Narella:
-                        ids.Add(NPCIds.Berg);
-                        ids.Add(NPCIds.Zane);
-                        ids.Add(NPCIds.Narella);
-                        ids.Add(NPCIds.TrioCagePrisoner);
-                        break;
-                    case NPCIds.Xera:
-                        ids.Add(NPCIds.HauntingStatue);
-                        ids.Add(NPCIds.XeraEnd);
-                        break;
-                    case NPCIds.Deimos:
-                        ids.Add(GadgetIds.ShackledPrisoner);
-                        ids.Add(GadgetIds.DeimosLastPhase);
-                        break;
-                    case NPCIds.Dhuum:
-                        ids.Add(NPCIds.EyeOfFate);
-                        break;
-                    case NPCIds.Nikare:
-                        ids.Add(NPCIds.Kenut);
-                        break;
-                    case NPCIds.Kenut:
-                        ids.Add(NPCIds.Nikare);
-                        break;
-                    case NPCIds.VoiceOfTheFallen:
-                        ids.Add(NPCIds.ClawOfTheFallen);
-                        break;
-                    case NPCIds.ClawOfTheFallen:
-                        ids.Add(NPCIds.VoiceOfTheFallen);
-                        break;
-                }
-            }
-            else
-            {
-                if (id == GadgetIds.TheDragonvoid)
+                case NPCIds.Berg:
+                case NPCIds.Zane:
+                case NPCIds.Narella:
+                    ids.Add(NPCIds.Berg);
+                    ids.Add(NPCIds.Zane);
+                    ids.Add(NPCIds.Narella);
+                    ids.Add(NPCIds.TrioCagePrisoner);
+                    break;
+                case NPCIds.Xera:
+                    ids.Add(NPCIds.HauntingStatue);
+                    ids.Add(NPCIds.XeraEnd);
+                    break;
+                case NPCIds.Deimos:
+                    ids.Add(GadgetIds.ShackledPrisoner);
+                    ids.Add(GadgetIds.DeimosLastPhase);
+                    break;
+                case NPCIds.Dhuum:
+                    ids.Add(NPCIds.EyeOfFate);
+                    break;
+                case NPCIds.Nikare:
+                    ids.Add(NPCIds.Kenut);
+                    break;
+                case NPCIds.Kenut:
+                    ids.Add(NPCIds.Nikare);
+                    break;
+                case NPCIds.VoiceOfTheFallen:
+                    ids.Add(NPCIds.ClawOfTheFallen);
+                    break;
+                case NPCIds.ClawOfTheFallen:
+                    ids.Add(NPCIds.VoiceOfTheFallen);
+                    break;
+                case GadgetIds.TheDragonvoid:
                     ids.Add(GadgetIds.TheDragonvoidFinal);
-                if (id == GadgetIds.TheDragonvoidFinal)
+                    break;
+                case GadgetIds.TheDragonvoidFinal:
                     ids.Add(GadgetIds.TheDragonvoid);
+                    break;
             }
 
             for (int i = 0; i < agentCount; i++)
@@ -142,7 +139,7 @@ namespace FadedVanguardLogUploader.IO
                 ulong address = reader.ReadULong();
                 uint prof = reader.ReadUInt();
                 uint isElite = reader.ReadUInt();
-                if (false && isElite == 0xffffffff && (!ids.Contains((ushort)prof)))
+                if (isElite != 0xffffffff || (isElite == 0xffffffff && (!ids.Contains((ushort)prof))))
                 {
                     reader.SkipBytes(80);
                     continue;

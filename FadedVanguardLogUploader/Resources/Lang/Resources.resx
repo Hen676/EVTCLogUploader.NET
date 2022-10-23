@@ -120,6 +120,36 @@
   <data name="LNG_Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="LNG_DataGrid_Header_CharcterName" xml:space="preserve">
+    <value>Charcter Name</value>
+  </data>
+  <data name="LNG_DataGrid_Header_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="LNG_DataGrid_Header_Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="LNG_DataGrid_Header_Encounter" xml:space="preserve">
+    <value>Encounter</value>
+  </data>
+  <data name="LNG_DataGrid_Header_Profesion" xml:space="preserve">
+    <value>Profesion</value>
+  </data>
+  <data name="LNG_DataGrid_Header_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="LNG_DataGrid_Tooltip_FileName_Colon" xml:space="preserve">
+    <value>File Name: </value>
+    <comment>Needs a space after</comment>
+  </data>
+  <data name="LNG_DataGrid_Tooltip_FilePath_Colon" xml:space="preserve">
+    <value>File Path: </value>
+    <comment>Needs a space after</comment>
+  </data>
+  <data name="LNG_DataGrid_Tooltip_Url_Colon" xml:space="preserve">
+    <value>Upload Url: </value>
+    <comment>Needs a space after</comment>
+  </data>
   <data name="LNG_File_Count" xml:space="preserve">
     <value> EVTC Files</value>
     <comment>Needs a space at the beginning</comment>

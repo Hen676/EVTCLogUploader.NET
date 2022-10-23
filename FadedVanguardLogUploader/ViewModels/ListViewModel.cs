@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Threading;
 using DynamicData;
 using FadedVanguardLogUploader.Enums;
 using FadedVanguardLogUploader.IO;
@@ -220,8 +221,11 @@ namespace FadedVanguardLogUploader.ViewModels
                     });
                     break;
             }
-            Items.Clear();
-            Items.AddRange(FilteredItems);
+            Dispatcher.UIThread.Post(() => {
+                Items.Clear();
+                Items.AddRange(FilteredItems);
+                return;
+            });
         }
 
         public void Filter(DateTimeOffset? date = null, TimeSpan? time = null)

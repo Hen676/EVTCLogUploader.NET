@@ -34,7 +34,6 @@
 					Content="{x:Static p:Resources.LNG_List_Upload}"/>
 		</Grid>
 
-		<!-- TODO: Implement DataGrid instead of ListBox -->
 		<Border Background="{DynamicResource SystemControlBackgroundListLowBrush}"
 				BorderBrush="{DynamicResource SystemControlBackgroundListMediumBrush}"
 				BorderThickness="2">
@@ -48,37 +47,37 @@
 						<DataGridCheckBoxColumn Header="✔"
 												Binding="{Binding IsSelected}"/>
 						<DataGridTextColumn IsReadOnly="True"
-											Header="Encounter"
+											Header="{x:Static p:Resources.LNG_DataGrid_Header_Encounter}"
 											Binding="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"/>
 						<DataGridTextColumn IsReadOnly="True"
-											Header="Charcter Name"
+											Header="{x:Static p:Resources.LNG_DataGrid_Header_CharcterName}"
 											Binding="{Binding CharcterName}" />
 						<DataGridTextColumn IsReadOnly="True"
-											Header="Username"
+											Header="{x:Static p:Resources.LNG_DataGrid_Header_Username}"
 											Binding="{Binding UserName}"/>
 						<DataGridTextColumn IsReadOnly="True"
-											Header="Profesion"
+											Header="{x:Static p:Resources.LNG_DataGrid_Header_Profesion}"
 											Binding="{Binding ProfAndSpec}"/>
 						<DataGridTextColumn IsReadOnly="True"
-											Header="Length"
+											Header="{x:Static p:Resources.LNG_DataGrid_Header_Duration}"
 											Binding="{Binding Length}"/>
 						<DataGridTextColumn IsReadOnly="True"
-											Header="Creation Date"
+											Header="{x:Static p:Resources.LNG_DataGrid_Header_Date}"
 											Binding="{Binding CreationDate}"/>
 					</DataGrid.Columns>
 					<DataGrid.RowDetailsTemplate>
 						<DataTemplate>
 							<StackPanel>
 								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="File Name: "/>
+									<TextBlock Text="{x:Static p:Resources.LNG_DataGrid_Tooltip_FileName_Colon}"/>
 									<TextBlock Text="{Binding Name}"/>
 								</StackPanel>
 								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="File Path: "/>
+									<TextBlock Text="{x:Static p:Resources.LNG_DataGrid_Tooltip_FilePath_Colon}"/>
 									<TextBlock Text="{Binding FullPath}"/>
 								</StackPanel>
 								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="Upload Url: "/>
+									<TextBlock Text="{x:Static p:Resources.LNG_DataGrid_Tooltip_Url_Colon}"/>
 									<TextBlock Text="{Binding UploadUrl}"/>
 								</StackPanel>
 							</StackPanel>

@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using FadedVanguardLogUploader.ViewModels;
 using ReactiveUI;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FadedVanguardLogUploader.Views
@@ -26,9 +27,9 @@ namespace FadedVanguardLogUploader.Views
             if (DataContext != null && DataContext is ListViewModel model)
             {
                 // TODO: Redo threading
-                //Thread thread = new Thread(() => model.Load());
-                //thread.Start();
-                model.Load();
+                Thread thread = new Thread(() => model.Load());
+                thread.Start();
+                //model.Load();
             }
         }
 

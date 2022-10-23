@@ -70,6 +70,87 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Charcter Name.
+        /// </summary>
+        public static string LNG_DataGrid_Header_CharcterName {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_CharcterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Date {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Duration {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Encounter {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Encounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profesion.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Profesion {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Profesion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Username {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Name: .
+        /// </summary>
+        public static string LNG_DataGrid_Tooltip_FileName_Colon {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Tooltip_FileName_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Path: .
+        /// </summary>
+        public static string LNG_DataGrid_Tooltip_FilePath_Colon {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Tooltip_FilePath_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Url: .
+        /// </summary>
+        public static string LNG_DataGrid_Tooltip_Url_Colon {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Tooltip_Url_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  EVTC Files.
         /// </summary>
         public static string LNG_File_Count {

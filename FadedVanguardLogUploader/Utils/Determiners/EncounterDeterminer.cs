@@ -8,9 +8,9 @@ namespace FadedVanguardLogUploader.Utils.Determiners
 {
     public static class EncounterDeterminer
     {
-        public static Encounter Result(ushort id, List<AgentItem> agents)
+        public static Encounter Result(uint id, List<AgentItem> agents)
         {
-            if (id >> 8 != 0xffff)
+            if (id >> 16 != 0xffff)
             {
                 switch (id)
                 {
