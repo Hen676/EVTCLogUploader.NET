@@ -26,10 +26,8 @@ namespace FadedVanguardLogUploader.Views
         {
             if (DataContext != null && DataContext is ListViewModel model)
             {
-                // TODO: Redo threading
                 Thread thread = new Thread(() => model.Load());
                 thread.Start();
-                //model.Load();
             }
         }
 

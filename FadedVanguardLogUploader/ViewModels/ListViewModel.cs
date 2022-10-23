@@ -221,7 +221,8 @@ namespace FadedVanguardLogUploader.ViewModels
                     });
                     break;
             }
-            Dispatcher.UIThread.Post(() => {
+            Dispatcher.UIThread.Post(() =>
+            {
                 Items.Clear();
                 Items.AddRange(FilteredItems);
                 return;
