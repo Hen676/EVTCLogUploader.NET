@@ -18,9 +18,9 @@ namespace FadedVanguardLogUploader.IO
         private readonly Profession charcterProf;
         private readonly Specialization charcterSpec;
 
-        public BinaryReaderHandlerIO(BinaryArrayReaderIO rea)
+        public BinaryReaderHandlerIO(BinaryArrayReaderIO read)
         {
-            reader = rea;
+            reader = read;
             Header header = EVTCHeader();
             List<AgentItem> agents = EVTCAgent(header.Id);
             encounter = EncounterDeterminer.Result(header.Id, agents);
@@ -82,7 +82,6 @@ namespace FadedVanguardLogUploader.IO
             byte revision = reader.ReadByte();
             ushort id = reader.ReadUShort();
             reader.SkipBytes(1);
-
             return new Header(buildVersision, revision, id);
         }
 
@@ -139,7 +138,7 @@ namespace FadedVanguardLogUploader.IO
                 ulong address = reader.ReadULong();
                 uint prof = reader.ReadUInt();
                 uint isElite = reader.ReadUInt();
-                if (isElite != 0xffffffff || (isElite == 0xffffffff && (!ids.Contains((ushort)prof))))
+                if (isElite == 0xffffffff && !ids.Contains((ushort)prof))
                 {
                     reader.SkipBytes(80);
                     continue;
@@ -153,7 +152,6 @@ namespace FadedVanguardLogUploader.IO
                 string name = reader.ReadString(68);
                 val.Add(new AgentItem(address, prof, isElite, toughness, concentration, condition, healing, hitboxWidth, hitboxHeight, name));
             }
-
             return val;
         }
 

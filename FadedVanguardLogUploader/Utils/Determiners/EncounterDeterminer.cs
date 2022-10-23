@@ -10,7 +10,9 @@ namespace FadedVanguardLogUploader.Utils.Determiners
     {
         public static Encounter Result(uint id, List<AgentItem> agents)
         {
-            if (id >> 16 != 0xffff)
+            // Check if boss is a gadget. If so, find the gadget
+            AgentItem? gadget = agents.Find(agent => (agent.Prof & 0xffff) == id && agent.Prof != id);
+            if (gadget == null)
             {
                 switch (id)
                 {
@@ -96,7 +98,7 @@ namespace FadedVanguardLogUploader.Utils.Determiners
             }
             else
             {
-                switch (id)
+                switch (gadget.Prof & 0xffff)
                 {
                     case GadgetIds.ConjuredAmalgamate: return Encounter.ConjuredAmalgamate;
                     case GadgetIds.TheDragonvoidFinal:
