@@ -1,11 +1,11 @@
 ﻿using Avalonia.Data;
 using Avalonia.Data.Converters;
-using FadedVanguardLogUploader.Enums;
-using FadedVanguardLogUploader.Utils.Determiners;
+using EVTCLogUploader.Enums;
+using EVTCLogUploader.Utils.Determiners;
 using System;
 using System.Globalization;
 
-namespace FadedVanguardLogUploader.Utils.Converter
+namespace EVTCLogUploader.Utils.Converter
 {
     public class EncounterConverter : IValueConverter
     {

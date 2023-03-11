@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LNG_About_Creator_Colon" xml:space="preserve">
+    <value>Creator: {0}</value>
+    <comment>Needs a space after</comment>
+  </data>
+  <data name="LNG_About_Repository_Colon" xml:space="preserve">
+    <value>Repository: {0}</value>
+    <comment>Needs a space after</comment>
+  </data>
+  <data name="LNG_About_Version_Colon" xml:space="preserve">
+    <value>Version: {0}</value>
+    <comment>Needs a space after</comment>
+  </data>
   <data name="LNG_Close" xml:space="preserve">
     <value>Close</value>
   </data>
   <data name="LNG_DataGrid_Header_CharcterName" xml:space="preserve">
-    <value>Charcter Name</value>
+    <value>Character Name</value>
   </data>
   <data name="LNG_DataGrid_Header_Date" xml:space="preserve">
     <value>Date</value>
@@ -132,8 +144,11 @@
   <data name="LNG_DataGrid_Header_Encounter" xml:space="preserve">
     <value>Encounter</value>
   </data>
+  <data name="LNG_DataGrid_Header_FileType" xml:space="preserve">
+    <value>File Type</value>
+  </data>
   <data name="LNG_DataGrid_Header_Profesion" xml:space="preserve">
-    <value>Profesion</value>
+    <value>Profession</value>
   </data>
   <data name="LNG_DataGrid_Header_Username" xml:space="preserve">
     <value>Username</value>
@@ -149,6 +164,12 @@
   <data name="LNG_DataGrid_Tooltip_Url_Colon" xml:space="preserve">
     <value>Upload Url: </value>
     <comment>Needs a space after</comment>
+  </data>
+  <data name="LNG_Deselect_All" xml:space="preserve">
+    <value>Unselect All</value>
+  </data>
+  <data name="LNG_Deselect_All_Tooltip" xml:space="preserve">
+    <value>Unselect all available files</value>
   </data>
   <data name="LNG_File_Count" xml:space="preserve">
     <value> EVTC Files</value>
@@ -352,8 +373,23 @@
   <data name="LNG_Menu_Filter" xml:space="preserve">
     <value>_Filter</value>
   </data>
+  <data name="LNG_Menu_Filter_FileType" xml:space="preserve">
+    <value>File Types</value>
+  </data>
+  <data name="LNG_Menu_Filter_FileType_Evtc" xml:space="preserve">
+    <value>.EVTC</value>
+  </data>
+  <data name="LNG_Menu_Filter_FileType_EvtcZip" xml:space="preserve">
+    <value>.EVTC.ZIP</value>
+  </data>
+  <data name="LNG_Menu_Filter_FileType_ZEvtc" xml:space="preserve">
+    <value>.ZEVTC</value>
+  </data>
   <data name="LNG_Menu_Filter_Fractels" xml:space="preserve">
     <value>Fractels</value>
+  </data>
+  <data name="LNG_Menu_Filter_Prof" xml:space="preserve">
+    <value>Profession</value>
   </data>
   <data name="LNG_Menu_Filter_Raids" xml:space="preserve">
     <value>Raids</value>
@@ -365,7 +401,7 @@
     <value>↑ Ascending</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_CharName" xml:space="preserve">
-    <value>Charcter Name</value>
+    <value>Character Name</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Date" xml:space="preserve">
     <value>Date</value>
@@ -379,6 +415,9 @@
   <data name="LNG_Menu_Filter_Sort_Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="LNG_Menu_Filter_Spec" xml:space="preserve">
+    <value>_Specialization</value>
+  </data>
   <data name="LNG_Menu_Filter_Strikes" xml:space="preserve">
     <value>Strikes</value>
   </data>
@@ -388,17 +427,41 @@
   <data name="LNG_Menu_Help_About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="LNG_Menu_Prof_Elementalist" xml:space="preserve">
+    <value>Elementalist</value>
+  </data>
+  <data name="LNG_Menu_Prof_Engineer" xml:space="preserve">
+    <value>Engineer</value>
+  </data>
+  <data name="LNG_Menu_Prof_Guardian" xml:space="preserve">
+    <value>Guardian</value>
+  </data>
+  <data name="LNG_Menu_Prof_Mesmer" xml:space="preserve">
+    <value>Mesmer</value>
+  </data>
+  <data name="LNG_Menu_Prof_Necromancer" xml:space="preserve">
+    <value>Necromancer</value>
+  </data>
+  <data name="LNG_Menu_Prof_Ranger" xml:space="preserve">
+    <value>Ranger</value>
+  </data>
+  <data name="LNG_Menu_Prof_Revenant" xml:space="preserve">
+    <value>Revenant</value>
+  </data>
+  <data name="LNG_Menu_Prof_Thief" xml:space="preserve">
+    <value>Thief</value>
+  </data>
+  <data name="LNG_Menu_Prof_Warrior" xml:space="preserve">
+    <value>Warrier</value>
+  </data>
   <data name="LNG_Menu_Settings" xml:space="preserve">
     <value>_Settings</value>
   </data>
   <data name="LNG_Menu_Settings_ClearFilter" xml:space="preserve">
-    <value>Clear Encounter Filter</value>
+    <value>Clear Filter</value>
   </data>
   <data name="LNG_Menu_Settings_DarkMode" xml:space="preserve">
     <value>Dark Mode</value>
-  </data>
-  <data name="LNG_Menu_Settings_GW2Api" xml:space="preserve">
-    <value>GW2 Api</value>
   </data>
   <data name="LNG_Menu_Settings_HideErrors" xml:space="preserve">
     <value>Error Encounters Hidden</value>
@@ -406,19 +469,25 @@
   <data name="LNG_Menu_Settings_Lang" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="LNG_Menu_Settings_PageAmount" xml:space="preserve">
-    <value>Page Amount</value>
+  <data name="LNG_Menu_Spec_None" xml:space="preserve">
+    <value>None</value>
   </data>
   <data name="LNG_Restart_Language_Body" xml:space="preserve">
     <value>Language code: {0}</value>
   </data>
   <data name="LNG_Restart_Language_Title" xml:space="preserve">
-    <value>Restart required for language change to take effect</value>
+    <value>Restart is required for the language change to take effect</value>
   </data>
   <data name="LNG_Restart_Theme_Body" xml:space="preserve">
     <value>Dark Theme: {0}</value>
   </data>
   <data name="LNG_Restart_Theme_Title" xml:space="preserve">
-    <value>Restart required for theme change to take effect</value>
+    <value>Restart is required for theme change to take effect</value>
+  </data>
+  <data name="LNG_Select_All" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="LNG_Select_All_Tooltip" xml:space="preserve">
+    <value>Select all filtered files</value>
   </data>
 </root>

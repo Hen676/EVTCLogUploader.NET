@@ -1,11 +1,11 @@
 using Avalonia.Input;
 using Avalonia.ReactiveUI;
-using FadedVanguardLogUploader.ViewModels;
+using EVTCLogUploader.ViewModels;
 using ReactiveUI;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace FadedVanguardLogUploader.Views
+namespace EVTCLogUploader.Views
 {
     public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {

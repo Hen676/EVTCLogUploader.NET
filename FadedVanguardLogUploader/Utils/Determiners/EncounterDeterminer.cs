@@ -1,10 +1,10 @@
-﻿using FadedVanguardLogUploader.Enums;
-using FadedVanguardLogUploader.Models.Log;
-using FadedVanguardLogUploader.Utils.GameData;
+﻿using EVTCLogUploader.Enums;
+using EVTCLogUploader.Models.Log;
+using EVTCLogUploader.Utils.GameData;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FadedVanguardLogUploader.Utils.Determiners
+namespace EVTCLogUploader.Utils.Determiners
 {
     public static class EncounterDeterminer
     {

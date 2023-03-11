@@ -1,11 +1,13 @@
 ﻿using Avalonia;
+using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Threading;
 using DynamicData;
-using FadedVanguardLogUploader.Enums;
-using FadedVanguardLogUploader.IO;
-using FadedVanguardLogUploader.Models;
-using FadedVanguardLogUploader.Models.Responce;
-using FadedVanguardLogUploader.Utils;
+using DynamicData.Kernel;
+using EVTCLogUploader.Enums;
+using EVTCLogUploader.IO;
+using EVTCLogUploader.Models;
+using EVTCLogUploader.Models.Responce;
+using EVTCLogUploader.Utils;
 using ReactiveUI;
 using System;
 using System.Collections.Concurrent;
@@ -17,7 +19,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
-namespace FadedVanguardLogUploader.ViewModels
+namespace EVTCLogUploader.ViewModels
 {
     public class ListViewModel : ViewModelBase
     {
@@ -50,6 +52,24 @@ namespace FadedVanguardLogUploader.ViewModels
         public ListViewModel()
         {
             UploadCommand = ReactiveCommand.Create(UploadAsync);
+        }
+
+        public void UnselectAll()
+        {
+            StoredItems.AsList().ForEach(item => item.IsSelected = false);
+            List<ListItem> temp = Items.AsList();
+            temp.ForEach(item => item.IsSelected = false);
+            Items.Clear();
+            Items.AddRange(temp);
+        }
+
+        public void SelectAll()
+        {
+            StoredItems.AsList().ForEach(item => item.IsSelected = false);
+            List<ListItem> temp = Items.AsList();
+            temp.ForEach(item => item.IsSelected = true);
+            Items.Clear();
+            Items.AddRange(temp);
         }
 
         public void Load()
@@ -226,22 +246,18 @@ namespace FadedVanguardLogUploader.ViewModels
                 Items.Clear();
                 Items.AddRange(FilteredItems);
                 return;
-            });
+            }, DispatcherPriority.MaxValue);
         }
 
-        public void Filter(DateTimeOffset? date = null, TimeSpan? time = null)
+        public void Filter(DateTimeOffset? date = null, TimeSpan? time = null, bool select = false)
         {
             if (date.HasValue)
                 FilterSettings.timeOffsetMin = date.Value;
             if (time.HasValue)
                 FilterSettings.timeOffsetMin = FilterSettings.timeOffsetMin.Date + time.Value;
 
-            FilteredItems = StoredItems.Where(x =>
-            {
-                if (App.Settings.ErrorFilterToggle && x.Encounter == Encounter.Unkown)
-                    return false;
-                return FilterSettings.Predicate(x);
-            }).ToList();
+            FilteredItems = StoredItems.Where(x => FilterSettings.Predicate(x)).ToList();
+            FilteredItems.ForEach(x => x.IsSelected = select);
             FileCount = FilteredItems.Count;
             Sort();
         }

@@ -1,8 +1,8 @@
-﻿using FadedVanguardLogUploader.Enums;
+﻿using EVTCLogUploader.Enums;
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace FadedVanguardLogUploader.Settings
+namespace EVTCLogUploader.Settings
 {
     public class AppSettings : ApplicationSettingsBase
     {
@@ -23,16 +23,6 @@ namespace FadedVanguardLogUploader.Settings
             set
             {
                 this[nameof(ModeToggle)] = value;
-            }
-        }
-
-        [DefaultSettingValue("false"), UserScopedSetting]
-        public bool ApiToggle
-        {
-            get => (bool)this[nameof(ApiToggle)];
-            set
-            {
-                this[nameof(ApiToggle)] = value;
             }
         }
 
@@ -83,6 +73,26 @@ namespace FadedVanguardLogUploader.Settings
             set
             {
                 this[nameof(FilterEncounter)] = value;
+            }
+        }
+
+        [DefaultSettingValue(""), UserScopedSetting]
+        public List<Profession> FilterProfession 
+        {
+            get => (List<Profession>)this[nameof(FilterProfession)];
+            set
+            {
+                this[nameof(FilterProfession)] = value;
+            }
+        }
+
+        [DefaultSettingValue(""), UserScopedSetting]
+        public List<FileType> FilterFileType 
+        {
+            get => (List<FileType>)this[nameof(FilterFileType)];
+            set
+            {
+                this[nameof(FilterFileType)] = value;
             }
         }
     }

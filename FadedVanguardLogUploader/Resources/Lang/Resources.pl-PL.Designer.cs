@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FadedVanguardLogUploader.Resources.Lang {
+namespace EVTCLogUploader.Resources.Lang {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FadedVanguardLogUploader.Resources.Lang.Resources - Copy", typeof(Resources___Copy).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EVTCLogUploader.Resources.Lang.Resources - Copy", typeof(Resources___Copy).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,699 @@ namespace FadedVanguardLogUploader.Resources.Lang {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator: {0}.
+        /// </summary>
+        public static string LNG_About_Creator_Colon {
+            get {
+                return ResourceManager.GetString("LNG_About_Creator_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repository: {0}.
+        /// </summary>
+        public static string LNG_About_Repository_Colon {
+            get {
+                return ResourceManager.GetString("LNG_About_Repository_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: {0}.
+        /// </summary>
+        public static string LNG_About_Version_Colon {
+            get {
+                return ResourceManager.GetString("LNG_About_Version_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string LNG_Close {
+            get {
+                return ResourceManager.GetString("LNG_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Charcter Name.
+        /// </summary>
+        public static string LNG_DataGrid_Header_CharcterName {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_CharcterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Date {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Duration {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Encounter {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Encounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Type.
+        /// </summary>
+        public static string LNG_DataGrid_Header_FileType {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_FileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profesion.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Profesion {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Profesion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string LNG_DataGrid_Header_Username {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Name: .
+        /// </summary>
+        public static string LNG_DataGrid_Tooltip_FileName_Colon {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Tooltip_FileName_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Path: .
+        /// </summary>
+        public static string LNG_DataGrid_Tooltip_FilePath_Colon {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Tooltip_FilePath_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Url: .
+        /// </summary>
+        public static string LNG_DataGrid_Tooltip_Url_Colon {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Tooltip_Url_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unselect All.
+        /// </summary>
+        public static string LNG_Deselect_All {
+            get {
+                return ResourceManager.GetString("LNG_Deselect_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unselect all avaliable files.
+        /// </summary>
+        public static string LNG_Deselect_All_Tooltip {
+            get {
+                return ResourceManager.GetString("LNG_Deselect_All_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  EVTC Files.
+        /// </summary>
+        public static string LNG_File_Count {
+            get {
+                return ResourceManager.GetString("LNG_File_Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From:.
+        /// </summary>
+        public static string LNG_Filter_From_SemiColon {
+            get {
+                return ResourceManager.GetString("LNG_Filter_From_SemiColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progress bar.
+        /// </summary>
+        public static string LNG_List_Bar_Tooltip {
+            get {
+                return ResourceManager.GetString("LNG_List_Bar_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        public static string LNG_List_Upload {
+            get {
+                return ResourceManager.GetString("LNG_List_Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploads selected files.
+        /// </summary>
+        public static string LNG_List_Upload_Tooltip {
+            get {
+                return ResourceManager.GetString("LNG_List_Upload_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cardinal Sabir.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Adina {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Adina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aetherblade Hideout.
+        /// </summary>
+        public static string LNG_Menu_Encounter_AetherbladeHideout {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_AetherbladeHideout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arkk.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Arkk {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Arkk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Artsariiv.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Artsariiv {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Artsariiv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prison Camp.
+        /// </summary>
+        public static string LNG_Menu_Encounter_BanditTrio {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_BanditTrio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boneskinner.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Boneskinner {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Boneskinner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Broken King.
+        /// </summary>
+        public static string LNG_Menu_Encounter_BrokenKing {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_BrokenKing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cairn the Indomitable.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Cairn {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Cairn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cold War.
+        /// </summary>
+        public static string LNG_Menu_Encounter_ColdWar {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_ColdWar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conjured Amalgamate.
+        /// </summary>
+        public static string LNG_Menu_Encounter_ConjuredAmalgamate {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_ConjuredAmalgamate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deimos.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Deimos {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Deimos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dhuum.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Dhuum {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Dhuum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eater of Souls.
+        /// </summary>
+        public static string LNG_Menu_Encounter_EaterOfSouls {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_EaterOfSouls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ensolyss of the Endless Torment.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Ensolyss {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Ensolyss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End of Dragons.
+        /// </summary>
+        public static string LNG_Menu_Encounter_EOD {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_EOD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Siege the Stronghold.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Escort {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Escort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eye of Judgment &amp; Eye of Fate.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Eyes {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Eyes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forging Steel.
+        /// </summary>
+        public static string LNG_Menu_Encounter_ForgingSteel {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_ForgingSteel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fraenir of Jormag.
+        /// </summary>
+        public static string LNG_Menu_Encounter_FraenirOfJormag {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_FraenirOfJormag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret Lair of the Snowmen.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Freezie {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Freezie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gorseval the Multifarious.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Gorseval {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Gorseval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Harvest Temple.
+        /// </summary>
+        public static string LNG_Menu_Encounter_HarvestTemple {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_HarvestTemple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaineng Overlook.
+        /// </summary>
+        public static string LNG_Menu_Encounter_KainengOverlook {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_KainengOverlook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep Construct.
+        /// </summary>
+        public static string LNG_Menu_Encounter_KeepConstruct {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_KeepConstruct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Icebrood Saga.
+        /// </summary>
+        public static string LNG_Menu_Encounter_LW5 {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_LW5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MAMA.
+        /// </summary>
+        public static string LNG_Menu_Encounter_MAMA {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_MAMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matthias Gabrel.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Mattias {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Mattias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mursaat Overseer.
+        /// </summary>
+        public static string LNG_Menu_Encounter_MursaatOverseer {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_MursaatOverseer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nightmare Fractal.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Nightmare {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Nightmare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qadim.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Qadim {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Qadim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qadim the Peerless.
+        /// </summary>
+        public static string LNG_Menu_Encounter_QadimThePeerless {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_QadimThePeerless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to River of Souls.
+        /// </summary>
+        public static string LNG_Menu_Encounter_RiverOfSouls {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_RiverOfSouls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sabetha the Saboteur.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Sabetha {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Sabetha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cardinal Adina.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Sabir {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Sabir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samarog.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Samarog {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Samarog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shattered Observatory Fractal.
+        /// </summary>
+        public static string LNG_Menu_Encounter_ShatteredObservatory {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_ShatteredObservatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shiverpeaks Pass.
+        /// </summary>
+        public static string LNG_Menu_Encounter_ShiverpeaksPass {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_ShiverpeaksPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Siax the Corrupted.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Siax {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Siax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skorvald the Shattered.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Skorvald {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Skorvald", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slothasor.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Slothasor {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Slothasor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Soulless Horror.
+        /// </summary>
+        public static string LNG_Menu_Encounter_SoullessHorror {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_SoullessHorror", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sunqua Peak Fractal.
+        /// </summary>
+        public static string LNG_Menu_Encounter_SunquaPeak {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_SunquaPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twin Largos.
+        /// </summary>
+        public static string LNG_Menu_Encounter_TwinLargos {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_TwinLargos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twisted Castle.
+        /// </summary>
+        public static string LNG_Menu_Encounter_TwistedCastle {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_TwistedCastle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vale Guardian.
+        /// </summary>
+        public static string LNG_Menu_Encounter_ValeGuardian {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_ValeGuardian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voice of the Fallen and Claw of the Fallen.
+        /// </summary>
+        public static string LNG_Menu_Encounter_VoiceAndClawOfTheFallen {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_VoiceAndClawOfTheFallen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spirit Vale.
+        /// </summary>
+        public static string LNG_Menu_Encounter_W1 {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_W1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salvation Pass.
+        /// </summary>
+        public static string LNG_Menu_Encounter_W2 {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_W2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stronghold of the Faithful.
+        /// </summary>
+        public static string LNG_Menu_Encounter_W3 {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_W3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bastion of the Penitent.
+        /// </summary>
+        public static string LNG_Menu_Encounter_W4 {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_W4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hall of Chains.
+        /// </summary>
+        public static string LNG_Menu_Encounter_W5 {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_W5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mythwright Gambit.
+        /// </summary>
+        public static string LNG_Menu_Encounter_W6 {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_W6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Key of Ahdashim.
+        /// </summary>
+        public static string LNG_Menu_Encounter_W7 {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_W7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whisper of Jormag.
+        /// </summary>
+        public static string LNG_Menu_Encounter_WhisperOfJormag {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_WhisperOfJormag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xera.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Xera {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Xera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xunlai Jade Junkyard.
+        /// </summary>
+        public static string LNG_Menu_Encounter_XunlaiJadeJunkyard {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_XunlaiJadeJunkyard", resourceCulture);
             }
         }
         
@@ -106,6 +799,258 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Filter.
+        /// </summary>
+        public static string LNG_Menu_Filter {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Types.
+        /// </summary>
+        public static string LNG_Menu_Filter_FileType {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_FileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .EVTC.
+        /// </summary>
+        public static string LNG_Menu_Filter_FileType_Evtc {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_FileType_Evtc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .EVTC.ZIP.
+        /// </summary>
+        public static string LNG_Menu_Filter_FileType_EvtcZip {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_FileType_EvtcZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .ZEVTC.
+        /// </summary>
+        public static string LNG_Menu_Filter_FileType_ZEvtc {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_FileType_ZEvtc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fractels.
+        /// </summary>
+        public static string LNG_Menu_Filter_Fractels {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Fractels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profession.
+        /// </summary>
+        public static string LNG_Menu_Filter_Prof {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Prof", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raids.
+        /// </summary>
+        public static string LNG_Menu_Filter_Raids {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Raids", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Sort.
+        /// </summary>
+        public static string LNG_Menu_Filter_Sort {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Sort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ↑ Ascending.
+        /// </summary>
+        public static string LNG_Menu_Filter_Sort_Asc {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Sort_Asc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Charcter Name.
+        /// </summary>
+        public static string LNG_Menu_Filter_Sort_CharName {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Sort_CharName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string LNG_Menu_Filter_Sort_Date {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Sort_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ↓ Descending.
+        /// </summary>
+        public static string LNG_Menu_Filter_Sort_Des {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Sort_Des", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Length.
+        /// </summary>
+        public static string LNG_Menu_Filter_Sort_Length {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Sort_Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string LNG_Menu_Filter_Sort_Username {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Sort_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Specialization.
+        /// </summary>
+        public static string LNG_Menu_Filter_Spec {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Spec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strikes.
+        /// </summary>
+        public static string LNG_Menu_Filter_Strikes {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Strikes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Help.
+        /// </summary>
+        public static string LNG_Menu_Help {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string LNG_Menu_Help_About {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Help_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elementalist.
+        /// </summary>
+        public static string LNG_Menu_Prof_Elementalist {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Elementalist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Engineer.
+        /// </summary>
+        public static string LNG_Menu_Prof_Engineer {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Engineer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guardian.
+        /// </summary>
+        public static string LNG_Menu_Prof_Guardian {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Guardian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mesmer.
+        /// </summary>
+        public static string LNG_Menu_Prof_Mesmer {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Mesmer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Necromancer.
+        /// </summary>
+        public static string LNG_Menu_Prof_Necromancer {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Necromancer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ranger.
+        /// </summary>
+        public static string LNG_Menu_Prof_Ranger {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Ranger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenant.
+        /// </summary>
+        public static string LNG_Menu_Prof_Revenant {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Revenant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thief.
+        /// </summary>
+        public static string LNG_Menu_Prof_Thief {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Thief", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warrier.
+        /// </summary>
+        public static string LNG_Menu_Prof_Warrior {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Warrior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Settings.
         /// </summary>
         public static string LNG_Menu_Settings {
@@ -115,20 +1060,20 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear Encounter Filter.
+        /// </summary>
+        public static string LNG_Menu_Settings_ClearFilter {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Settings_ClearFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark Mode.
         /// </summary>
         public static string LNG_Menu_Settings_DarkMode {
             get {
                 return ResourceManager.GetString("LNG_Menu_Settings_DarkMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GW2 Api.
-        /// </summary>
-        public static string LNG_Menu_Settings_GW2Api {
-            get {
-                return ResourceManager.GetString("LNG_Menu_Settings_GW2Api", resourceCulture);
             }
         }
         
@@ -156,6 +1101,69 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         public static string LNG_Menu_Settings_PageAmount {
             get {
                 return ResourceManager.GetString("LNG_Menu_Settings_PageAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string LNG_Menu_Spec_None {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Spec_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language code: {0}.
+        /// </summary>
+        public static string LNG_Restart_Language_Body {
+            get {
+                return ResourceManager.GetString("LNG_Restart_Language_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart required for language change to take effect.
+        /// </summary>
+        public static string LNG_Restart_Language_Title {
+            get {
+                return ResourceManager.GetString("LNG_Restart_Language_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark Theme: {0}.
+        /// </summary>
+        public static string LNG_Restart_Theme_Body {
+            get {
+                return ResourceManager.GetString("LNG_Restart_Theme_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart required for theme change to take effect.
+        /// </summary>
+        public static string LNG_Restart_Theme_Title {
+            get {
+                return ResourceManager.GetString("LNG_Restart_Theme_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select All.
+        /// </summary>
+        public static string LNG_Select_All {
+            get {
+                return ResourceManager.GetString("LNG_Select_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all filtered files.
+        /// </summary>
+        public static string LNG_Select_All_Tooltip {
+            get {
+                return ResourceManager.GetString("LNG_Select_All_Tooltip", resourceCulture);
             }
         }
     }

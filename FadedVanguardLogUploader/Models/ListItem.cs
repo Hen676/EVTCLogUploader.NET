@@ -1,11 +1,11 @@
-﻿using FadedVanguardLogUploader.Enums;
-using FadedVanguardLogUploader.IO;
+﻿using EVTCLogUploader.Enums;
+using EVTCLogUploader.IO;
 using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-namespace FadedVanguardLogUploader.Models
+namespace EVTCLogUploader.Models
 {
     public class ListItem
     {
@@ -24,12 +24,13 @@ namespace FadedVanguardLogUploader.Models
         public string ProfAndSpec { get; set; } = string.Empty;
         public string ProfAndSpecIcon { get; set; } = string.Empty;
         public bool IsSelected { get; set; } = false;
+        public FileType FileType { get; set; } = FileType.None;
 
 #if DEBUG
         private static int i = 0;
 #endif
 
-        public ListItem(string FullPath, string Name, DateTime CreationDate, string UserName, string CharcterName, TimeSpan Length, Profession CharcterClass, Specialization CharcterSpec, Encounter Encounter, string UploadUrl)
+        public ListItem(string FullPath, string Name, DateTime CreationDate, string UserName, string CharcterName, TimeSpan Length, Profession CharcterClass, Specialization CharcterSpec, Encounter Encounter, string UploadUrl, FileType FileType)
         {
             this.FullPath = FullPath;
             this.Name = Name;
@@ -41,6 +42,7 @@ namespace FadedVanguardLogUploader.Models
             this.CharcterSpec = CharcterSpec;
             this.Encounter = Encounter;
             this.UploadUrl = UploadUrl;
+            this.FileType = FileType;
             LoadDisplayInfomation(CharcterClass, CharcterSpec);
         }
 
@@ -61,11 +63,14 @@ namespace FadedVanguardLogUploader.Models
         public void LoadData()
         {
             BinaryArrayReaderIO reader;
+            bool isZEVTC = FullPath.EndsWith(".zevtc", StringComparison.OrdinalIgnoreCase);
 
             // Uncompress EVTC if needed
             if (FullPath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)
-                || FullPath.EndsWith(".zevtc", StringComparison.OrdinalIgnoreCase))
+                || isZEVTC)
             {
+                FileType = isZEVTC ? FileType.ZEVTC : FileType.EVTCZIP;
+
                 using ZipArchive zip = ZipFile.Open(FullPath, ZipArchiveMode.Read);
                 using Stream data = zip.Entries[0].Open();
                 var bytes = new byte[zip.Entries[0].Length];
@@ -81,7 +86,10 @@ namespace FadedVanguardLogUploader.Models
                 reader = new BinaryArrayReaderIO(bytes, new UTF8Encoding());
             }
             else
+            {
+                FileType = FileType.EVTC;
                 reader = new BinaryArrayReaderIO(File.ReadAllBytes(FullPath), new UTF8Encoding());
+            }
 
             // Read Log
             BinaryReaderHandlerIO handler = new(reader);

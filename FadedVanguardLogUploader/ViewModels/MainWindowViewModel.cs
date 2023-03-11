@@ -1,14 +1,16 @@
 using Avalonia.Controls;
-using FadedVanguardLogUploader.Enums;
-using FadedVanguardLogUploader.IO;
+using EVTCLogUploader.Enums;
+using EVTCLogUploader.IO;
+using Microsoft.CodeAnalysis.Operations;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
 
-namespace FadedVanguardLogUploader.ViewModels
+namespace EVTCLogUploader.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
@@ -39,14 +41,6 @@ namespace FadedVanguardLogUploader.ViewModels
                 this.RaiseAndSetIfChanged(ref modeToggle, value);
             }
         }
-        public bool Gw2ApiToggle
-        {
-            get => gw2ApiToggle;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref gw2ApiToggle, value);
-            }
-        }
         public bool ErrorFilterToggle
         {
             get => errorFilterToggle;
@@ -72,18 +66,21 @@ namespace FadedVanguardLogUploader.ViewModels
             }
         }
         public ObservableCollection<Encounter> FilterList { get; } = new(App.Settings.FilterEncounter);
+        public ObservableCollection<Profession> FilterProfessionList { get; } = new(App.Settings.FilterProfession);
+        public ObservableCollection<FileType> FilterFileTypeList { get; } = new(App.Settings.FilterFileType);
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-
+        public ReactiveCommand<Unit, Unit> SelectCommand { get; }
+        public ReactiveCommand<Unit, Unit> UnselectCommand { get; }
         public ReactiveCommand<Unit, Unit> ModeCommand { get; }
         public ReactiveCommand<string, Unit> LanguageCommand { get; }
-
         public ReactiveCommand<Unit, Unit> AscDesToggleCommand { get; }
         public ReactiveCommand<SortingType, Unit> SortCommand { get; }
-        public ReactiveCommand<Encounter, Unit> FilterCommand { get; }
+        public ReactiveCommand<FileType, Unit> FilterFileTypeCommand { get; }
+        public ReactiveCommand<Encounter, Unit> FilterEncounterCommand { get; }
+        public ReactiveCommand<Profession, Unit> FilterProfCommand { get; }
         public ReactiveCommand<Unit, Unit> ClearFilterCommand { get; }
-        public ReactiveCommand<Unit, Unit> UseGw2ApiCommand { get; }
         public ReactiveCommand<Unit, Unit> ErrorHiddenCommand { get; }
         public ReactiveCommand<Unit, Unit> WipeDBCommand { get; }
         public ReactiveCommand<Window, Unit> CloseCommand { get; }
@@ -91,7 +88,6 @@ namespace FadedVanguardLogUploader.ViewModels
         private TimeSpan? time = null;
         private DateTimeOffset? date = null;
         private bool modeToggle = App.Settings.ModeToggle;
-        private bool gw2ApiToggle = App.Settings.ApiToggle;
         private bool errorFilterToggle = App.Settings.ErrorFilterToggle;
         private bool ascDesToggleHeader = App.Settings.SortingToggle;
         private SortingType sort = App.Settings.SortingType;
@@ -100,19 +96,45 @@ namespace FadedVanguardLogUploader.ViewModels
         {
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
+            SelectCommand = ReactiveCommand.Create(SelectAll);
+            UnselectCommand = ReactiveCommand.Create(UnselectAll);
             ModeCommand = ReactiveCommand.Create(ModeAsync);
             LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
 
             AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
             SortCommand = ReactiveCommand.Create<SortingType>(Sort);
-            FilterCommand = ReactiveCommand.Create<Encounter>(Filter);
+            FilterFileTypeCommand = ReactiveCommand.Create<FileType>(FilterFileType);
+            FilterEncounterCommand = ReactiveCommand.Create<Encounter>(FilterEncounter);
+            FilterProfCommand = ReactiveCommand.Create<Profession>(FilterProf);
             ClearFilterCommand = ReactiveCommand.Create(ClearFilter);
 
-            UseGw2ApiCommand = ReactiveCommand.Create(UseGw2Api);
             ErrorHiddenCommand = ReactiveCommand.Create(ErrorHidden);
             WipeDBCommand = ReactiveCommand.Create(WipeDB);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
+        }
+
+        private void UnselectAll() => List.UnselectAll();
+        private void SelectAll() => List.SelectAll();
+
+        private void FilterFileType(FileType fileType)
+        {
+            if (!FilterFileTypeList.Contains(fileType))
+                FilterFileTypeList.Add(fileType);
+            else
+                FilterFileTypeList.Remove(fileType);
+            App.Settings.FilterFileType = new(FilterFileTypeList);
+            List.Filter();
+        }
+
+        private void FilterProf(Profession profession)
+        {
+            if (!FilterProfessionList.Contains(profession))
+                FilterProfessionList.Add(profession);
+            else
+                FilterProfessionList.Remove(profession);
+            App.Settings.FilterProfession = new(FilterProfessionList);
+            List.Filter();
         }
 
         private void AscDesToggle()
@@ -125,7 +147,7 @@ namespace FadedVanguardLogUploader.ViewModels
             App.Settings.SortingType = SortType = type;
             List.Filter();
         }
-        private void Filter(Encounter encounter)
+        private void FilterEncounter(Encounter encounter)
         {
             if (!FilterList.Contains(encounter))
                 FilterList.Add(encounter);
@@ -145,21 +167,9 @@ namespace FadedVanguardLogUploader.ViewModels
             List.Filter();
         }
 
-        private void Close(Window window)
-        {
-            window.Close();
-        }
-        private void WipeDB()
-        {
-            List.storageIO.WipeDB();
-        }
-        private void UseGw2Api()
-        {
-            App.Settings.ApiToggle = Gw2ApiToggle = !Gw2ApiToggle;
-            if (Gw2ApiToggle)
-                GW2ApiHttps.Init();
-        }
-
+        private void Close(Window window) => window.Close();
+        private void Save() => App.Settings.Save();
+        private void WipeDB() => List.storageIO.WipeDB();
 
         private async void ModeAsync()
         {
@@ -184,19 +194,14 @@ namespace FadedVanguardLogUploader.ViewModels
             await ShowDialog.Handle(popup);
         }
 
-        private void Save()
-        {
-            App.Settings.Save();
-        }
-
         public async void About()
         {
             var popup = new PopupViewModel
             {
-                Title = "Faded Vanguard Log Uploader\n\n" +
-                "Version: 1.0.0\n" +
-                "Creator: Hen676\n" +
-                "Repository: https://github.com/Hen676/FadedDiscordBot.NET"
+                Title = App.ProgramName,
+                Body = string.Format(Resources.Lang.Resources.LNG_About_Version_Colon, App.Version+"\n") +
+                string.Format(Resources.Lang.Resources.LNG_About_Creator_Colon, "Hen676\n") +
+                string.Format(Resources.Lang.Resources.LNG_About_Repository_Colon, "https://github.com/Hen676/EVTCLogUploader.NET")
             };
             await ShowDialog.Handle(popup);
         }

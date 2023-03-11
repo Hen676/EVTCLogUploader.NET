@@ -1,5 +1,5 @@
-﻿using FadedVanguardLogUploader.Enums;
-using FadedVanguardLogUploader.Models;
+﻿using EVTCLogUploader.Enums;
+using EVTCLogUploader.Models;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Concurrent;
@@ -7,9 +7,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace FadedVanguardLogUploader.IO
+namespace EVTCLogUploader.IO
 {
     public class StorageIO
     {
@@ -21,10 +20,12 @@ namespace FadedVanguardLogUploader.IO
         {
             storagePath = Directory.GetCurrentDirectory() + storageName;
             connectionString = "Data Source =" + storagePath + ";";
+            string[] args = Environment.GetCommandLineArgs();
+            List<string> parameters = args.ToList().ConvertAll(x => x.ToLower());
+            if (parameters.Contains("-wipe"))
+                WipeDB();
             if (!File.Exists(storagePath))
-            {
                 CreateDB();
-            }
         }
 
         private void CreateDB()
@@ -45,6 +46,7 @@ namespace FadedVanguardLogUploader.IO
                 "Encounter      INTEGER," +
                 "UploadUrl      TEXT," +
                 "Success        INTEGER," +
+                "FileType       INTEGER," +
                 "PRIMARY KEY(FullPath));";
             command.ExecuteNonQuery();
             connection.Close();
@@ -77,7 +79,8 @@ namespace FadedVanguardLogUploader.IO
                     (Profession)(long)reader.GetValue("CharcterClass"),
                     (Specialization)(long)reader.GetValue("CharcterSpec"),
                     (Encounter)(long)reader.GetValue("Encounter"),
-                    url
+                    url,
+                    (FileType)(long)reader.GetValue("FileType")
                     ));
             }
 
@@ -102,9 +105,9 @@ namespace FadedVanguardLogUploader.IO
                 using SqliteCommand command = new();
                 command.Connection = connection;
                 command.CommandText = "INSERT INTO EVTCFile (" +
-                    "FullPath,Name,CreationDate,UserName,CharcterName,Length,CharcterClass,CharcterSpec,Encounter,Success" +
+                    "FullPath,Name,CreationDate,UserName,CharcterName,Length,CharcterClass,CharcterSpec,Encounter,Success,FileType" +
                     ") VALUES (" +
-                    "@FullPath,@Name,@CreationDate,@UserName,@CharcterName,@Length,@CharcterClass,@CharcterSpec,@Encounter,@Success);";
+                    "@FullPath,@Name,@CreationDate,@UserName,@CharcterName,@Length,@CharcterClass,@CharcterSpec,@Encounter,@Success,@FileType);";
                 command.Parameters.Add("@FullPath", SqliteType.Text).Value = item.FullPath;
                 command.Parameters.Add("@Name", SqliteType.Text).Value = item.Name;
                 command.Parameters.Add("@CreationDate", SqliteType.Integer).Value = item.CreationDate.Ticks;
@@ -115,6 +118,7 @@ namespace FadedVanguardLogUploader.IO
                 command.Parameters.Add("@CharcterSpec", SqliteType.Integer).Value = (int)item.CharcterSpec;
                 command.Parameters.Add("@Encounter", SqliteType.Integer).Value = (int)item.Encounter;
                 command.Parameters.Add("@Success", SqliteType.Integer).Value = 0;
+                command.Parameters.Add("@FileType", SqliteType.Integer).Value = item.FileType;
                 _ = command.ExecuteNonQuery();
             }
             connection.Close();

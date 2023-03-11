@@ -1,6 +1,6 @@
 using ReactiveUI;
 
-namespace FadedVanguardLogUploader.ViewModels
+namespace EVTCLogUploader.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {

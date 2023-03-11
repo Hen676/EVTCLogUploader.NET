@@ -1,4 +1,4 @@
-﻿namespace FadedVanguardLogUploader.Enums
+﻿namespace EVTCLogUploader.Enums
 {
     public enum SortingType
     {

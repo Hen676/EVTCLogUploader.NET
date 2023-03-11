@@ -1,10 +1,10 @@
-﻿using FadedVanguardLogUploader.Models.Responce;
+﻿using EVTCLogUploader.Models.Responce;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace FadedVanguardLogUploader.Utils.Converter
+namespace EVTCLogUploader.Utils.Converter
 {
     public class PlayerJsonConverter : JsonConverter<List<PlayerResponce>>
     {

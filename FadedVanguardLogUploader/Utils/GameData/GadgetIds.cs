@@ -1,4 +1,4 @@
-﻿namespace FadedVanguardLogUploader.Utils.GameData
+﻿namespace EVTCLogUploader.Utils.GameData
 {
     public static class GadgetIds
     {

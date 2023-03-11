@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace FadedVanguardLogUploader.IO
+namespace EVTCLogUploader.IO
 {
     public class BinaryArrayReaderIO
     {

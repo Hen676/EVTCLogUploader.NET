@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 
-namespace FadedVanguardLogUploader.Views
+namespace EVTCLogUploader.Views
 {
     public partial class Popup : Window
     {

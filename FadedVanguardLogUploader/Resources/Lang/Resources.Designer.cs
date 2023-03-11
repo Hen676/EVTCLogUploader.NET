@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FadedVanguardLogUploader.Resources.Lang {
+namespace EVTCLogUploader.Resources.Lang {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FadedVanguardLogUploader.Resources.Lang.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EVTCLogUploader.Resources.Lang.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,6 +61,33 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creator: {0}.
+        /// </summary>
+        public static string LNG_About_Creator_Colon {
+            get {
+                return ResourceManager.GetString("LNG_About_Creator_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repository: {0}.
+        /// </summary>
+        public static string LNG_About_Repository_Colon {
+            get {
+                return ResourceManager.GetString("LNG_About_Repository_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: {0}.
+        /// </summary>
+        public static string LNG_About_Version_Colon {
+            get {
+                return ResourceManager.GetString("LNG_About_Version_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string LNG_Close {
@@ -70,7 +97,7 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Charcter Name.
+        ///   Looks up a localized string similar to Character Name.
         /// </summary>
         public static string LNG_DataGrid_Header_CharcterName {
             get {
@@ -106,7 +133,16 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profesion.
+        ///   Looks up a localized string similar to File Type.
+        /// </summary>
+        public static string LNG_DataGrid_Header_FileType {
+            get {
+                return ResourceManager.GetString("LNG_DataGrid_Header_FileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profession.
         /// </summary>
         public static string LNG_DataGrid_Header_Profesion {
             get {
@@ -147,6 +183,24 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         public static string LNG_DataGrid_Tooltip_Url_Colon {
             get {
                 return ResourceManager.GetString("LNG_DataGrid_Tooltip_Url_Colon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unselect All.
+        /// </summary>
+        public static string LNG_Deselect_All {
+            get {
+                return ResourceManager.GetString("LNG_Deselect_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unselect all available files.
+        /// </summary>
+        public static string LNG_Deselect_All_Tooltip {
+            get {
+                return ResourceManager.GetString("LNG_Deselect_All_Tooltip", resourceCulture);
             }
         }
         
@@ -754,11 +808,56 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Types.
+        /// </summary>
+        public static string LNG_Menu_Filter_FileType {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_FileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .EVTC.
+        /// </summary>
+        public static string LNG_Menu_Filter_FileType_Evtc {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_FileType_Evtc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .EVTC.ZIP.
+        /// </summary>
+        public static string LNG_Menu_Filter_FileType_EvtcZip {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_FileType_EvtcZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .ZEVTC.
+        /// </summary>
+        public static string LNG_Menu_Filter_FileType_ZEvtc {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_FileType_ZEvtc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fractels.
         /// </summary>
         public static string LNG_Menu_Filter_Fractels {
             get {
                 return ResourceManager.GetString("LNG_Menu_Filter_Fractels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profession.
+        /// </summary>
+        public static string LNG_Menu_Filter_Prof {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Prof", resourceCulture);
             }
         }
         
@@ -790,7 +889,7 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Charcter Name.
+        ///   Looks up a localized string similar to Character Name.
         /// </summary>
         public static string LNG_Menu_Filter_Sort_CharName {
             get {
@@ -835,6 +934,15 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Specialization.
+        /// </summary>
+        public static string LNG_Menu_Filter_Spec {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Filter_Spec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Strikes.
         /// </summary>
         public static string LNG_Menu_Filter_Strikes {
@@ -862,6 +970,87 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Elementalist.
+        /// </summary>
+        public static string LNG_Menu_Prof_Elementalist {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Elementalist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Engineer.
+        /// </summary>
+        public static string LNG_Menu_Prof_Engineer {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Engineer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guardian.
+        /// </summary>
+        public static string LNG_Menu_Prof_Guardian {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Guardian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mesmer.
+        /// </summary>
+        public static string LNG_Menu_Prof_Mesmer {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Mesmer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Necromancer.
+        /// </summary>
+        public static string LNG_Menu_Prof_Necromancer {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Necromancer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ranger.
+        /// </summary>
+        public static string LNG_Menu_Prof_Ranger {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Ranger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenant.
+        /// </summary>
+        public static string LNG_Menu_Prof_Revenant {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Revenant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thief.
+        /// </summary>
+        public static string LNG_Menu_Prof_Thief {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Thief", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warrier.
+        /// </summary>
+        public static string LNG_Menu_Prof_Warrior {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Prof_Warrior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Settings.
         /// </summary>
         public static string LNG_Menu_Settings {
@@ -871,7 +1060,7 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear Encounter Filter.
+        ///   Looks up a localized string similar to Clear Filter.
         /// </summary>
         public static string LNG_Menu_Settings_ClearFilter {
             get {
@@ -885,15 +1074,6 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         public static string LNG_Menu_Settings_DarkMode {
             get {
                 return ResourceManager.GetString("LNG_Menu_Settings_DarkMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GW2 Api.
-        /// </summary>
-        public static string LNG_Menu_Settings_GW2Api {
-            get {
-                return ResourceManager.GetString("LNG_Menu_Settings_GW2Api", resourceCulture);
             }
         }
         
@@ -916,11 +1096,11 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page Amount.
+        ///   Looks up a localized string similar to None.
         /// </summary>
-        public static string LNG_Menu_Settings_PageAmount {
+        public static string LNG_Menu_Spec_None {
             get {
-                return ResourceManager.GetString("LNG_Menu_Settings_PageAmount", resourceCulture);
+                return ResourceManager.GetString("LNG_Menu_Spec_None", resourceCulture);
             }
         }
         
@@ -934,7 +1114,7 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restart required for language change to take effect.
+        ///   Looks up a localized string similar to Restart is required for the language change to take effect.
         /// </summary>
         public static string LNG_Restart_Language_Title {
             get {
@@ -952,11 +1132,29 @@ namespace FadedVanguardLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restart required for theme change to take effect.
+        ///   Looks up a localized string similar to Restart is required for theme change to take effect.
         /// </summary>
         public static string LNG_Restart_Theme_Title {
             get {
                 return ResourceManager.GetString("LNG_Restart_Theme_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select All.
+        /// </summary>
+        public static string LNG_Select_All {
+            get {
+                return ResourceManager.GetString("LNG_Select_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all filtered files.
+        /// </summary>
+        public static string LNG_Select_All_Tooltip {
+            get {
+                return ResourceManager.GetString("LNG_Select_All_Tooltip", resourceCulture);
             }
         }
     }

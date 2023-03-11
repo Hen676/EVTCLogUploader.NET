@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FadedVanguardLogUploader.Models.Responce
+namespace EVTCLogUploader.Models.Responce
 {
     internal class SpecializationIconResponce
     {

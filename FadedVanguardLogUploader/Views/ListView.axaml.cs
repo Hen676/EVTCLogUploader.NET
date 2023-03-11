@@ -2,12 +2,12 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using FadedVanguardLogUploader.ViewModels;
+using EVTCLogUploader.ViewModels;
 using ReactiveUI;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FadedVanguardLogUploader.Views
+namespace EVTCLogUploader.Views
 {
     public partial class ListView : ReactiveUserControl<ListViewModel>
     {

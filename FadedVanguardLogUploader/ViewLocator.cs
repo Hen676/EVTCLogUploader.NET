@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using FadedVanguardLogUploader.ViewModels;
+using EVTCLogUploader.ViewModels;
 using System;
 
-namespace FadedVanguardLogUploader
+namespace EVTCLogUploader
 {
     public class ViewLocator : IDataTemplate
     {

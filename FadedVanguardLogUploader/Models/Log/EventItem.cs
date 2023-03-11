@@ -1,6 +1,6 @@
-﻿using FadedVanguardLogUploader.Enums;
+﻿using EVTCLogUploader.Enums;
 
-namespace FadedVanguardLogUploader.Models.Log
+namespace EVTCLogUploader.Models.Log
 {
     public class EventItem
     {

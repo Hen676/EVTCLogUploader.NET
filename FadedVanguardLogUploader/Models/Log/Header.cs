@@ -1,4 +1,4 @@
-﻿namespace FadedVanguardLogUploader.Models.Log
+﻿namespace EVTCLogUploader.Models.Log
 {
     public class Header
     {

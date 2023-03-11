@@ -2,7 +2,7 @@
 using ReactiveUI;
 using System.Reactive;
 
-namespace FadedVanguardLogUploader.ViewModels
+namespace EVTCLogUploader.ViewModels
 {
     public class PopupViewModel : ViewModelBase
     {

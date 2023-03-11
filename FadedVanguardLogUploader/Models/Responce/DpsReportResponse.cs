@@ -1,8 +1,8 @@
-﻿using FadedVanguardLogUploader.Utils.Converter;
+﻿using EVTCLogUploader.Utils.Converter;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace FadedVanguardLogUploader.Models.Responce
+namespace EVTCLogUploader.Models.Responce
 {
     public class DpsReportResponse
     {

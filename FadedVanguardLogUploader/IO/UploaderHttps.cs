@@ -1,10 +1,10 @@
-﻿using FadedVanguardLogUploader.Models.Responce;
+﻿using EVTCLogUploader.Models.Responce;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace FadedVanguardLogUploader.IO
+namespace EVTCLogUploader.IO
 {
     internal class UploaderHttps
     {

@@ -1,11 +1,11 @@
-﻿using FadedVanguardLogUploader.Enums;
-using FadedVanguardLogUploader.Models.Log;
-using FadedVanguardLogUploader.Utils.Determiners;
-using FadedVanguardLogUploader.Utils.GameData;
+﻿using EVTCLogUploader.Enums;
+using EVTCLogUploader.Models.Log;
+using EVTCLogUploader.Utils.Determiners;
+using EVTCLogUploader.Utils.GameData;
 using System;
 using System.Collections.Generic;
 
-namespace FadedVanguardLogUploader.IO
+namespace EVTCLogUploader.IO
 {
     public class BinaryReaderHandlerIO
     {
@@ -89,8 +89,10 @@ namespace FadedVanguardLogUploader.IO
         {
             int agentCount = reader.ReadInt();
             List<AgentItem> val = new();
-            List<uint> ids = new();
-            ids.Add(id);
+            List<uint> ids = new()
+            {
+                id
+            };
 
             switch (id)
             {

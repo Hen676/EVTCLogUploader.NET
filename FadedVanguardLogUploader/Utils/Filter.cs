@@ -1,9 +1,8 @@
-﻿using FadedVanguardLogUploader.Enums;
-using FadedVanguardLogUploader.Models;
+﻿using EVTCLogUploader.Enums;
+using EVTCLogUploader.Models;
 using System;
-using System.Collections.Generic;
 
-namespace FadedVanguardLogUploader.Utils
+namespace EVTCLogUploader.Utils
 {
     internal class Filter
     {
@@ -14,8 +13,11 @@ namespace FadedVanguardLogUploader.Utils
 
         public bool Predicate(ListItem i)
         {
-            return (App.Settings.FilterEncounter.Count == 0 || App.Settings.FilterEncounter.Contains(i.Encounter)) 
-                && i.CreationDate >= timeOffsetMin 
+            return (App.Settings.FilterEncounter.Count == 0 || App.Settings.FilterEncounter.Contains(i.Encounter))
+                && (App.Settings.FilterProfession.Count == 0 || App.Settings.FilterProfession.Contains(i.CharcterClass))
+                && (App.Settings.FilterFileType.Count == 0 || App.Settings.FilterFileType.Contains(i.FileType))
+                && !(App.Settings.ErrorFilterToggle && i.Encounter == Encounter.Unkown)
+                && i.CreationDate >= timeOffsetMin
                 && i.CreationDate <= timeOffsetMax;
         }
     }

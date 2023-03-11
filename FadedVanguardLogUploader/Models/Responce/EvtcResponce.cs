@@ -1,4 +1,4 @@
-﻿namespace FadedVanguardLogUploader.Models.Responce
+﻿namespace EVTCLogUploader.Models.Responce
 {
     public class EvtcResponce
     {
