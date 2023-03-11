@@ -763,6 +763,24 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compress All EVTC Files.
+        /// </summary>
+        public static string LNG_Menu_File_CompressAll {
+            get {
+                return ResourceManager.GetString("LNG_Menu_File_CompressAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compress Selected EVTC Files.
+        /// </summary>
+        public static string LNG_Menu_File_CompressSelected {
+            get {
+                return ResourceManager.GetString("LNG_Menu_File_CompressSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string LNG_Menu_File_Exit {

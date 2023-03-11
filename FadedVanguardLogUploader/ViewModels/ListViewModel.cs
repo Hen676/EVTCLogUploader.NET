@@ -1,5 +1,6 @@
 ﻿using Avalonia;
-using Avalonia.Markup.Xaml.Templates;
+using Avalonia.Controls.Shapes;
+using Avalonia.Logging;
 using Avalonia.Threading;
 using DynamicData;
 using DynamicData.Kernel;
@@ -13,7 +14,9 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -166,8 +169,8 @@ namespace EVTCLogUploader.ViewModels
                         ListItem item = new(file);
                         temp.Add(item);
                         StoredItems.Add(item);
+                        ProgressBarValue++;
                     }));
-                    ProgressBarValue++;
                 }
             }
             catch (UnauthorizedAccessException ex)

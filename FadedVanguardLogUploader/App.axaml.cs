@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Themes.Fluent;
-using EVTCLogUploader.IO;
 using EVTCLogUploader.Settings;
 using EVTCLogUploader.Views;
 using System;

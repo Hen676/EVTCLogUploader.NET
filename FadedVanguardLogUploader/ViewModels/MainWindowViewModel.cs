@@ -1,11 +1,8 @@
 using Avalonia.Controls;
 using EVTCLogUploader.Enums;
-using EVTCLogUploader.IO;
-using Microsoft.CodeAnalysis.Operations;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;

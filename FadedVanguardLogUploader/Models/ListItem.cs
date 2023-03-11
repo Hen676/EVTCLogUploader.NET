@@ -55,7 +55,7 @@ namespace EVTCLogUploader.Models
             LoadData();
             LoadDisplayInfomation(CharcterClass, CharcterSpec);
 #if DEBUG
-            Name += i;
+            Name = i + " " + Name;
             i++;
 #endif
         }

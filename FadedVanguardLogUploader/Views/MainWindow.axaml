@@ -109,6 +109,22 @@
 								  Command="{Binding LanguageCommand}"
 								  CommandParameter="en-GB">
 						</MenuItem>
+						<MenuItem Header="Deutsch"
+								  Command="{Binding LanguageCommand}"
+								  CommandParameter="de">
+						</MenuItem>
+						<MenuItem Header="Italiano"
+								  Command="{Binding LanguageCommand}"
+								  CommandParameter="it">
+						</MenuItem>
+						<MenuItem Header="Français"
+								  Command="{Binding LanguageCommand}"
+								  CommandParameter="fr">
+						</MenuItem>
+						<MenuItem Header="Portugais Brésilien"
+								  Command="{Binding LanguageCommand}"
+								  CommandParameter="pt-BR">
+						</MenuItem>
 						<MenuItem Header="Polski"
 								  Command="{Binding LanguageCommand}"
 								  CommandParameter="pl-PL">

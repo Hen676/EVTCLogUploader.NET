@@ -118,269 +118,269 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LNG_About_Creator_Colon" xml:space="preserve">
-    <value>Creator: {0}</value>
+    <value>Creatore: {0}</value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_About_Repository_Colon" xml:space="preserve">
-    <value>Repository: {0}</value>
+    <value>Deposito: {0}</value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_About_Version_Colon" xml:space="preserve">
-    <value>Version: {0}</value>
+    <value>Versione: {0}</value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Vicino</value>
   </data>
   <data name="LNG_DataGrid_Header_CharcterName" xml:space="preserve">
-    <value>Character Name</value>
+    <value>Nome del personaggio</value>
   </data>
   <data name="LNG_DataGrid_Header_Date" xml:space="preserve">
-    <value>Date</value>
+    <value>Data</value>
   </data>
   <data name="LNG_DataGrid_Header_Duration" xml:space="preserve">
-    <value>Duration</value>
+    <value>Durata</value>
   </data>
   <data name="LNG_DataGrid_Header_Encounter" xml:space="preserve">
-    <value>Encounter</value>
+    <value>Incontrare</value>
   </data>
   <data name="LNG_DataGrid_Header_FileType" xml:space="preserve">
-    <value>File Type</value>
+    <value>Tipo di file</value>
   </data>
   <data name="LNG_DataGrid_Header_Profesion" xml:space="preserve">
-    <value>Profession</value>
+    <value>Professione</value>
   </data>
   <data name="LNG_DataGrid_Header_Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Nome utente</value>
   </data>
   <data name="LNG_DataGrid_Tooltip_FileName_Colon" xml:space="preserve">
-    <value>File Name: </value>
+    <value>Nome del file: </value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_DataGrid_Tooltip_FilePath_Colon" xml:space="preserve">
-    <value>File Path: </value>
+    <value>Percorso del file: </value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_DataGrid_Tooltip_Url_Colon" xml:space="preserve">
-    <value>Upload Url: </value>
+    <value>Carica URL: </value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_Deselect_All" xml:space="preserve">
-    <value>Unselect All</value>
+    <value>Deseleziona tutto</value>
   </data>
   <data name="LNG_Deselect_All_Tooltip" xml:space="preserve">
-    <value>Unselect all available files</value>
+    <value>Deseleziona tutti i file disponibili</value>
   </data>
   <data name="LNG_File_Count" xml:space="preserve">
-    <value> EVTC Files</value>
+    <value> File EVTC</value>
     <comment>Needs a space at the beginning</comment>
   </data>
   <data name="LNG_Filter_From_SemiColon" xml:space="preserve">
-    <value>From:</value>
+    <value>Da:</value>
   </data>
   <data name="LNG_List_Bar_Tooltip" xml:space="preserve">
-    <value>Progress bar</value>
+    <value>Barra di avanzamento</value>
   </data>
   <data name="LNG_List_Upload" xml:space="preserve">
-    <value>Upload</value>
+    <value>Caricamento</value>
   </data>
   <data name="LNG_List_Upload_Tooltip" xml:space="preserve">
-    <value>Uploads selected files</value>
+    <value>Carica i file selezionati</value>
   </data>
   <data name="LNG_Menu_Encounter_Adina" xml:space="preserve">
     <value>Cardinal Sabir</value>
   </data>
   <data name="LNG_Menu_Encounter_AetherbladeHideout" xml:space="preserve">
-    <value>Aetherblade Hideout</value>
+    <value>Nascondiglio di Aetherblade</value>
   </data>
   <data name="LNG_Menu_Encounter_Arkk" xml:space="preserve">
-    <value>Arkk</value>
+    <value>Arca</value>
   </data>
   <data name="LNG_Menu_Encounter_Artsariiv" xml:space="preserve">
     <value>Artsariiv</value>
   </data>
   <data name="LNG_Menu_Encounter_BanditTrio" xml:space="preserve">
-    <value>Prison Camp</value>
+    <value>Campo di prigionia</value>
   </data>
   <data name="LNG_Menu_Encounter_Boneskinner" xml:space="preserve">
-    <value>Boneskinner</value>
+    <value>Pelleossa</value>
   </data>
   <data name="LNG_Menu_Encounter_BrokenKing" xml:space="preserve">
-    <value>Broken King</value>
+    <value>Re spezzato</value>
   </data>
   <data name="LNG_Menu_Encounter_Cairn" xml:space="preserve">
-    <value>Cairn the Indomitable</value>
+    <value>Cairn l'Indomabile</value>
   </data>
   <data name="LNG_Menu_Encounter_ColdWar" xml:space="preserve">
-    <value>Cold War</value>
+    <value>Guerra fredda</value>
   </data>
   <data name="LNG_Menu_Encounter_ConjuredAmalgamate" xml:space="preserve">
-    <value>Conjured Amalgamate</value>
+    <value>Amalgamato Evocato</value>
   </data>
   <data name="LNG_Menu_Encounter_Deimos" xml:space="preserve">
     <value>Deimos</value>
   </data>
   <data name="LNG_Menu_Encounter_Dhuum" xml:space="preserve">
-    <value>Dhuum</value>
+    <value>Duum</value>
   </data>
   <data name="LNG_Menu_Encounter_EaterOfSouls" xml:space="preserve">
-    <value>Eater of Souls</value>
+    <value>Divoratore di anime</value>
   </data>
   <data name="LNG_Menu_Encounter_Ensolyss" xml:space="preserve">
-    <value>Ensolyss of the Endless Torment</value>
+    <value>Ensolyss del Tormento Infinito</value>
   </data>
   <data name="LNG_Menu_Encounter_EOD" xml:space="preserve">
-    <value>End of Dragons</value>
+    <value>Fine dei draghi</value>
   </data>
   <data name="LNG_Menu_Encounter_Escort" xml:space="preserve">
-    <value>Siege the Stronghold</value>
+    <value>Assedia la fortezza</value>
   </data>
   <data name="LNG_Menu_Encounter_Eyes" xml:space="preserve">
-    <value>Eye of Judgment &amp; Eye of Fate</value>
+    <value>Occhio del giudizio e Occhio del destino</value>
   </data>
   <data name="LNG_Menu_Encounter_ForgingSteel" xml:space="preserve">
-    <value>Forging Steel</value>
+    <value>Acciaio forgiato</value>
   </data>
   <data name="LNG_Menu_Encounter_FraenirOfJormag" xml:space="preserve">
-    <value>Fraenir of Jormag</value>
+    <value>Fraenir di Jormag</value>
   </data>
   <data name="LNG_Menu_Encounter_Freezie" xml:space="preserve">
-    <value>Secret Lair of the Snowmen</value>
+    <value>Tana segreta dei pupazzi di neve</value>
   </data>
   <data name="LNG_Menu_Encounter_Gorseval" xml:space="preserve">
-    <value>Gorseval the Multifarious</value>
+    <value>Gorseval il Multiforme</value>
   </data>
   <data name="LNG_Menu_Encounter_HarvestTemple" xml:space="preserve">
-    <value>Harvest Temple</value>
+    <value>Tempio del raccolto</value>
   </data>
   <data name="LNG_Menu_Encounter_KainengOverlook" xml:space="preserve">
     <value>Kaineng Overlook</value>
   </data>
   <data name="LNG_Menu_Encounter_KeepConstruct" xml:space="preserve">
-    <value>Keep Construct</value>
+    <value>Mantieni Costrutto</value>
   </data>
   <data name="LNG_Menu_Encounter_LW5" xml:space="preserve">
-    <value>The Icebrood Saga</value>
+    <value>La saga di Icebrood</value>
   </data>
   <data name="LNG_Menu_Encounter_MAMA" xml:space="preserve">
-    <value>MAMA</value>
+    <value>MAMMA</value>
   </data>
   <data name="LNG_Menu_Encounter_Mattias" xml:space="preserve">
-    <value>Matthias Gabrel</value>
+    <value>Mattia Gabrel</value>
   </data>
   <data name="LNG_Menu_Encounter_MursaatOverseer" xml:space="preserve">
-    <value>Mursaat Overseer</value>
+    <value>Sorvegliante Mursaat</value>
   </data>
   <data name="LNG_Menu_Encounter_Nightmare" xml:space="preserve">
-    <value>Nightmare Fractal</value>
+    <value>Frattale da incubo</value>
   </data>
   <data name="LNG_Menu_Encounter_Qadim" xml:space="preserve">
     <value>Qadim</value>
   </data>
   <data name="LNG_Menu_Encounter_QadimThePeerless" xml:space="preserve">
-    <value>Qadim the Peerless</value>
+    <value>Qadim l'impareggiabile</value>
   </data>
   <data name="LNG_Menu_Encounter_RiverOfSouls" xml:space="preserve">
-    <value>River of Souls</value>
+    <value>Fiume delle Anime</value>
   </data>
   <data name="LNG_Menu_Encounter_Sabetha" xml:space="preserve">
-    <value>Sabetha the Saboteur</value>
+    <value>Sabeta il Sabotatore</value>
   </data>
   <data name="LNG_Menu_Encounter_Sabir" xml:space="preserve">
-    <value>Cardinal Adina</value>
+    <value>Cardinale Adina</value>
   </data>
   <data name="LNG_Menu_Encounter_Samarog" xml:space="preserve">
-    <value>Samarog</value>
+    <value>Samog</value>
   </data>
   <data name="LNG_Menu_Encounter_ShatteredObservatory" xml:space="preserve">
-    <value>Shattered Observatory Fractal</value>
+    <value>Frattale dell'Osservatorio in frantumi</value>
   </data>
   <data name="LNG_Menu_Encounter_ShiverpeaksPass" xml:space="preserve">
-    <value>Shiverpeaks Pass</value>
+    <value>Passo Cimefredde</value>
   </data>
   <data name="LNG_Menu_Encounter_Siax" xml:space="preserve">
-    <value>Siax the Corrupted</value>
+    <value>Siax il Corrotto</value>
   </data>
   <data name="LNG_Menu_Encounter_Skorvald" xml:space="preserve">
-    <value>Skorvald the Shattered</value>
+    <value>Skorvald l'Infranto</value>
   </data>
   <data name="LNG_Menu_Encounter_Slothasor" xml:space="preserve">
     <value>Slothasor</value>
   </data>
   <data name="LNG_Menu_Encounter_SoullessHorror" xml:space="preserve">
-    <value>Soulless Horror</value>
+    <value>Orrore senz'anima</value>
   </data>
   <data name="LNG_Menu_Encounter_SunquaPeak" xml:space="preserve">
-    <value>Sunqua Peak Fractal</value>
+    <value>Sunqua picco frattale</value>
   </data>
   <data name="LNG_Menu_Encounter_TwinLargos" xml:space="preserve">
     <value>Twin Largos</value>
   </data>
   <data name="LNG_Menu_Encounter_TwistedCastle" xml:space="preserve">
-    <value>Twisted Castle</value>
+    <value>Castello Contorto</value>
   </data>
   <data name="LNG_Menu_Encounter_ValeGuardian" xml:space="preserve">
-    <value>Vale Guardian</value>
+    <value>Guardiano della Valle</value>
   </data>
   <data name="LNG_Menu_Encounter_VoiceAndClawOfTheFallen" xml:space="preserve">
-    <value>Voice of the Fallen and Claw of the Fallen</value>
+    <value>Voce dei Caduti e Artiglio dei Caduti</value>
   </data>
   <data name="LNG_Menu_Encounter_W1" xml:space="preserve">
-    <value>Spirit Vale</value>
+    <value>Valle dello Spirito</value>
   </data>
   <data name="LNG_Menu_Encounter_W2" xml:space="preserve">
-    <value>Salvation Pass</value>
+    <value>Passo della Salvezza</value>
   </data>
   <data name="LNG_Menu_Encounter_W3" xml:space="preserve">
-    <value>Stronghold of the Faithful</value>
+    <value>Roccaforte dei Fedeli</value>
   </data>
   <data name="LNG_Menu_Encounter_W4" xml:space="preserve">
-    <value>Bastion of the Penitent</value>
+    <value>Bastione del Penitente</value>
   </data>
   <data name="LNG_Menu_Encounter_W5" xml:space="preserve">
-    <value>Hall of Chains</value>
+    <value>Sala delle Catene</value>
   </data>
   <data name="LNG_Menu_Encounter_W6" xml:space="preserve">
-    <value>Mythwright Gambit</value>
+    <value>Mitologo Gambit</value>
   </data>
   <data name="LNG_Menu_Encounter_W7" xml:space="preserve">
-    <value>The Key of Ahdashim</value>
+    <value>La chiave di Ahdashim</value>
   </data>
   <data name="LNG_Menu_Encounter_WhisperOfJormag" xml:space="preserve">
-    <value>Whisper of Jormag</value>
+    <value>Sussurro di Jormag</value>
   </data>
   <data name="LNG_Menu_Encounter_Xera" xml:space="preserve">
     <value>Xera</value>
   </data>
   <data name="LNG_Menu_Encounter_XunlaiJadeJunkyard" xml:space="preserve">
-    <value>Xunlai Jade Junkyard</value>
+    <value>Discarica di Giada Xunlai</value>
   </data>
   <data name="LNG_Menu_File" xml:space="preserve">
     <value>_File</value>
   </data>
   <data name="LNG_Menu_File_CompressAll" xml:space="preserve">
-    <value>Compress All EVTC Files</value>
+    <value>Comprimi tutti i file EVTC</value>
   </data>
   <data name="LNG_Menu_File_CompressSelected" xml:space="preserve">
-    <value>Compress Selected EVTC Files</value>
+    <value>Comprimi i file EVTC selezionati</value>
   </data>
   <data name="LNG_Menu_File_Exit" xml:space="preserve">
-    <value>Exit</value>
+    <value>Uscita</value>
   </data>
   <data name="LNG_Menu_File_SaveSettings" xml:space="preserve">
-    <value>Save Settings</value>
+    <value>Salva le impostazioni</value>
   </data>
   <data name="LNG_Menu_File_SelectFolder" xml:space="preserve">
-    <value>Select Folder</value>
+    <value>Seleziona cartella</value>
   </data>
   <data name="LNG_Menu_File_WipeData" xml:space="preserve">
-    <value>Wipe Data</value>
+    <value>Cancella dati</value>
   </data>
   <data name="LNG_Menu_Filter" xml:space="preserve">
-    <value>_Filter</value>
+    <value>_Filtro</value>
   </data>
   <data name="LNG_Menu_Filter_FileType" xml:space="preserve">
-    <value>File Types</value>
+    <value>Tipi di file</value>
   </data>
   <data name="LNG_Menu_Filter_FileType_Evtc" xml:space="preserve">
     <value>.EVTC</value>
@@ -392,61 +392,61 @@
     <value>.ZEVTC</value>
   </data>
   <data name="LNG_Menu_Filter_Fractels" xml:space="preserve">
-    <value>Fractels</value>
+    <value>Fratteli</value>
   </data>
   <data name="LNG_Menu_Filter_Prof" xml:space="preserve">
-    <value>Profession</value>
+    <value>Professione</value>
   </data>
   <data name="LNG_Menu_Filter_Raids" xml:space="preserve">
-    <value>Raids</value>
+    <value>Raid</value>
   </data>
   <data name="LNG_Menu_Filter_Sort" xml:space="preserve">
-    <value>_Sort</value>
+    <value>_Ordinare</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Asc" xml:space="preserve">
-    <value>↑ Ascending</value>
+    <value>↑ Crescente</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_CharName" xml:space="preserve">
-    <value>Character Name</value>
+    <value>Nome del personaggio</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Date" xml:space="preserve">
-    <value>Date</value>
+    <value>Data</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Des" xml:space="preserve">
-    <value>↓ Descending</value>
+    <value>↓ Discendente</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Length" xml:space="preserve">
-    <value>Length</value>
+    <value>Lunghezza</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Nome utente</value>
   </data>
   <data name="LNG_Menu_Filter_Spec" xml:space="preserve">
-    <value>_Specialization</value>
+    <value>_Specializzazione</value>
   </data>
   <data name="LNG_Menu_Filter_Strikes" xml:space="preserve">
-    <value>Strikes</value>
+    <value>Scioperi</value>
   </data>
   <data name="LNG_Menu_Help" xml:space="preserve">
-    <value>_Help</value>
+    <value>_Aiuto</value>
   </data>
   <data name="LNG_Menu_Help_About" xml:space="preserve">
-    <value>About</value>
+    <value>Di</value>
   </data>
   <data name="LNG_Menu_Prof_Elementalist" xml:space="preserve">
-    <value>Elementalist</value>
+    <value>Elementalista</value>
   </data>
   <data name="LNG_Menu_Prof_Engineer" xml:space="preserve">
-    <value>Engineer</value>
+    <value>Ingegnere</value>
   </data>
   <data name="LNG_Menu_Prof_Guardian" xml:space="preserve">
-    <value>Guardian</value>
+    <value>Custode</value>
   </data>
   <data name="LNG_Menu_Prof_Mesmer" xml:space="preserve">
-    <value>Mesmer</value>
+    <value>Ipnotizzatore</value>
   </data>
   <data name="LNG_Menu_Prof_Necromancer" xml:space="preserve">
-    <value>Necromancer</value>
+    <value>Negromante</value>
   </data>
   <data name="LNG_Menu_Prof_Ranger" xml:space="preserve">
     <value>Ranger</value>
@@ -455,45 +455,45 @@
     <value>Revenant</value>
   </data>
   <data name="LNG_Menu_Prof_Thief" xml:space="preserve">
-    <value>Thief</value>
+    <value>Ladro</value>
   </data>
   <data name="LNG_Menu_Prof_Warrior" xml:space="preserve">
-    <value>Warrier</value>
+    <value>Guerriero</value>
   </data>
   <data name="LNG_Menu_Settings" xml:space="preserve">
-    <value>_Settings</value>
+    <value>_Impostazioni</value>
   </data>
   <data name="LNG_Menu_Settings_ClearFilter" xml:space="preserve">
-    <value>Clear Filter</value>
+    <value>Filtro pulito</value>
   </data>
   <data name="LNG_Menu_Settings_DarkMode" xml:space="preserve">
-    <value>Dark Mode</value>
+    <value>Modalità scura</value>
   </data>
   <data name="LNG_Menu_Settings_HideErrors" xml:space="preserve">
-    <value>Error Encounters Hidden</value>
+    <value>Incontri di errore nascosti</value>
   </data>
   <data name="LNG_Menu_Settings_Lang" xml:space="preserve">
-    <value>Language</value>
+    <value>Lingua</value>
   </data>
   <data name="LNG_Menu_Spec_None" xml:space="preserve">
-    <value>None</value>
+    <value>Nessuno</value>
   </data>
   <data name="LNG_Restart_Language_Body" xml:space="preserve">
-    <value>Language code: {0}</value>
+    <value>Codice lingua: {0}</value>
   </data>
   <data name="LNG_Restart_Language_Title" xml:space="preserve">
-    <value>Restart is required for the language change to take effect</value>
+    <value>Il riavvio è necessario affinché la modifica della lingua abbia effetto</value>
   </data>
   <data name="LNG_Restart_Theme_Body" xml:space="preserve">
-    <value>Dark Theme: {0}</value>
+    <value>Tema scuro: {0}</value>
   </data>
   <data name="LNG_Restart_Theme_Title" xml:space="preserve">
-    <value>Restart is required for theme change to take effect</value>
+    <value>Il riavvio è necessario affinché la modifica del tema abbia effetto</value>
   </data>
   <data name="LNG_Select_All" xml:space="preserve">
-    <value>Select All</value>
+    <value>Seleziona tutto</value>
   </data>
   <data name="LNG_Select_All_Tooltip" xml:space="preserve">
-    <value>Select all filtered files</value>
+    <value>Seleziona tutti i file filtrati</value>
   </data>
 </root>

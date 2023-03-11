@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EVTCLogUploader.Models.Responce
+﻿namespace EVTCLogUploader.Models.Responce
 {
     internal class SpecializationIconResponce
     {

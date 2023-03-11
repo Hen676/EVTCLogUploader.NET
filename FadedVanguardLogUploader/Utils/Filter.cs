@@ -8,8 +8,6 @@ namespace EVTCLogUploader.Utils
     {
         public DateTimeOffset timeOffsetMin = DateTimeOffset.MinValue;
         public DateTimeOffset timeOffsetMax = DateTimeOffset.MaxValue;
-        // TODO Implement Spec filtering
-        //public Specialization specialization = Specialization.Empty; 
 
         public bool Predicate(ListItem i)
         {
