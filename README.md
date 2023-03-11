@@ -1,4 +1,4 @@
-# FadedVanguardLogUploader
+# EVTCLogUploader
 
 ## License
-[MIT](https://github.com/Hen676/FadedVanguardLogUploader.NET/blob/master/LICENSE)
+[MIT](https://github.com/Hen676/EVTCLogUploader.NET/blob/master/LICENSE)
