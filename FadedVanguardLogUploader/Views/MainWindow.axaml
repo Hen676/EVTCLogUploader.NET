@@ -89,7 +89,7 @@
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_SelectFolder}"
 							  Command="{Binding FolderCommand}"
 							  CommandParameter="{Binding 
-							  ElementName=FadedVanguardLogUploaderWindow}"/>
+							  ElementName=EVTCLogUploader}"/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_SaveSettings}"
 							  Command="{Binding SaveCommand}"/>
 					<Separator/>
@@ -99,7 +99,7 @@
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_Exit}"
 							  Command="{Binding CloseCommand}"
 							  CommandParameter="{Binding 
-							  ElementName=FadedVanguardLogUploaderWindow}">
+							  ElementName=EVTCLogUploader}">
 					</MenuItem>
 				</MenuItem>
 				<!-- Settings -->
