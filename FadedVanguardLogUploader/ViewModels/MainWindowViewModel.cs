@@ -1,8 +1,11 @@
 using Avalonia.Controls;
 using EVTCLogUploader.Enums;
+using EVTCLogUploader.IO;
+using EVTCLogUploader.Settings;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
@@ -11,7 +14,7 @@ namespace EVTCLogUploader.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public ListViewModel List { get; } = new ListViewModel();
+        public ListViewModel List { get; } = new ListViewModel(new StorageIO());
         public TimeSpan? Time
         {
             get => time;
@@ -62,9 +65,9 @@ namespace EVTCLogUploader.ViewModels
                 this.RaiseAndSetIfChanged(ref sort, value);
             }
         }
-        public ObservableCollection<Encounter> FilterList { get; } = new(App.Settings.FilterEncounter);
-        public ObservableCollection<Profession> FilterProfessionList { get; } = new(App.Settings.FilterProfession);
-        public ObservableCollection<FileType> FilterFileTypeList { get; } = new(App.Settings.FilterFileType);
+        public ObservableCollection<Encounter> FilterList { get; set; } = new(App.Settings.FilterEncounter);
+        public ObservableCollection<Profession> FilterProfessionList { get; set; } = new(App.Settings.FilterProfession);
+        public ObservableCollection<FileType> FilterFileTypeList { get; set; } = new(App.Settings.FilterFileType);
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
@@ -89,8 +92,37 @@ namespace EVTCLogUploader.ViewModels
         private bool ascDesToggleHeader = App.Settings.SortingToggle;
         private SortingType sort = App.Settings.SortingType;
 
+        private SettingsService settingsService;
+
         public MainWindowViewModel()
         {
+            settingsService = new SettingsService();
+
+            AboutCommand = ReactiveCommand.Create(About);
+            SaveCommand = ReactiveCommand.Create(Save);
+            SelectCommand = ReactiveCommand.Create(SelectAll);
+            UnselectCommand = ReactiveCommand.Create(UnselectAll);
+            ModeCommand = ReactiveCommand.Create(ModeAsync);
+            LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
+
+            AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
+            SortCommand = ReactiveCommand.Create<SortingType>(Sort);
+            FilterFileTypeCommand = ReactiveCommand.Create<FileType>(FilterFileType);
+            FilterEncounterCommand = ReactiveCommand.Create<Encounter>(FilterEncounter);
+            FilterProfCommand = ReactiveCommand.Create<Profession>(FilterProf);
+            ClearFilterCommand = ReactiveCommand.Create(ClearFilter);
+
+            ErrorHiddenCommand = ReactiveCommand.Create(ErrorHidden);
+            WipeDBCommand = ReactiveCommand.Create(WipeDB);
+            CloseCommand = ReactiveCommand.Create<Window>(Close);
+            FolderCommand = ReactiveCommand.Create<Window>(Folder);
+
+        }
+
+        public MainWindowViewModel(SettingsService settings)
+        {
+            settingsService = settings;
+
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
             SelectCommand = ReactiveCommand.Create(SelectAll);
@@ -116,61 +148,50 @@ namespace EVTCLogUploader.ViewModels
 
         private void FilterFileType(FileType fileType)
         {
-            if (!FilterFileTypeList.Contains(fileType))
-                FilterFileTypeList.Add(fileType);
-            else
-                FilterFileTypeList.Remove(fileType);
-            App.Settings.FilterFileType = new(FilterFileTypeList);
+            FilterFileTypeList = settingsService.EditFileTypeList(fileType);
             List.Filter();
         }
-
+        private void FilterEncounter(Encounter encounter)
+        {
+            FilterList = settingsService.EditEncounterList(encounter);
+            List.Filter();
+        }
         private void FilterProf(Profession profession)
         {
-            if (!FilterProfessionList.Contains(profession))
-                FilterProfessionList.Add(profession);
-            else
-                FilterProfessionList.Remove(profession);
-            App.Settings.FilterProfession = new(FilterProfessionList);
+            FilterProfessionList = settingsService.EditProfessionList(profession);
             List.Filter();
         }
 
         private void AscDesToggle()
         {
-            App.Settings.SortingToggle = AscDesToggleHeader = !App.Settings.SortingToggle;
+            AscDesToggleHeader = settingsService.AscDesToggle();
             List.Filter();
         }
+
         private void Sort(SortingType type)
         {
-            App.Settings.SortingType = SortType = type;
+            settingsService.setSortingType(type);
             List.Filter();
         }
-        private void FilterEncounter(Encounter encounter)
-        {
-            if (!FilterList.Contains(encounter))
-                FilterList.Add(encounter);
-            else
-                FilterList.Remove(encounter);
-            App.Settings.FilterEncounter = new(FilterList);
-            List.Filter();
-        }
+
         private void ClearFilter()
         {
-            App.Settings.FilterEncounter.Clear();
+            settingsService.ClearFilters();
             List.Filter();
         }
         private void ErrorHidden()
         {
-            App.Settings.ErrorFilterToggle = ErrorFilterToggle = !ErrorFilterToggle;
+            ErrorFilterToggle = settingsService.ErrorFilterToggle();
             List.Filter();
         }
 
         private void Close(Window window) => window.Close();
-        private void Save() => App.Settings.Save();
+        private void Save() => settingsService.save();
         private void WipeDB() => List.storageIO.WipeDB();
 
         private async void ModeAsync()
         {
-            App.Settings.ModeToggle = ModeToggle = !ModeToggle;
+            ModeToggle = settingsService.ModeToggle();
             var popup = new PopupViewModel
             {
                 Title = Resources.Lang.Resources.LNG_Restart_Theme_Title,
@@ -180,9 +201,7 @@ namespace EVTCLogUploader.ViewModels
         }
         private async void ChangeLanguageAsync(string code)
         {
-            if (App.Settings.Lang == code)
-                return;
-            App.Settings.Lang = code; ;
+            settingsService.setLangaugeCode(code);
             var popup = new PopupViewModel
             {
                 Title = Resources.Lang.Resources.LNG_Restart_Language_Title,

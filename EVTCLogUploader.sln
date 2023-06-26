@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EVTCLogUploader", "FadedVanguardLogUploader\EVTCLogUploader.csproj", "{1F25C7AA-E0D7-434A-AA58-BD25F6179392}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EVTCLogUploaderTests", "EVTCLogUploaderTests\EVTCLogUploaderTests.csproj", "{88A93087-C755-4653-B533-F52E1059AB31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{1F25C7AA-E0D7-434A-AA58-BD25F6179392}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F25C7AA-E0D7-434A-AA58-BD25F6179392}.Release|x86.ActiveCfg = Release|x86
 		{1F25C7AA-E0D7-434A-AA58-BD25F6179392}.Release|x86.Build.0 = Release|x86
+		{88A93087-C755-4653-B533-F52E1059AB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88A93087-C755-4653-B533-F52E1059AB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88A93087-C755-4653-B533-F52E1059AB31}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{88A93087-C755-4653-B533-F52E1059AB31}.Debug|x86.Build.0 = Debug|Any CPU
+		{88A93087-C755-4653-B533-F52E1059AB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88A93087-C755-4653-B533-F52E1059AB31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88A93087-C755-4653-B533-F52E1059AB31}.Release|x86.ActiveCfg = Release|Any CPU
+		{88A93087-C755-4653-B533-F52E1059AB31}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

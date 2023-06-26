@@ -1,5 +1,5 @@
 ﻿using EVTCLogUploader.Enums;
-using EVTCLogUploader.Models;
+using EVTCLogUploader.Models.EVTCList;
 using System;
 
 namespace EVTCLogUploader.Utils

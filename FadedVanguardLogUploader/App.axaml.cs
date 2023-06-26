@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Themes.Fluent;
 using EVTCLogUploader.Settings;
+using EVTCLogUploader.ViewModels;
 using EVTCLogUploader.Views;
 using System;
 using System.Globalization;
@@ -14,8 +15,8 @@ namespace EVTCLogUploader
     {
         public static AppSettings Settings = new();
         private static FluentTheme Fluent = new(new Uri("avares://ControlCatalog/Styles"));
-        public static string Version = "1.1.0";
-        public static string ProgramName = "EVTC Log Uploader";
+        public const string Version = "1.1.0";
+        public const string ProgramName = "EVTC Log Uploader";
 
         public override void Initialize()
         {
@@ -28,10 +29,16 @@ namespace EVTCLogUploader
 
         public override void OnFrameworkInitializationCompleted()
         {
+            var settingsService = new SettingsService();
+
+
+            var mainViewModel = new MainWindowViewModel(settingsService);
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow
                 {
+                    DataContext = mainViewModel
                 };
             }
             base.OnFrameworkInitializationCompleted();

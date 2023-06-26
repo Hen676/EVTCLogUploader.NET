@@ -1,5 +1,6 @@
 ﻿using EVTCLogUploader.Enums;
 using EVTCLogUploader.Models;
+using EVTCLogUploader.Models.EVTCList;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Concurrent;
