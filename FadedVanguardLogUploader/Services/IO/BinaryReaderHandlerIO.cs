@@ -5,7 +5,7 @@ using EVTCLogUploader.Utils.GameData;
 using System;
 using System.Collections.Generic;
 
-namespace EVTCLogUploader.IO
+namespace EVTCLogUploader.Services.IO
 {
     public class BinaryReaderHandlerIO
     {

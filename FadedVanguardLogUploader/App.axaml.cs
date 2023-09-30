@@ -1,8 +1,11 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Styling;
 using Avalonia.Themes.Fluent;
-using EVTCLogUploader.Settings;
+using EVTCLogUploader.Services;
 using EVTCLogUploader.ViewModels;
 using EVTCLogUploader.Views;
 using System;
@@ -13,32 +16,30 @@ namespace EVTCLogUploader
 {
     public partial class App : Application
     {
-        public static AppSettings Settings = new();
-        private static FluentTheme Fluent = new(new Uri("avares://ControlCatalog/Styles"));
         public const string Version = "1.1.0";
         public const string ProgramName = "EVTC Log Uploader";
-
         public override void Initialize()
         {
-            Fluent.Mode = Settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(Settings.Lang);
-
-            Styles.Insert(0, Fluent);
             AvaloniaXamlLoader.Load(this);
         }
 
         public override void OnFrameworkInitializationCompleted()
         {
-            var settingsService = new SettingsService();
+            UploaderService uploaderService = new UploaderService();
+            SettingService settingService = new SettingService();
+            LocalDatabaseService localDatabaseService = new LocalDatabaseService();
+
+            RequestedThemeVariant = settingService.ModeToggle ? ThemeVariant.Dark : ThemeVariant.Light;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(settingService.Language);
 
 
-            var mainViewModel = new MainWindowViewModel(settingsService);
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(uploaderService, settingService, localDatabaseService);
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = mainViewModel
+                    DataContext = mainWindowViewModel
                 };
             }
             base.OnFrameworkInitializationCompleted();

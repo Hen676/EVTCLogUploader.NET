@@ -34,7 +34,7 @@ namespace EVTCLogUploader.Views
 
         private void ClosingMainWindow(object? sender, CancelEventArgs e)
         {
-            App.Settings.Save();
+            // Call setting serivce and save?
         }
     }
 }

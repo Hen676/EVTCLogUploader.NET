@@ -1,5 +1,6 @@
 ﻿using EVTCLogUploader.Enums;
-using EVTCLogUploader.IO;
+using EVTCLogUploader.Services.IO;
+using SQLite;
 using System;
 using System.IO;
 using System.IO.Compression;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace EVTCLogUploader.Models.EVTCList
 {
-    public class ListItem
+    public class EVTCFile
     {
         public string FullPath { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
@@ -21,16 +22,21 @@ namespace EVTCLogUploader.Models.EVTCList
         public string UploadUrl { get; set; } = string.Empty;
         public bool Success { get; set; } = false;
 
+        [Ignore]
         public string ProfAndSpec { get; set; } = string.Empty;
+        [Ignore]
         public string ProfAndSpecIcon { get; set; } = string.Empty;
+        [Ignore]
         public bool IsSelected { get; set; } = false;
         public FileType FileType { get; set; } = FileType.None;
 
 #if DEBUG
         private static int i = 0;
 #endif
+        #region Constructor
+        public EVTCFile() { }
 
-        public ListItem(string FullPath, string Name, DateTime CreationDate, string UserName, string CharcterName, TimeSpan Length, Profession CharcterClass, Specialization CharcterSpec, Encounter Encounter, string UploadUrl, FileType FileType)
+        public EVTCFile(string FullPath, string Name, DateTime CreationDate, string UserName, string CharcterName, TimeSpan Length, Profession CharcterClass, Specialization CharcterSpec, Encounter Encounter, string UploadUrl, FileType FileType)
         {
             this.FullPath = FullPath;
             this.Name = Name;
@@ -46,7 +52,7 @@ namespace EVTCLogUploader.Models.EVTCList
             LoadDisplayInfomation(CharcterClass, CharcterSpec);
         }
 
-        public ListItem(string path)
+        public EVTCFile(string path)
         {
             FullPath = path;
             FileInfo fileInfo = new(FullPath);
@@ -59,6 +65,7 @@ namespace EVTCLogUploader.Models.EVTCList
             i++;
 #endif
         }
+        #endregion
 
         public void LoadData()
         {

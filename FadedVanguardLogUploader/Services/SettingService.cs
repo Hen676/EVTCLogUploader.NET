@@ -1,11 +1,20 @@
 ﻿using EVTCLogUploader.Enums;
+using EVTCLogUploader.Utils;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 
-namespace EVTCLogUploader.Settings
+namespace EVTCLogUploader.Services
 {
-    public class AppSettings : ApplicationSettingsBase
+    internal class SettingService : ApplicationSettingsBase, ISettingService
     {
+        /** Settings service
+         *  
+         *  Stores all settings for the application
+         *  
+         *  TODO:: Save on application close
+         */
+
         [DefaultSettingValue(""), UserScopedSetting]
         public string Path
         {
@@ -37,16 +46,6 @@ namespace EVTCLogUploader.Settings
         }
 
         [DefaultSettingValue("true"), UserScopedSetting]
-        public bool ErrorFilterToggle
-        {
-            get => (bool)this[nameof(ErrorFilterToggle)];
-            set
-            {
-                this[nameof(ErrorFilterToggle)] = value;
-            }
-        }
-
-        [DefaultSettingValue("true"), UserScopedSetting]
         public bool SortingToggle
         {
             get => (bool)this[nameof(SortingToggle)];
@@ -57,43 +56,49 @@ namespace EVTCLogUploader.Settings
         }
 
         [DefaultSettingValue("en-GB"), UserScopedSetting]
-        public string Lang 
+        public string Language
         {
-            get => (string)this[nameof(Lang)];
+            get => (string)this[nameof(Language)];
             set
             {
-                this[nameof(Lang)] = value;
+                this[nameof(Language)] = value;
             }
         }
 
         [DefaultSettingValue(""), UserScopedSetting]
-        public List<Encounter> FilterEncounter
+        public Filter FilterSettings
         {
-            get => (List<Encounter>)this[nameof(FilterEncounter)];
+            get => (Filter)this[nameof(FilterSettings)];
             set
             {
-                this[nameof(FilterEncounter)] = value;
+                this[nameof(FilterSettings)] = value;
             }
         }
 
-        [DefaultSettingValue(""), UserScopedSetting]
-        public List<Profession> FilterProfession 
+        private static readonly List<string> supportedLanguages = new List<string>
         {
-            get => (List<Profession>)this[nameof(FilterProfession)];
-            set
-            {
-                this[nameof(FilterProfession)] = value;
-            }
+            "en",
+            "fr",
+            "de",
+            "it",
+            "pl-PL",
+            "pt_BR"
+        };
+
+        public bool SetLanguage(string code)
+        {
+            if (!supportedLanguages.Contains(code))
+                return false;
+            Language = code;
+            return true;
         }
 
-        [DefaultSettingValue(""), UserScopedSetting]
-        public List<FileType> FilterFileType 
+        public bool SetDirectory(string dir)
         {
-            get => (List<FileType>)this[nameof(FilterFileType)];
-            set
-            {
-                this[nameof(FilterFileType)] = value;
-            }
+            if (!Directory.Exists(dir))
+                return false;
+            Path = dir;
+            return true;
         }
     }
 }

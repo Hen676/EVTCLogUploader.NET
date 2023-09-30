@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace EVTCLogUploader.IO
+namespace EVTCLogUploader.Services.IO
 {
     public class BinaryArrayReaderIO
     {

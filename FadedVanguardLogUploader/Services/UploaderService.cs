@@ -1,17 +1,21 @@
 ﻿using EVTCLogUploader.Models.Responce;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace EVTCLogUploader.IO
+namespace EVTCLogUploader.Services
 {
-    internal class UploaderHttps
+    internal class UploaderService : IUploaderService
     {
         private static readonly string dpsReportUrl = "https://dps.report/uploadContent?json=1&generator=ei";
-        private static readonly HttpClient client = new();
+        private readonly HttpClient client = new();
 
-        public static async Task<DpsReportResponse?> UploadEVTCAsync(string evtcPath)
+        public async Task<DpsReportResponse?> UploadEVTCAsync(string evtcPath)
         {
             HttpResponseMessage response;
             using (var form = new MultipartFormDataContent())
