@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\EVTCFiles\20200719-210434.evtc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EVTCFiles\20200719-210434.evtc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
@@ -20,9 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\EVTCFiles\20200719-210434.evtc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\FadedVanguardLogUploader\EVTCLogUploader.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Resources\EVTCFiles\Akira Kazue\20210102-190156.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -92,37 +103,37 @@
     <None Update="Resources\EVTCFiles\Akira Kazue\20211214-201944.zevtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20200824-180753.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20200824-180753.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20201223-214312.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20201223-214312.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20201223-215139.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20201223-215139.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20210411-203326.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20210411-203326.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20210411-203858.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20210411-203858.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20210411-204657.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20210411-204657.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20210411-205302.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20210411-205302.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20210411-210522.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20210411-210522.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20210411-210847.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20210411-210847.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20210411-211624.evtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20210411-211624.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\GUILD\Cake Panity\20230501-001302.zevtc">
+    <None Update="Resources\EVTCFiles\Cake Panity\20230501-001302.zevtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\EVTCFiles\Noriko Asuka\20201215-174541.evtc">
@@ -167,7 +178,7 @@
     <None Update="Resources\EVTCFiles\Noriko Asuka\20210103-202203.evtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\EVTCFiles\The Dragonvoid\Akira Kazue\20220405-205248.zevtc">
+    <None Update="Resources\EVTCFiles\Akira Kazue\20220405-205248.zevtc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

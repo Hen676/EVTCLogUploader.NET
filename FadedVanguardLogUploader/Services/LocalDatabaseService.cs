@@ -1,17 +1,14 @@
 ﻿using EVTCLogUploader.Models.EVTCList;
 using SQLite;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EVTCLogUploader.Services
 {
     internal class LocalDatabaseService : ILocalDatabaseService
     {
-        private SQLiteAsyncConnection Database = new SQLiteAsyncConnection(DatabasePath, Flags);
+        private SQLiteAsyncConnection Database = new(DatabasePath, Flags);
         private const string DatabaseFilename = "data.db";
         private const SQLiteOpenFlags Flags =
         SQLiteOpenFlags.ReadWrite |

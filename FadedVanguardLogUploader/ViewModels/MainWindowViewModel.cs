@@ -18,6 +18,9 @@ using System.Linq;
 using DynamicData.Kernel;
 using DynamicData;
 using Avalonia;
+using Avalonia.Styling;
+using EVTCLogUploader.Utils.Determiners;
+using System.Globalization;
 
 namespace EVTCLogUploader.ViewModels
 {
@@ -59,20 +62,34 @@ namespace EVTCLogUploader.ViewModels
             get => _progressBarMax;
             set => this.RaiseAndSetIfChanged(ref _progressBarMax, value);
         }
+        public ThemeVariant Theme
+        {
+            get => _theme;
+            set => this.RaiseAndSetIfChanged(ref _theme, value);
+        }
+        public bool FilterError
+        {
+            get => _filterError;
+            set => this.RaiseAndSetIfChanged(ref _filterError, value);
+        }
 
+        #region Private
         private List<EVTCFile> _storedItems = new();
         private List<EVTCFile> _filteredItems = new();
         private int _fileCount = 0;
         private int _progressBarValue = 0;
         private int _progressBarMax = 100;
+        private ThemeVariant _theme;
+        private bool _filterError;
 
         #region Serivces
         private IUploaderService _uploaderService;
         private ISettingService _settingService;
         private ILocalDatabaseService _localDatabaseService;
         #endregion
+        #endregion
 
-        #region Constructor
+        #region Constructors
         public MainWindowViewModel()
         {
             // Only use in debug check
@@ -80,11 +97,14 @@ namespace EVTCLogUploader.ViewModels
             _settingService = new SettingService();
             _localDatabaseService = new LocalDatabaseService();
 
+            _theme = ThemeVarientDeterminer.Result(_settingService.ModeToggle);
+            _filterError = _settingService.FilterSettings.ErrorFilter;
+
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
             SelectCommand = ReactiveCommand.Create(SelectAll);
             UnselectCommand = ReactiveCommand.Create(UnselectAll);
-            ModeCommand = ReactiveCommand.Create(ModeAsync);
+            ModeCommand = ReactiveCommand.Create(ThemeVarient);
             LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
 
             AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
@@ -108,11 +128,14 @@ namespace EVTCLogUploader.ViewModels
             _settingService = settingService;
             _localDatabaseService = localDatabaseService;
 
+            _theme = ThemeVarientDeterminer.Result(_settingService.ModeToggle);
+            _filterError = _settingService.FilterSettings.ErrorFilter;
+
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
             SelectCommand = ReactiveCommand.Create(SelectAll);
             UnselectCommand = ReactiveCommand.Create(UnselectAll);
-            ModeCommand = ReactiveCommand.Create(ModeAsync);
+            ModeCommand = ReactiveCommand.Create(ThemeVarient);
             LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
 
             AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
@@ -131,6 +154,7 @@ namespace EVTCLogUploader.ViewModels
         }
         #endregion
 
+        #region Filter Commands
         private void FilterFileType(FileType fileType)
         {
             _settingService.FilterSettings.EditFileTypeList(fileType);
@@ -167,23 +191,21 @@ namespace EVTCLogUploader.ViewModels
         private void ErrorHidden()
         {
             _settingService.FilterSettings.ErrorFilter = !_settingService.FilterSettings.ErrorFilter;
+            FilterError = _settingService.FilterSettings.ErrorFilter;
             Filter();
         }
+        #endregion
 
         private void Close(Window window) => window.Close();
         private void Save() => _settingService.Save();
         private void WipeDB() => _localDatabaseService.WipeDB();
 
-        private async void ModeAsync()
+        private void ThemeVarient()
         {
             _settingService.ModeToggle = !_settingService.ModeToggle;
-            var popup = new PopupViewModel
-            {
-                Title = Resources.Lang.Resources.LNG_Restart_Theme_Title,
-                Body = string.Format(Resources.Lang.Resources.LNG_Restart_Theme_Body, _settingService.ModeToggle)
-            };
-            await ShowDialog.Handle(popup);
+            Theme = ThemeVarientDeterminer.Result(_settingService.ModeToggle);
         }
+
         private async void ChangeLanguageAsync(string code)
         {
             _settingService.SetLanguage(code);
@@ -280,10 +302,10 @@ namespace EVTCLogUploader.ViewModels
                     _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.Length.CompareTo(x.Length));
                     break;
                 case SortingType.User:
-                    _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.UserName.CompareTo(x.UserName));
+                    _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.MainUserName.CompareTo(x.MainUserName));
                     break;
                 case SortingType.Charcter:
-                    _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.CharcterName.CompareTo(x.CharcterName));
+                    _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.MainCharcterName.CompareTo(x.MainCharcterName));
                     break;
             }
             if (_settingService.SortingToggle)
@@ -379,10 +401,10 @@ namespace EVTCLogUploader.ViewModels
                 if (file.UploadUrl == string.Empty)
                     continue;
 
-                if (lastboss == Encounter.Empty || lastboss != file.Encounter)
+                if (lastboss == Encounter.Empty || lastboss != file.Boss)
                 {
-                    clipborad.Add($"{file.Encounter}");
-                    lastboss = file.Encounter;
+                    clipborad.Add($"{file.Boss}");
+                    lastboss = file.Boss;
                 }
                 clipborad.Add($"{file.UploadUrl}");
             }

@@ -17,14 +17,16 @@
         x:Class="EVTCLogUploader.Views.MainWindow"
         Icon="/Assets/Logo.png"
         Title="EVTC Log Uploader"
-		ExtendClientAreaToDecorationsHint="True">
+		ExtendClientAreaToDecorationsHint="True"
+		RequestedThemeVariant="{Binding Theme}">
 	
 	<Window.DataContext>
 		<vm:MainWindowViewModel/>
 	</Window.DataContext>
 	<Window.Resources>
 		<converter:EnumConverter x:Key="sortConverter"/>
-		<converter:EncounterConverter x:Key="encounterConveter"></converter:EncounterConverter>
+		<converter:EncounterConverter x:Key="encounterConveter" />
+		<converter:ThemeConverter x:Key="themeConverter" />
 	</Window.Resources>
 
 	<Window.Styles>
@@ -45,26 +47,12 @@
 		</Style>
 	</Window.Styles>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="auto"></RowDefinition>
-			<RowDefinition Height="auto"></RowDefinition>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"></ColumnDefinition>
-		</Grid.ColumnDefinitions>
+	<Grid RowDefinitions="auto,auto,*,auto">
 
 		<!-- Menu -->
 		<Grid Grid.Column="1"
-			  Grid.ColumnSpan="10">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="*"></ColumnDefinition>
-			</Grid.ColumnDefinitions>
+			  Grid.ColumnSpan="10"
+			  ColumnDefinitions="auto,auto,auto,*">
 			
 			<!-- Menu Backgound -->
 			<StackPanel Grid.Column="1"
@@ -88,8 +76,7 @@
 				<MenuItem Header="{x:Static p:Resources.LNG_Menu_File}">
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_SelectFolder}"
 							  Command="{Binding FolderCommand}"
-							  CommandParameter="{Binding 
-							  ElementName=EVTCLogUploader}"/>
+							  CommandParameter="{Binding ElementName=EVTCLogUploader}"/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_SaveSettings}"
 							  Command="{Binding SaveCommand}"/>
 					<Separator/>
@@ -98,383 +85,260 @@
 					<Separator/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_File_Exit}"
 							  Command="{Binding CloseCommand}"
-							  CommandParameter="{Binding 
-							  ElementName=EVTCLogUploader}">
-					</MenuItem>
+							  CommandParameter="{Binding ElementName=EVTCLogUploader}"/>
 				</MenuItem>
 				<!-- Settings -->
 				<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings}">
+					<!-- Language -->
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_Lang}">
 						<MenuItem Header="English"
 								  Command="{Binding LanguageCommand}"
-								  CommandParameter="en-GB">
-						</MenuItem>
+								  CommandParameter="en-GB"/>
 						<MenuItem Header="Deutsch"
 								  Command="{Binding LanguageCommand}"
-								  CommandParameter="de">
-						</MenuItem>
+								  CommandParameter="de"/>
 						<MenuItem Header="Italiano"
 								  Command="{Binding LanguageCommand}"
-								  CommandParameter="it">
-						</MenuItem>
+								  CommandParameter="it"/>
 						<MenuItem Header="Français"
 								  Command="{Binding LanguageCommand}"
-								  CommandParameter="fr">
-						</MenuItem>
+								  CommandParameter="fr"/>
 						<MenuItem Header="Portugais Brésilien"
 								  Command="{Binding LanguageCommand}"
-								  CommandParameter="pt-BR">
-						</MenuItem>
+								  CommandParameter="pt-BR"/>
 						<MenuItem Header="Polski"
 								  Command="{Binding LanguageCommand}"
-								  CommandParameter="pl-PL">
-						</MenuItem>
+								  CommandParameter="pl-PL"/>
 					</MenuItem>
 					<Separator/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Select_All}"
-							  Command="{Binding SelectCommand}">
-					</MenuItem>
+							  Command="{Binding SelectCommand}"/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Deselect_All}"
-							  Command="{Binding UnselectCommand}">
-					</MenuItem>
+							  Command="{Binding UnselectCommand}"/>
 					<Separator/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_DarkMode}"
 							  Command="{Binding ModeCommand}">
 						<MenuItem.Icon>
-							<CheckBox IsChecked="{Binding ModeToggle}"
+							<CheckBox IsChecked="{Binding Theme, 
+									  Converter={StaticResource themeConverter}}"
 									  Classes="Menu"/>
 						</MenuItem.Icon>
 					</MenuItem>
 				</MenuItem>
 				<!-- Filter -->
 				<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter}">
-					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort}">
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Asc}"
-								  IsVisible="{Binding AscDesToggleHeader}"
-								  Command="{Binding AscDesToggleCommand}">
-						</MenuItem>
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Des}"
-								  IsVisible="{Binding !AscDesToggleHeader}"
-								  Command="{Binding AscDesToggleCommand}">
-						</MenuItem>
-						<Separator/>
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Date}"
-								  Command="{Binding SortCommand}"
-								  CommandParameter="{x:Static enums:SortingType.Date}">
-							<MenuItem.Icon>
-								<CheckBox IsChecked="{Binding SortType,
-										  Converter={StaticResource sortConverter},
-										  ConverterParameter={x:Static enums:SortingType.Date}}"
-										  Classes="Menu">
-								</CheckBox>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Length}"
-								  Command="{Binding SortCommand}"
-								  CommandParameter="{x:Static enums:SortingType.Length}">
-							<MenuItem.Icon>
-								<CheckBox IsChecked="{Binding SortType,
-										  Converter={StaticResource sortConverter},
-										  ConverterParameter={x:Static enums:SortingType.Length}}"
-										  Classes="Menu">
-								</CheckBox>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_Username}"
-								  Command="{Binding SortCommand}"
-								  CommandParameter="{x:Static enums:SortingType.User}">
-							<MenuItem.Icon>
-								<CheckBox IsChecked="{Binding SortType,
-										  Converter={StaticResource sortConverter},
-										  ConverterParameter={x:Static enums:SortingType.User}}"
-										  Classes="Menu">
-								</CheckBox>
-							</MenuItem.Icon>
-						</MenuItem>
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Sort_CharName}"
-								  Command="{Binding SortCommand}"
-								  CommandParameter="{x:Static enums:SortingType.Charcter}">
-							<MenuItem.Icon>
-								<CheckBox IsChecked="{Binding SortType,
-										  Converter={StaticResource sortConverter},
-										  ConverterParameter={x:Static enums:SortingType.Charcter}}"
-										  Classes="Menu">
-								</CheckBox>
-							</MenuItem.Icon>
-						</MenuItem>
-					</MenuItem>
-					<Separator/>
-					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_FileType}">
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_FileType_Evtc}"
-								  Command="{Binding FilterFileTypeCommand}"
-								  CommandParameter="{x:Static enums:FileType.EVTC}">
-						</MenuItem>
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_FileType_ZEvtc}"
-								  Command="{Binding FilterFileTypeCommand}"
-								  CommandParameter="{x:Static enums:FileType.ZEVTC}">
-						</MenuItem>
-						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_FileType_EvtcZip}"
-								  Command="{Binding FilterFileTypeCommand}"
-								  CommandParameter="{x:Static enums:FileType.EVTCZIP}">
-						</MenuItem>
-					</MenuItem>
-					<Separator/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Raids}">
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W1}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ValeGuardian}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.ValeGuardian}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.ValeGuardian}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Gorseval}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Gorseval}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Gorseval}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Sabetha}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Sabetha}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Sabetha}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W2}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Slothasor}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Slothasor}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Slothasor}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_BanditTrio}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.BanditTrio}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.BanditTrio}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Mattias}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Mattias}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Mattias}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W3}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Escort}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Escort}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Escort}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_KeepConstruct}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.KeepConstruct}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.KeepConstruct}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_TwistedCastle}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.TwistedCastle}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.TwistedCastle}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Xera}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Xera}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Xera}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W4}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Cairn}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Cairn}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Cairn}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_MursaatOverseer}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.MursaatOverseer}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.MursaatOverseer}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Samarog}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Samarog}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Samarog}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Deimos}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Deimos}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Deimos}"/>
 						</MenuItem>
 						<Separator/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W5}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_SoullessHorror}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.SoullessHorror}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.SoullessHorror}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_RiverOfSouls}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.RiverOfSouls}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.RiverOfSouls}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_BrokenKing}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.BrokenKing}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.BrokenKing}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_EaterOfSouls}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.EaterOfSouls}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.EaterOfSouls}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Eyes}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Eyes}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Eyes}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Dhuum}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Dhuum}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Dhuum}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W6}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ConjuredAmalgamate}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.ConjuredAmalgamate}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.ConjuredAmalgamate}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_TwinLargos}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.TwinLargos}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.TwinLargos}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Qadim}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Qadim}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Qadim}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_W7}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Adina}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Adina}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Adina}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Sabir}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Sabir}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Sabir}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_QadimThePeerless}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.QadimThePeerless}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.QadimThePeerless}"/>
 						</MenuItem>
 					</MenuItem>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Strikes}">
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_LW5}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ShiverpeaksPass}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.ShiverpeaksPass}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.ShiverpeaksPass}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_VoiceAndClawOfTheFallen}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.VoiceAndClawOfTheFallen}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.VoiceAndClawOfTheFallen}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_FraenirOfJormag}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.FraenirOfJormag}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.FraenirOfJormag}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Boneskinner}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Boneskinner}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Boneskinner}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_WhisperOfJormag}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.WhisperOfJormag}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.WhisperOfJormag}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ForgingSteel}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.ForgingSteel}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.ForgingSteel}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ColdWar}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.ColdWar}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.ColdWar}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_EOD}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_AetherbladeHideout}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.AetherbladeHideout}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.AetherbladeHideout}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_XunlaiJadeJunkyard}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.XunlaiJadeJunkyard}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.XunlaiJadeJunkyard}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_KainengOverlook}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.KainengOverlook}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.KainengOverlook}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_HarvestTemple}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.HarvestTemple}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.HarvestTemple}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Freezie}"
 									  Command="{Binding FilterEncounterCommand}"
-								  CommandParameter="{x:Static enums:Encounter.Freezie}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Encounter.Freezie}"/>
 					</MenuItem>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Fractels}">
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Nightmare}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_MAMA}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.MAMA}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.MAMA}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Siax}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Siax}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Siax}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Ensolyss}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Ensolyss}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Ensolyss}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_ShatteredObservatory}">
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Skorvald}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Skorvald}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Skorvald}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Artsariiv}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Artsariiv}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Artsariiv}"/>
 							<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_Arkk}"
 									  Command="{Binding FilterEncounterCommand}"
-									  CommandParameter="{x:Static enums:Encounter.Arkk}">
-							</MenuItem>
+									  CommandParameter="{x:Static enums:Encounter.Arkk}"/>
 						</MenuItem>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Encounter_SunquaPeak}"
 								  Command="{Binding FilterEncounterCommand}"
-								  CommandParameter="{x:Static enums:Encounter.AiKeeperOfThePeak}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Encounter.AiKeeperOfThePeak}"/>
 					</MenuItem>
 					<Separator/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_Prof}">
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Guardian}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Guardian}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Guardian}"/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Warrior}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Warrior}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Warrior}"/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Engineer}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Engineer}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Engineer}"/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Ranger}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Ranger}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Ranger}"/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Thief}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Thief}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Thief}"/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Elementalist}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Elementalist}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Elementalist}"/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Mesmer}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Mesmer}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Mesmer}"/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Necromancer}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Necromancer}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Necromancer}"/>
 						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Prof_Revenant}"
 								  Command="{Binding FilterProfCommand}"
-								  CommandParameter="{x:Static enums:Profession.Revenant}">
-						</MenuItem>
+								  CommandParameter="{x:Static enums:Profession.Revenant}"/>
+					</MenuItem>
+					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_FileType}">
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_FileType_Evtc}"
+								  Command="{Binding FilterFileTypeCommand}"
+								  CommandParameter="{x:Static enums:FileType.EVTC}"/>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_FileType_ZEvtc}"
+								  Command="{Binding FilterFileTypeCommand}"
+								  CommandParameter="{x:Static enums:FileType.ZEVTC}"/>
+						<MenuItem Header="{x:Static p:Resources.LNG_Menu_Filter_FileType_EvtcZip}"
+								  Command="{Binding FilterFileTypeCommand}"
+								  CommandParameter="{x:Static enums:FileType.EVTCZIP}"/>
 					</MenuItem>
 					<Separator/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_ClearFilter}"
-							  Command="{Binding ClearFilterCommand}">
-					</MenuItem>
+							  Command="{Binding ClearFilterCommand}"/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_HideErrors}"
 							  Command="{Binding ErrorHiddenCommand}">
 						<MenuItem.Icon>
-							<CheckBox IsChecked="{Binding ErrorFilterToggle}"
+							<CheckBox IsChecked="{Binding FilterError}"
 									  Classes="Menu"/>
 						</MenuItem.Icon>
 					</MenuItem>
@@ -488,59 +352,44 @@
 		</Grid>
 		
 		<!-- Row 1 -->
-		<Grid Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-				<ColumnDefinition Width="auto"></ColumnDefinition>
-			</Grid.ColumnDefinitions>
+		<Grid Grid.Row="1"
+			  ColumnDefinitions="auto,auto,auto">
 
 			<TextBlock Grid.Column="0"
 					   Margin="10,0,10,0"
 					   VerticalAlignment="Center"
 					   Text="{x:Static p:Resources.LNG_Filter_From_SemiColon}"/>
 			<DatePicker Grid.Column="1"
+						Padding="0,5,0,0"
 						SelectedDate="{Binding Date, Mode=TwoWay}"
 						VerticalAlignment="Center"/>
 			<TimePicker Grid.Column="2"
+						Padding="5,5,0,0"
 						SelectedTime="{Binding Time, Mode=TwoWay}"
 						VerticalAlignment="Center"/>
 		</Grid>
 
 		<!-- Row 2 -->
-		<DockPanel Margin="10"
+		<DockPanel Margin="5"
 				   Grid.Row="2">
-			<Grid DockPanel.Dock="Bottom" Margin="0,4">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="auto"></ColumnDefinition>
-					<ColumnDefinition Width="*"></ColumnDefinition>
-					<ColumnDefinition Width="auto"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-
-				<StackPanel Grid.Column="0" Margin="10,10,10,10" Orientation="Horizontal">
-					<TextBlock Classes="p2"
-							   Text="{Binding List.FileCount}"></TextBlock>
-					<TextBlock Classes="p2"
-							   Text="{x:Static p:Resources.LNG_File_Count}"></TextBlock>
-				</StackPanel>
-
+			<!-- Progress bar + Upload button -->
+			<Grid DockPanel.Dock="Bottom" 
+				  Margin="0,4"
+				  ColumnDefinitions="auto,*,auto">
 				<ProgressBar Grid.Column="1"
 							 Value="{Binding ProgressBarValue}"
 							 Maximum="{Binding ProgressBarMax}"
 							 ToolTip.Tip="{x:Static p:Resources.LNG_List_Bar_Tooltip}"
 							 Margin="10,0"/>
 
-
 				<Button Grid.Column="2"
 						HorizontalAlignment="Right"
-						DockPanel.Dock="Bottom"
 						Command="{Binding UploadCommand}"
 						ToolTip.Tip="{x:Static p:Resources.LNG_List_Upload_Tooltip}"
 						Content="{x:Static p:Resources.LNG_List_Upload}"/>
 			</Grid>
 
+			<!-- Data grid -->
 			<Border Background="{DynamicResource SystemControlBackgroundListLowBrush}"
 					BorderBrush="{DynamicResource SystemControlBackgroundListMediumBrush}"
 					BorderThickness="2">
@@ -555,13 +404,13 @@
 													Binding="{Binding IsSelected, Mode=TwoWay}"/>
 							<DataGridTextColumn IsReadOnly="True"
 												Header="{x:Static p:Resources.LNG_DataGrid_Header_Encounter}"
-												Binding="{Binding Encounter, Mode=OneWay, Converter={StaticResource encounterConveter}}"/>
+												Binding="{Binding Boss, Mode=OneWay, Converter={StaticResource encounterConveter}}"/>
 							<DataGridTextColumn IsReadOnly="True"
 												Header="{x:Static p:Resources.LNG_DataGrid_Header_CharcterName}"
-												Binding="{Binding CharcterName}" />
+												Binding="{Binding MainCharcterName}" />
 							<DataGridTextColumn IsReadOnly="True"
 												Header="{x:Static p:Resources.LNG_DataGrid_Header_Username}"
-												Binding="{Binding UserName}"/>
+												Binding="{Binding MainUserName}"/>
 							<DataGridTextColumn IsReadOnly="True"
 												Header="{x:Static p:Resources.LNG_DataGrid_Header_Profesion}"
 												Binding="{Binding ProfAndSpec}"/>
@@ -591,9 +440,18 @@
 							</DataTemplate>
 						</DataGrid.RowDetailsTemplate>
 					</DataGrid>
+					
 				</Grid>
 			</Border>
 		</DockPanel>
+
+		<!-- Row 3 -->
+		<StackPanel Grid.Row="3" Margin="10,0,0,10" Orientation="Horizontal">
+			<TextBlock Classes="p2"
+					   Text="{Binding List.FileCount}"></TextBlock>
+			<TextBlock Classes="p2"
+					   Text="{x:Static p:Resources.LNG_File_Count}"></TextBlock>
+		</StackPanel>
 
 		<!-- Design -->
 		<StackPanel ZIndex="-3"

@@ -18,10 +18,10 @@ namespace EVTCLogUploader.Utils
         public bool Predicate(EVTCFile i)
         {
             // TODO:: Hook up to settings service
-            return (FilterEncounter.Count == 0 || FilterEncounter.Contains(i.Encounter))
-                && (ProfessionFilter.Count == 0 || ProfessionFilter.Contains(i.CharcterClass))
-                && (FileTypeFilter.Count == 0 || FileTypeFilter.Contains(i.FileType))
-                && !(ErrorFilter && i.Encounter == Encounter.Unkown)
+            return (FilterEncounter.Count == 0 || FilterEncounter.Contains(i.Boss))
+                && (ProfessionFilter.Count == 0 || ProfessionFilter.Contains(i.CharcterClassOfMainUser))
+                && (FileTypeFilter.Count == 0 || FileTypeFilter.Contains(i.Type))
+                && !(ErrorFilter && i.Boss == Encounter.Unkown)
                 && i.CreationDate >= TimeOffsetMin
                 && i.CreationDate <= TimeOffsetMax;
         }

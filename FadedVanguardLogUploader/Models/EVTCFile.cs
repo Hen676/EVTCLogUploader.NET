@@ -13,22 +13,20 @@ namespace EVTCLogUploader.Models.EVTCList
         public string FullPath { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public DateTime CreationDate { get; set; } = DateTime.MinValue;
-        public string UserName { get; set; } = string.Empty;
-        public string CharcterName { get; set; } = string.Empty;
+        public string MainUserName { get; set; } = string.Empty;
+        public string MainCharcterName { get; set; } = string.Empty;
         public TimeSpan Length { get; set; } = TimeSpan.Zero;
-        public Profession CharcterClass { get; set; } = Profession.Unknown;
-        public Specialization CharcterSpec { get; set; } = Specialization.None;
-        public Encounter Encounter { get; set; } = Encounter.Unkown;
+        public Profession CharcterClassOfMainUser { get; set; } = Profession.Unknown;
+        public Specialization CharcterSpecOfMainUser { get; set; } = Specialization.None;
+        public Encounter Boss { get; set; } = Encounter.Unkown;
         public string UploadUrl { get; set; } = string.Empty;
-        public bool Success { get; set; } = false;
+        public bool Success { get; set; } = false; // TODO:: Remove?
+        public FileType Type { get; set; } = FileType.None;
 
         [Ignore]
         public string ProfAndSpec { get; set; } = string.Empty;
         [Ignore]
-        public string ProfAndSpecIcon { get; set; } = string.Empty;
-        [Ignore]
         public bool IsSelected { get; set; } = false;
-        public FileType FileType { get; set; } = FileType.None;
 
 #if DEBUG
         private static int i = 0;
@@ -36,20 +34,20 @@ namespace EVTCLogUploader.Models.EVTCList
         #region Constructor
         public EVTCFile() { }
 
-        public EVTCFile(string FullPath, string Name, DateTime CreationDate, string UserName, string CharcterName, TimeSpan Length, Profession CharcterClass, Specialization CharcterSpec, Encounter Encounter, string UploadUrl, FileType FileType)
+        public EVTCFile(string fullPath, string name, DateTime creationDate, string userName, string charcterName, TimeSpan length, Profession charcterClass, Specialization charcterSpec, Encounter encounter, string uploadUrl, FileType fileType)
         {
-            this.FullPath = FullPath;
-            this.Name = Name;
-            this.CreationDate = CreationDate;
-            this.UserName = UserName;
-            this.CharcterName = CharcterName;
-            this.Length = Length;
-            this.CharcterClass = CharcterClass;
-            this.CharcterSpec = CharcterSpec;
-            this.Encounter = Encounter;
-            this.UploadUrl = UploadUrl;
-            this.FileType = FileType;
-            LoadDisplayInfomation(CharcterClass, CharcterSpec);
+            FullPath = fullPath;
+            Name = name;
+            CreationDate = creationDate;
+            MainUserName = userName;
+            MainCharcterName = charcterName;
+            Length = length;
+            CharcterClassOfMainUser = charcterClass;
+            CharcterSpecOfMainUser = charcterSpec;
+            Boss = encounter;
+            UploadUrl = uploadUrl;
+            Type = fileType;
+            LoadDisplayInfomation();
         }
 
         public EVTCFile(string path)
@@ -59,7 +57,7 @@ namespace EVTCLogUploader.Models.EVTCList
             Name = fileInfo.Name;
             CreationDate = fileInfo.CreationTime;
             LoadData();
-            LoadDisplayInfomation(CharcterClass, CharcterSpec);
+            LoadDisplayInfomation();
 #if DEBUG
             Name = i + " " + Name;
             i++;
@@ -76,7 +74,7 @@ namespace EVTCLogUploader.Models.EVTCList
             if (FullPath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)
                 || isZEVTC)
             {
-                FileType = isZEVTC ? FileType.ZEVTC : FileType.EVTCZIP;
+                Type = isZEVTC ? FileType.ZEVTC : FileType.EVTCZIP;
 
                 using ZipArchive zip = ZipFile.Open(FullPath, ZipArchiveMode.Read);
                 using Stream data = zip.Entries[0].Open();
@@ -94,35 +92,34 @@ namespace EVTCLogUploader.Models.EVTCList
             }
             else
             {
-                FileType = FileType.EVTC;
+                Type = FileType.EVTC;
                 reader = new BinaryArrayReaderIO(File.ReadAllBytes(FullPath), new UTF8Encoding());
             }
 
             // Read Log
             BinaryReaderHandlerIO handler = new(reader);
-            Encounter = handler.GetEncounter();
+            Boss = handler.GetEncounter();
             Length = handler.GetLength();
-            CharcterName = handler.GetCharcterName();
-            UserName = handler.GetUserName();
-            CharcterClass = handler.GetCharcterProf();
-            CharcterSpec = handler.GetCharcterSpec();
+            MainCharcterName = handler.GetCharcterName();
+            MainUserName = handler.GetUserName();
+            CharcterClassOfMainUser = handler.GetCharcterProf();
+            CharcterSpecOfMainUser = handler.GetCharcterSpec();
             CreationDate = handler.GetServerDateTime();
-            Length = handler.GetLength();
         }
 
-        public void LoadDisplayInfomation(Profession prof, Specialization spec) 
+        public void LoadDisplayInfomation() 
         {
-            if (spec == Specialization.None)
+            if (CharcterSpecOfMainUser == Specialization.None)
             {
-                if (prof == Profession.Unknown)
+                if (CharcterClassOfMainUser == Profession.Unknown)
                     ProfAndSpec = "Error, Unkown profession";
-                ProfAndSpec = prof.ToString();
+                ProfAndSpec = CharcterClassOfMainUser.ToString();
             }
             else
             {
-                if (spec == Specialization.Empty)
+                if (CharcterSpecOfMainUser == Specialization.Empty)
                     ProfAndSpec = "Error, Unkown specialization";
-                ProfAndSpec = spec.ToString();
+                ProfAndSpec = CharcterSpecOfMainUser.ToString();
             }
         }
     }

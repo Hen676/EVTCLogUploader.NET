@@ -1,14 +1,10 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Styling;
-using Avalonia.Themes.Fluent;
 using EVTCLogUploader.Services;
 using EVTCLogUploader.ViewModels;
 using EVTCLogUploader.Views;
-using System;
 using System.Globalization;
 using System.Threading;
 
@@ -25,15 +21,15 @@ namespace EVTCLogUploader
 
         public override void OnFrameworkInitializationCompleted()
         {
-            UploaderService uploaderService = new UploaderService();
-            SettingService settingService = new SettingService();
-            LocalDatabaseService localDatabaseService = new LocalDatabaseService();
+            UploaderService uploaderService = new();
+            SettingService settingService = new();
+            LocalDatabaseService localDatabaseService = new();
 
             RequestedThemeVariant = settingService.ModeToggle ? ThemeVariant.Dark : ThemeVariant.Light;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(settingService.Language);
 
 
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(uploaderService, settingService, localDatabaseService);
+            MainWindowViewModel mainWindowViewModel = new(uploaderService, settingService, localDatabaseService);
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
