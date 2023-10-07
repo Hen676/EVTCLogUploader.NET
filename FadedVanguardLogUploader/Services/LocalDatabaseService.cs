@@ -1,4 +1,4 @@
-﻿using EVTCLogUploader.Models.EVTCList;
+﻿using EVTCLogUploader.Models;
 using SQLite;
 using System.Collections.Generic;
 using System.IO;

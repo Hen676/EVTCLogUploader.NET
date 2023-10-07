@@ -1,7 +1,9 @@
-﻿using EVTCLogUploader.Enums;
-using EVTCLogUploader.Models.EVTCList;
+﻿using DynamicData;
+using EVTCLogUploader.Enums;
+using EVTCLogUploader.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EVTCLogUploader.Utils
 {
@@ -31,6 +33,28 @@ namespace EVTCLogUploader.Utils
             FilterEncounter.Clear();
             FileTypeFilter.Clear();
             ProfessionFilter.Clear();
+        }
+
+        public void EditEncounterList(List<EncounterNode> encounters)
+        {
+            List<Encounter> list = GetEncounters(encounters);
+
+            FilterEncounter.Clear();
+            FilterEncounter.AddRange(list);
+        }
+
+        private List<Encounter> GetEncounters(List<EncounterNode> encounters) 
+        {
+            List<Encounter> list = new();
+            encounters.ForEach(e => {
+                if (e.SubNodes != null) {
+                    list.AddRange(GetEncounters(e.SubNodes.ToList()));
+                }
+                if (e.Boss.HasValue) {
+                    list.Add(e.Boss.Value);
+                }
+            });
+            return list;
         }
 
         public void EditEncounterList(Encounter encounter)

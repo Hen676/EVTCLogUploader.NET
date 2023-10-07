@@ -1,10 +1,4 @@
-﻿using EVTCLogUploader.Enums;
-using EVTCLogUploader.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EVTCLogUploader.Utils;
 
 namespace EVTCLogUploader.Services
 {
@@ -13,8 +7,6 @@ namespace EVTCLogUploader.Services
         string Path { get; set; }
         Filter FilterSettings { get; set; }
         string Language { get; set; }
-        bool SortingToggle { get; set; }
-        SortingType SortingType { get; set; }
         bool ModeToggle { get; set; }
 
         public void Save();

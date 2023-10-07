@@ -1,6 +1,5 @@
 using Avalonia.Controls;
 using EVTCLogUploader.Enums;
-using EVTCLogUploader.Services.IO;
 using EVTCLogUploader.Services;
 using ReactiveUI;
 using System;
@@ -9,7 +8,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
 using Avalonia.Threading;
-using EVTCLogUploader.Models.EVTCList;
 using EVTCLogUploader.Models.Responce;
 using System.Collections.Generic;
 using System.IO;
@@ -20,22 +18,20 @@ using DynamicData;
 using Avalonia;
 using Avalonia.Styling;
 using EVTCLogUploader.Utils.Determiners;
-using System.Globalization;
+using EVTCLogUploader.Models;
+using System.Collections.Specialized;
 
 namespace EVTCLogUploader.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
         public Interaction<PopupViewModel, bool> ShowDialog { get; } = new Interaction<PopupViewModel, bool>();
+
         #region Commands
         public ReactiveCommand<Unit, Unit> AboutCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-        public ReactiveCommand<Unit, Unit> SelectCommand { get; }
-        public ReactiveCommand<Unit, Unit> UnselectCommand { get; }
         public ReactiveCommand<Unit, Unit> ModeCommand { get; }
         public ReactiveCommand<string, Unit> LanguageCommand { get; }
-        public ReactiveCommand<Unit, Unit> AscDesToggleCommand { get; }
-        public ReactiveCommand<SortingType, Unit> SortCommand { get; }
         public ReactiveCommand<FileType, Unit> FilterFileTypeCommand { get; }
         public ReactiveCommand<Encounter, Unit> FilterEncounterCommand { get; }
         public ReactiveCommand<Profession, Unit> FilterProfCommand { get; }
@@ -46,7 +42,88 @@ namespace EVTCLogUploader.ViewModels
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
         public ReactiveCommand<Unit, Unit> UploadCommand { get; }
         #endregion
+
         public ObservableCollection<EVTCFile> Items { get; } = new();
+        public ObservableCollection<EVTCFile> SelectedItems { get; } = new();
+        public ObservableCollection<EncounterNode> FilterNodes { get; } = new()
+        {
+            new EncounterNode(Resources.Lang.Resources.LNG_Menu_Filter_Raids, new ObservableCollection<EncounterNode>{
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_W1, new ObservableCollection<EncounterNode>{
+                     new EncounterNode(Encounter.ValeGuardian),
+                     new EncounterNode(Encounter.Gorseval),
+                     new EncounterNode(Encounter.Sabetha)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_W2, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.Slothasor),
+                    new EncounterNode(Encounter.BanditTrio),
+                    new EncounterNode(Encounter.Mattias)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_W3, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.Escort),
+                    new EncounterNode(Encounter.KeepConstruct),
+                    new EncounterNode(Encounter.TwistedCastle),
+                    new EncounterNode(Encounter.Xera)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_W4, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.Cairn),
+                    new EncounterNode(Encounter.MursaatOverseer),
+                    new EncounterNode(Encounter.Samarog),
+                    new EncounterNode(Encounter.Deimos)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_W5, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.SoullessHorror),
+                    new EncounterNode(Encounter.RiverOfSouls),
+                    new EncounterNode(Encounter.BrokenKing),
+                    new EncounterNode(Encounter.EaterOfSouls),
+                    new EncounterNode(Encounter.Eyes),
+                    new EncounterNode(Encounter.Dhuum)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_W6, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.ConjuredAmalgamate),
+                    new EncounterNode(Encounter.TwinLargos),
+                    new EncounterNode(Encounter.Qadim)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_W7, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.Adina),
+                    new EncounterNode(Encounter.Sabir),
+                    new EncounterNode(Encounter.QadimThePeerless)
+                }),
+            }),
+            new EncounterNode(Resources.Lang.Resources.LNG_Menu_Filter_Strikes, new ObservableCollection<EncounterNode>{
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_LW5, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.ShiverpeaksPass),
+                    new EncounterNode(Encounter.VoiceAndClawOfTheFallen),
+                    new EncounterNode(Encounter.FraenirOfJormag),
+                    new EncounterNode(Encounter.Boneskinner),
+                    new EncounterNode(Encounter.WhisperOfJormag),
+                    new EncounterNode(Encounter.ForgingSteel),
+                    new EncounterNode(Encounter.ColdWar)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_EOD, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.AetherbladeHideout),
+                    new EncounterNode(Encounter.XunlaiJadeJunkyard),
+                    new EncounterNode(Encounter.KainengOverlook),
+                    new EncounterNode(Encounter.HarvestTemple)
+                })
+            }),
+            new EncounterNode(Resources.Lang.Resources.LNG_Menu_Filter_Fractels, new ObservableCollection<EncounterNode>{
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_Nightmare, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.MAMA),
+                    new EncounterNode(Encounter.Siax),
+                    new EncounterNode(Encounter.Ensolyss)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_ShatteredObservatory, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.Skorvald),
+                    new EncounterNode(Encounter.Artsariiv),
+                    new EncounterNode(Encounter.Arkk)
+                }),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_SunquaPeak, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.AiKeeperOfThePeak)
+                })
+            })
+        };
+        public ObservableCollection<EncounterNode> SelectedFilterNodes { get; } = new();
+
         public int FileCount
         {
             get => _fileCount;
@@ -87,6 +164,7 @@ namespace EVTCLogUploader.ViewModels
         private ISettingService _settingService;
         private ILocalDatabaseService _localDatabaseService;
         #endregion
+
         #endregion
 
         #region Constructors
@@ -100,15 +178,13 @@ namespace EVTCLogUploader.ViewModels
             _theme = ThemeVarientDeterminer.Result(_settingService.ModeToggle);
             _filterError = _settingService.FilterSettings.ErrorFilter;
 
+            SelectedFilterNodes.CollectionChanged += SelectedFilterNodes_CollectionChanged;
+
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
-            SelectCommand = ReactiveCommand.Create(SelectAll);
-            UnselectCommand = ReactiveCommand.Create(UnselectAll);
             ModeCommand = ReactiveCommand.Create(ThemeVarient);
             LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
 
-            AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
-            SortCommand = ReactiveCommand.Create<SortingType>(Sort);
             FilterFileTypeCommand = ReactiveCommand.Create<FileType>(FilterFileType);
             FilterEncounterCommand = ReactiveCommand.Create<Encounter>(FilterEncounter);
             FilterProfCommand = ReactiveCommand.Create<Profession>(FilterProf);
@@ -131,15 +207,13 @@ namespace EVTCLogUploader.ViewModels
             _theme = ThemeVarientDeterminer.Result(_settingService.ModeToggle);
             _filterError = _settingService.FilterSettings.ErrorFilter;
 
+            SelectedFilterNodes.CollectionChanged += SelectedFilterNodes_CollectionChanged;
+
             AboutCommand = ReactiveCommand.Create(About);
             SaveCommand = ReactiveCommand.Create(Save);
-            SelectCommand = ReactiveCommand.Create(SelectAll);
-            UnselectCommand = ReactiveCommand.Create(UnselectAll);
             ModeCommand = ReactiveCommand.Create(ThemeVarient);
             LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
 
-            AscDesToggleCommand = ReactiveCommand.Create(AscDesToggle);
-            SortCommand = ReactiveCommand.Create<SortingType>(Sort);
             FilterFileTypeCommand = ReactiveCommand.Create<FileType>(FilterFileType);
             FilterEncounterCommand = ReactiveCommand.Create<Encounter>(FilterEncounter);
             FilterProfCommand = ReactiveCommand.Create<Profession>(FilterProf);
@@ -153,6 +227,14 @@ namespace EVTCLogUploader.ViewModels
             UploadCommand = ReactiveCommand.Create(UploadAsync);
         }
         #endregion
+
+        private void SelectedFilterNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (sender is ObservableCollection<EncounterNode> list && list != null) {
+                _settingService.FilterSettings.EditEncounterList(list.ToList());
+                Filter();
+            }
+        }
 
         #region Filter Commands
         private void FilterFileType(FileType fileType)
@@ -171,18 +253,6 @@ namespace EVTCLogUploader.ViewModels
             Filter();
         }
 
-        private void AscDesToggle()
-        {
-            _settingService.SortingToggle = !_settingService.SortingToggle;
-            Filter();
-        }
-
-        private void Sort(SortingType type)
-        {
-            _settingService.SortingType = type;
-            Filter();
-        }
-
         private void ClearFilter()
         {
             _settingService.FilterSettings.ClearFilters();
@@ -197,7 +267,7 @@ namespace EVTCLogUploader.ViewModels
         #endregion
 
         private void Close(Window window) => window.Close();
-        private void Save() => _settingService.Save();
+        public void Save() => _settingService.Save();
         private void WipeDB() => _localDatabaseService.WipeDB();
 
         private void ThemeVarient()
@@ -250,40 +320,13 @@ namespace EVTCLogUploader.ViewModels
         }
 
         /// <summary>
-        /// Unselects all items in storage and visbile
-        /// </summary>
-        /// <returns></returns>
-        private void UnselectAll()
-        {
-            _storedItems.AsList().ForEach(item => item.IsSelected = false);
-
-            List<EVTCFile> temp = Items.AsList();
-            temp.ForEach(item => item.IsSelected = false);
-            Items.Clear();
-            Items.AddRange(temp);
-        }
-
-        /// <summary>
-        /// Selects all items in storage and visbile
-        /// </summary>
-        /// <returns></returns>
-        private void SelectAll()
-        {
-            _storedItems.AsList().ForEach(item => item.IsSelected = false);
-            List<EVTCFile> temp = Items.AsList();
-            temp.ForEach(item => item.IsSelected = true);
-            Items.Clear();
-            Items.AddRange(temp);
-        }
-
-        /// <summary>
         /// Filters and sorts the current stored items.
         /// </summary>
         /// <param name="date">Date to filter too</param>
         /// <param name="time">If date is present. What time to filter too</param>
         /// <param name="select">Should the items be selected</param>
         /// <returns></returns>
-        private void Filter(DateTimeOffset? date = null, TimeSpan? time = null, bool select = false)
+        private void Filter(DateTimeOffset? date = null, TimeSpan? time = null)
         {
             if (date.HasValue)
                 _settingService.FilterSettings.TimeOffsetMin = date.Value;
@@ -291,25 +334,10 @@ namespace EVTCLogUploader.ViewModels
                 _settingService.FilterSettings.TimeOffsetMin = _settingService.FilterSettings.TimeOffsetMin.Date + time.Value;
 
             _filteredItems = _storedItems.Where(x => _settingService.FilterSettings.Predicate(x)).ToList();
-            _filteredItems.ForEach(x => x.IsSelected = select);
             FileCount = _filteredItems.Count;
-            switch (_settingService.SortingType)
-            {
-                case SortingType.Date:
-                    _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.CreationDate.CompareTo(x.CreationDate));
-                    break;
-                case SortingType.Length:
-                    _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.Length.CompareTo(x.Length));
-                    break;
-                case SortingType.User:
-                    _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.MainUserName.CompareTo(x.MainUserName));
-                    break;
-                case SortingType.Charcter:
-                    _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.MainCharcterName.CompareTo(x.MainCharcterName));
-                    break;
-            }
-            if (_settingService.SortingToggle)
-                _filteredItems.Reverse();
+
+            // Sort by creation date
+            _filteredItems.Sort((EVTCFile x, EVTCFile y) => y.CreationDate.CompareTo(x.CreationDate));
             Dispatcher.UIThread.Post(() =>
             {
                 Items.Clear();
@@ -357,17 +385,16 @@ namespace EVTCLogUploader.ViewModels
         private async void UploadAsync()
         {
             var popup = new PopupViewModel();
-            var uploadlist = _storedItems.Where(x => x.IsSelected).ToList();
-            if (uploadlist.Count > 50 || uploadlist.Count == 0)
+            if (SelectedItems.Count > 50 || SelectedItems.Count == 0)
             {
-                popup.Title = "Error: Inavlid amount of files to upload " + uploadlist.Count + "/50";
+                popup.Title = "Error: Inavlid amount of files to upload " + SelectedItems.Count + "/50";
                 await ShowDialog.Handle(popup);
                 return;
             }
-            uploadlist.Sort((x, y) => x.CreationDate.CompareTo(y.CreationDate));
-            ProgressBarMax = uploadlist.Count;
+            SelectedItems.ToList().Sort((x, y) => x.CreationDate.CompareTo(y.CreationDate));
+            ProgressBarMax = SelectedItems.Count;
 
-            foreach (EVTCFile file in uploadlist)
+            foreach (EVTCFile file in SelectedItems)
             {
                 if (file.UploadUrl == string.Empty)
                 {
@@ -377,8 +404,8 @@ namespace EVTCLogUploader.ViewModels
                 }
                 ProgressBarValue++;
             }
-            _localDatabaseService.UpdateRecordsURL(uploadlist);
-            string result = FormatedUploadListString(uploadlist);
+            _localDatabaseService.UpdateRecordsURL(SelectedItems.ToList());
+            string result = FormatedUploadListString(SelectedItems.ToList());
             if (Application.Current != null)
                 //if (Application.Current.Get != null)
                     // await Application.Current.Clipboard.SetTextAsync(result);

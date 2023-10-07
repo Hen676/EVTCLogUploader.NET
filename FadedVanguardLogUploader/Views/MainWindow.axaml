@@ -9,15 +9,15 @@
 		xmlns:converter="clr-namespace:EVTCLogUploader.Utils.Converter"
 		xmlns:views="clr-namespace:EVTCLogUploader.Views"
         mc:Ignorable="d"
-		d:DesignWidth="800"
-		d:DesignHeight="450"
+		d:DesignWidth="1000"
+		d:DesignHeight="600"
 		MinWidth="800"
 		MinHeight="450"
 		x:Name="EVTCLogUploader"
         x:Class="EVTCLogUploader.Views.MainWindow"
         Icon="/Assets/Logo.png"
         Title="EVTC Log Uploader"
-		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaToDecorationsHint="True"	
 		RequestedThemeVariant="{Binding Theme}">
 	
 	<Window.DataContext>
@@ -49,28 +49,29 @@
 
 	<Grid RowDefinitions="auto,auto,*,auto">
 
-		<!-- Menu -->
-		<Grid Grid.Column="1"
-			  Grid.ColumnSpan="10"
-			  ColumnDefinitions="auto,auto,auto,*">
-			
-			<!-- Menu Backgound -->
-			<StackPanel Grid.Column="1"
-						Grid.ColumnSpan="10"
-						Grid.Row="0"
-						Name="TopRow"
-						Background="{DynamicResource 
-						SystemControlBackgroundBaseLowBrush}"/>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto" MinWidth="200"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 
-			<Image Grid.Column="1"
-				   Width="25"  
+		<!-- Menu Backgound -->
+		<StackPanel Grid.ColumnSpan="10"
+					Grid.RowSpan="1"
+					Name="TopRow"
+					Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+		
+		<!-- Menu -->
+		<Grid Grid.ColumnSpan="10"
+			  ColumnDefinitions="auto,auto,*,auto">
+
+			<Image Width="25"  
 				   Margin="5,0"
 				   Source="/Assets/Logo.png"
 				   VerticalAlignment="Center"
 				   HorizontalAlignment="Center"/>
 			
 			<!-- Menu Buttons -->
-			<Menu Grid.Column="2"
+			<Menu Grid.Column="1"
 				  Margin="4,0,0,0">
 				<!-- File -->
 				<MenuItem Header="{x:Static p:Resources.LNG_Menu_File}">
@@ -110,11 +111,6 @@
 								  Command="{Binding LanguageCommand}"
 								  CommandParameter="pl-PL"/>
 					</MenuItem>
-					<Separator/>
-					<MenuItem Header="{x:Static p:Resources.LNG_Select_All}"
-							  Command="{Binding SelectCommand}"/>
-					<MenuItem Header="{x:Static p:Resources.LNG_Deselect_All}"
-							  Command="{Binding UnselectCommand}"/>
 					<Separator/>
 					<MenuItem Header="{x:Static p:Resources.LNG_Menu_Settings_DarkMode}"
 							  Command="{Binding ModeCommand}">
@@ -353,6 +349,8 @@
 		
 		<!-- Row 1 -->
 		<Grid Grid.Row="1"
+			  Grid.Column="0"
+			  Grid.ColumnSpan="2"
 			  ColumnDefinitions="auto,auto,auto">
 
 			<TextBlock Grid.Column="0"
@@ -368,21 +366,42 @@
 						SelectedTime="{Binding Time, Mode=TwoWay}"
 						VerticalAlignment="Center"/>
 		</Grid>
-
+		<!-- Filter vieww -->
+		<Border Background="{DynamicResource SystemControlBackgroundListLowBrush}"
+				BorderBrush="{DynamicResource SystemControlBackgroundListMediumBrush}"
+				BorderThickness="2"
+				Grid.Row="2"
+				Grid.RowSpan="1"
+				Margin="5">
+			<TreeView ItemsSource="{Binding FilterNodes}"
+					  SelectedItems="{Binding SelectedFilterNodes}"
+					  SelectionMode="Multiple">
+				<TreeView.ItemTemplate>
+					<TreeDataTemplate ItemsSource="{Binding SubNodes}">
+						<TextBlock Text="{Binding Title}"
+								   Padding="0,0,10,0"/>
+					</TreeDataTemplate>
+				</TreeView.ItemTemplate>
+			</TreeView>
+		</Border>
+		
+		
 		<!-- Row 2 -->
 		<DockPanel Margin="5"
-				   Grid.Row="2">
+				   Grid.Row="2"
+				   Grid.Column="1"
+				   HorizontalAlignment="Stretch">
 			<!-- Progress bar + Upload button -->
 			<Grid DockPanel.Dock="Bottom" 
 				  Margin="0,4"
-				  ColumnDefinitions="auto,*,auto">
-				<ProgressBar Grid.Column="1"
+				  ColumnDefinitions="*,auto">
+				<ProgressBar Grid.Column="0"
 							 Value="{Binding ProgressBarValue}"
 							 Maximum="{Binding ProgressBarMax}"
 							 ToolTip.Tip="{x:Static p:Resources.LNG_List_Bar_Tooltip}"
 							 Margin="10,0"/>
 
-				<Button Grid.Column="2"
+				<Button Grid.Column="1"
 						HorizontalAlignment="Right"
 						Command="{Binding UploadCommand}"
 						ToolTip.Tip="{x:Static p:Resources.LNG_List_Upload_Tooltip}"
@@ -396,12 +415,13 @@
 				<Grid>
 					<DataGrid ItemsSource="{Binding Items}"
 							  AutoGenerateColumns="False"
+							  IsReadOnly="True"
+							  SelectedItem="{Binding SelectedItems}"
+							  SelectionMode="Extended"
 							  CanUserReorderColumns="True"
 							  CanUserResizeColumns="True"
 							  Name="DataGrid">
 						<DataGrid.Columns>
-							<DataGridCheckBoxColumn Header="✔"
-													Binding="{Binding IsSelected, Mode=TwoWay}"/>
 							<DataGridTextColumn IsReadOnly="True"
 												Header="{x:Static p:Resources.LNG_DataGrid_Header_Encounter}"
 												Binding="{Binding Boss, Mode=OneWay, Converter={StaticResource encounterConveter}}"/>
@@ -421,24 +441,6 @@
 												Header="{x:Static p:Resources.LNG_DataGrid_Header_Date}"
 												Binding="{Binding CreationDate}"/>
 						</DataGrid.Columns>
-						<DataGrid.RowDetailsTemplate>
-							<DataTemplate>
-								<StackPanel>
-									<StackPanel Orientation="Horizontal">
-										<TextBlock Text="{x:Static p:Resources.LNG_DataGrid_Tooltip_FileName_Colon}"/>
-										<TextBlock Text="{Binding Name}"/>
-									</StackPanel>
-									<StackPanel Orientation="Horizontal">
-										<TextBlock Text="{x:Static p:Resources.LNG_DataGrid_Tooltip_FilePath_Colon}"/>
-										<TextBlock Text="{Binding FullPath}"/>
-									</StackPanel>
-									<StackPanel Orientation="Horizontal">
-										<TextBlock Text="{x:Static p:Resources.LNG_DataGrid_Tooltip_Url_Colon}"/>
-										<TextBlock Text="{Binding UploadUrl}"/>
-									</StackPanel>
-								</StackPanel>
-							</DataTemplate>
-						</DataGrid.RowDetailsTemplate>
 					</DataGrid>
 					
 				</Grid>

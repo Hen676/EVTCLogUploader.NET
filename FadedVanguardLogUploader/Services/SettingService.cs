@@ -1,5 +1,4 @@
-﻿using EVTCLogUploader.Enums;
-using EVTCLogUploader.Utils;
+﻿using EVTCLogUploader.Utils;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -32,26 +31,6 @@ namespace EVTCLogUploader.Services
             set
             {
                 this[nameof(ModeToggle)] = value;
-            }
-        }
-
-        [DefaultSettingValue(nameof(SortingType.Date)), UserScopedSetting]
-        public SortingType SortingType
-        {
-            get => (SortingType)this[nameof(SortingType)];
-            set
-            {
-                this[nameof(SortingType)] = value;
-            }
-        }
-
-        [DefaultSettingValue("true"), UserScopedSetting]
-        public bool SortingToggle
-        {
-            get => (bool)this[nameof(SortingToggle)];
-            set
-            {
-                this[nameof(SortingToggle)] = value;
             }
         }
 

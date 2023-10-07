@@ -6,7 +6,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-namespace EVTCLogUploader.Models.EVTCList
+namespace EVTCLogUploader.Models
 {
     public class EVTCFile
     {
@@ -25,8 +25,7 @@ namespace EVTCLogUploader.Models.EVTCList
 
         [Ignore]
         public string ProfAndSpec { get; set; } = string.Empty;
-        [Ignore]
-        public bool IsSelected { get; set; } = false;
+
 
 #if DEBUG
         private static int i = 0;

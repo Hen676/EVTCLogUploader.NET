@@ -1,4 +1,5 @@
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.ReactiveUI;
 using EVTCLogUploader.ViewModels;
 using ReactiveUI;
@@ -12,15 +13,21 @@ namespace EVTCLogUploader.Views
         public MainWindow()
         {
             InitializeComponent();
-            Closing += ClosingMainWindow;
             this.WhenActivated(d => d(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
-            TopRow.PointerPressed += PointerPressedMainWindow;
+
+            // Events
+            Closing += ClosingMainWindow;
+            Loaded += MainWindow_Loaded;
+            TopRow.PointerPressed += MainWindow_PointerPressed;
         }
 
-        private void PointerPressedMainWindow(object? sender, PointerPressedEventArgs e)
+        private void MainWindow_Loaded(object? sender, RoutedEventArgs e)
         {
-            BeginMoveDrag(e);
+            if (ViewModel != null)
+                ViewModel.Load();
         }
+
+        private void MainWindow_PointerPressed(object? sender, PointerPressedEventArgs e) => BeginMoveDrag(e);
 
         private async Task DoShowDialogAsync(InteractionContext<PopupViewModel, bool> interaction)
         {
@@ -34,7 +41,8 @@ namespace EVTCLogUploader.Views
 
         private void ClosingMainWindow(object? sender, CancelEventArgs e)
         {
-            // Call setting serivce and save?
+            if (!e.Cancel && ViewModel != null)
+                ViewModel.Save();
         }
     }
 }
