@@ -4,6 +4,7 @@ using Avalonia.ReactiveUI;
 using EVTCLogUploader.ViewModels;
 using ReactiveUI;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EVTCLogUploader.Views
@@ -24,7 +25,10 @@ namespace EVTCLogUploader.Views
         private void MainWindow_Loaded(object? sender, RoutedEventArgs e)
         {
             if (ViewModel != null)
-                ViewModel.Load();
+            {
+                Thread LoadingThread = new(new ThreadStart(ViewModel.Load));
+                LoadingThread.Start();
+            }
         }
 
         private void MainWindow_PointerPressed(object? sender, PointerPressedEventArgs e) => BeginMoveDrag(e);

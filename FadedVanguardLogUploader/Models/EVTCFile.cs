@@ -22,8 +22,6 @@ namespace EVTCLogUploader.Models
         public string UploadUrl { get; set; } = string.Empty;
         public bool Success { get; set; } = false; // TODO:: Remove?
         public FileType Type { get; set; } = FileType.None;
-
-        [Ignore]
         public string ProfAndSpec { get; set; } = string.Empty;
 
 
@@ -31,7 +29,8 @@ namespace EVTCLogUploader.Models
         private static int i = 0;
 #endif
         #region Constructor
-        public EVTCFile() { }
+        public EVTCFile() 
+        {   }
 
         public EVTCFile(string fullPath, string name, DateTime creationDate, string userName, string charcterName, TimeSpan length, Profession charcterClass, Specialization charcterSpec, Encounter encounter, string uploadUrl, FileType fileType)
         {

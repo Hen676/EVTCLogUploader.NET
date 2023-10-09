@@ -6,17 +6,27 @@ using System.Threading.Tasks;
 
 namespace EVTCLogUploader.Services
 {
-    internal class LocalDatabaseService : ILocalDatabaseService
+    public class LocalDatabaseService : ILocalDatabaseService
     {
-        private SQLiteAsyncConnection Database = new(DatabasePath, Flags);
-        private const string DatabaseFilename = "data.db";
+        private SQLiteAsyncConnection Database;
         private const SQLiteOpenFlags Flags =
         SQLiteOpenFlags.ReadWrite |
         SQLiteOpenFlags.Create |
         SQLiteOpenFlags.SharedCache;
-        public static string DatabasePath =>
-        Path.Combine(Directory.GetCurrentDirectory(), DatabaseFilename);
+        public string DatabasePath;
         bool initalised = false;
+
+        public LocalDatabaseService() 
+        {
+            DatabasePath = Path.Combine(Directory.GetCurrentDirectory(), "data.db");
+            Database = new(DatabasePath, Flags);
+        }
+
+        public LocalDatabaseService(string path)
+        {
+            DatabasePath = path;
+            Database = new(path, Flags);
+        }
 
         private async void Init()
         {
@@ -24,11 +34,11 @@ namespace EVTCLogUploader.Services
             initalised = true;
         }
 
-        public void AddRecords(List<EVTCFile> records)
+        public async void AddRecords(List<EVTCFile> records)
         {
             if (!initalised)
                 Init();
-            Database.UpdateAllAsync(records);
+            await Database.InsertAllAsync(records);
         }
 
         public async Task<List<EVTCFile>> GetRecords()
@@ -38,11 +48,11 @@ namespace EVTCLogUploader.Services
             return await Database.Table<EVTCFile>().ToListAsync();
         }
 
-        public void UpdateRecordsURL(List<EVTCFile> newValues)
+        public async void UpdateRecordsURL(List<EVTCFile> newValues)
         {
             if (!initalised)
                 Init();
-            Database.UpdateAllAsync(newValues);
+            await Database.UpdateAllAsync(newValues);
         }
 
         public async void WipeDB()

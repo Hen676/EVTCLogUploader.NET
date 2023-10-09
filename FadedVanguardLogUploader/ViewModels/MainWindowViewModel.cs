@@ -446,6 +446,16 @@ namespace EVTCLogUploader.ViewModels
 
         private IEnumerable<string> GetFiles(bool filterAlreadyStored)
         {
+            IEnumerable<string> files = Directory.EnumerateFiles(_settingService.Path, "*evtc*", SearchOption.AllDirectories)
+                .Where(s =>
+                s.ToLower().EndsWith(".evtc") ||
+                s.ToLower().EndsWith(".evtc.zip") ||
+                s.ToLower().EndsWith(".zevtc"));
+
+            if (filterAlreadyStored)
+                return files.Where(s => !_storedItems.Any(val => s.Equals(val.FullPath)));
+            return files;
+            /*
             if (filterAlreadyStored)
             {
                 return Directory.EnumerateFiles(_settingService.Path, "*evtc*", SearchOption.AllDirectories)
@@ -459,7 +469,7 @@ namespace EVTCLogUploader.ViewModels
                 .Where(s =>
                 s.ToLower().EndsWith(".evtc") ||
                 s.ToLower().EndsWith(".evtc.zip") ||
-                s.ToLower().EndsWith(".zevtc"));
+                s.ToLower().EndsWith(".zevtc"));*/
         }
 
         private void GetItems(IEnumerable<string> files)
