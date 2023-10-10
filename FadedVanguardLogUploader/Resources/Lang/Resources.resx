@@ -171,6 +171,15 @@
   <data name="LNG_Deselect_All_Tooltip" xml:space="preserve">
     <value>Unselect all available files</value>
   </data>
+  <data name="LNG_Error_Language_Body" xml:space="preserve">
+    <value>Language code {0} is invalid</value>
+  </data>
+  <data name="LNG_Error_Language_Title" xml:space="preserve">
+    <value>Error setting language</value>
+  </data>
+  <data name="LNG_Error_Upload_Amount" xml:space="preserve">
+    <value>Error: Inavlid amount of files to upload {0}/50</value>
+  </data>
   <data name="LNG_File_Count" xml:space="preserve">
     <value> EVTC Files</value>
     <comment>Needs a space at the beginning</comment>
@@ -232,6 +241,9 @@
   <data name="LNG_Menu_Encounter_EOD" xml:space="preserve">
     <value>End of Dragons</value>
   </data>
+  <data name="LNG_Menu_Encounter_Error" xml:space="preserve">
+    <value>Error, Unsupported encounter</value>
+  </data>
   <data name="LNG_Menu_Encounter_Escort" xml:space="preserve">
     <value>Siege the Stronghold</value>
   </data>
@@ -246,6 +258,9 @@
   </data>
   <data name="LNG_Menu_Encounter_Freezie" xml:space="preserve">
     <value>Secret Lair of the Snowmen</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Golem" xml:space="preserve">
+    <value>Golem</value>
   </data>
   <data name="LNG_Menu_Encounter_Gorseval" xml:space="preserve">
     <value>Gorseval the Multifarious</value>
@@ -318,6 +333,9 @@
   </data>
   <data name="LNG_Menu_Encounter_TwistedCastle" xml:space="preserve">
     <value>Twisted Castle</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Unkown" xml:space="preserve">
+    <value>Error, Unkown encounter</value>
   </data>
   <data name="LNG_Menu_Encounter_ValeGuardian" xml:space="preserve">
     <value>Vale Guardian</value>
@@ -478,6 +496,9 @@
   <data name="LNG_Menu_Spec_None" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="LNG_Raid_Logs_Title_NewLine" xml:space="preserve">
+    <value>Raid Logs {0}</value>
+  </data>
   <data name="LNG_Restart_Language_Body" xml:space="preserve">
     <value>Language code: {0}</value>
   </data>
@@ -495,5 +516,8 @@
   </data>
   <data name="LNG_Select_All_Tooltip" xml:space="preserve">
     <value>Select all filtered files</value>
+  </data>
+  <data name="LNG_Select_Folder" xml:space="preserve">
+    <value>Select Folder</value>
   </data>
 </root>

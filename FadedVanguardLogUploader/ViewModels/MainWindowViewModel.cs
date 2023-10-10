@@ -13,13 +13,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
-using DynamicData.Kernel;
 using DynamicData;
 using Avalonia;
 using Avalonia.Styling;
 using EVTCLogUploader.Utils.Determiners;
 using EVTCLogUploader.Models;
 using System.Collections.Specialized;
+using Splat;
+using Avalonia.Platform.Storage;
+using System.Collections;
 
 namespace EVTCLogUploader.ViewModels
 {
@@ -40,11 +42,10 @@ namespace EVTCLogUploader.ViewModels
         public ReactiveCommand<Unit, Unit> WipeDBCommand { get; }
         public ReactiveCommand<Window, Unit> CloseCommand { get; }
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
-        public ReactiveCommand<Unit, Unit> UploadCommand { get; }
+        public ReactiveCommand<Window, Unit> UploadCommand { get; }
         #endregion
 
         public ObservableCollection<EVTCFile> Items { get; } = new();
-        public ObservableCollection<EVTCFile> SelectedItems { get; } = new();
         public ObservableCollection<EncounterNode> FilterNodes { get; } = new()
         {
             new EncounterNode(Resources.Lang.Resources.LNG_Menu_Filter_Raids, new ObservableCollection<EncounterNode>{
@@ -117,9 +118,7 @@ namespace EVTCLogUploader.ViewModels
                     new EncounterNode(Encounter.Artsariiv),
                     new EncounterNode(Encounter.Arkk)
                 }),
-                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_SunquaPeak, new ObservableCollection<EncounterNode>{
-                    new EncounterNode(Encounter.AiKeeperOfThePeak)
-                })
+                new EncounterNode(Encounter.AiKeeperOfThePeak)
             })
         };
         public ObservableCollection<EncounterNode> SelectedFilterNodes { get; } = new();
@@ -194,8 +193,7 @@ namespace EVTCLogUploader.ViewModels
             WipeDBCommand = ReactiveCommand.Create(WipeDB);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
-
-            UploadCommand = ReactiveCommand.Create(UploadAsync);
+            UploadCommand = ReactiveCommand.Create<Window>(UploadAsync);
         }
 
         public MainWindowViewModel(IUploaderService uploaderService, ISettingService settingService, ILocalDatabaseService localDatabaseService)
@@ -223,8 +221,7 @@ namespace EVTCLogUploader.ViewModels
             WipeDBCommand = ReactiveCommand.Create(WipeDB);
             CloseCommand = ReactiveCommand.Create<Window>(Close);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
-
-            UploadCommand = ReactiveCommand.Create(UploadAsync);
+            UploadCommand = ReactiveCommand.Create<Window>(UploadAsync);
         }
         #endregion
 
@@ -252,7 +249,6 @@ namespace EVTCLogUploader.ViewModels
             _settingService.FilterSettings.EditProfessionList(profession);
             Filter();
         }
-
         private void ClearFilter()
         {
             _settingService.FilterSettings.ClearFilters();
@@ -270,23 +266,48 @@ namespace EVTCLogUploader.ViewModels
         public void Save() => _settingService.Save();
         private void WipeDB() => _localDatabaseService.WipeDB();
 
+        /// <summary>
+        /// Switches the current applications theme from light to dark and vice versa
+        /// </summary>
+        /// <returns></returns>
         private void ThemeVarient()
         {
             _settingService.ModeToggle = !_settingService.ModeToggle;
             Theme = ThemeVarientDeterminer.Result(_settingService.ModeToggle);
         }
 
+        /// <summary>
+        /// Changes the current language of the application. Language chages apply when the application is restarted.
+        /// </summary>
+        /// <param name="code">Language code to change to</param>
+        /// <returns></returns>
         private async void ChangeLanguageAsync(string code)
         {
-            _settingService.SetLanguage(code);
-            var popup = new PopupViewModel
+            bool goodCode = _settingService.SetLanguage(code);
+            PopupViewModel popup;
+            if (goodCode)
             {
-                Title = Resources.Lang.Resources.LNG_Restart_Language_Title,
-                Body = string.Format(Resources.Lang.Resources.LNG_Restart_Language_Body, code)
-            };
+                popup = new PopupViewModel
+                {
+                    Title = Resources.Lang.Resources.LNG_Restart_Language_Title,
+                    Body = string.Format(Resources.Lang.Resources.LNG_Restart_Language_Body, code)
+                };
+            }
+            else 
+            {
+                popup = new PopupViewModel
+                {
+                    Title = Resources.Lang.Resources.LNG_Error_Language_Title,
+                    Body = string.Format(Resources.Lang.Resources.LNG_Error_Language_Body, code)
+                };
+            }
             await ShowDialog.Handle(popup);
         }
 
+        /// <summary>
+        /// Creates a About popup filled with translated infomation.
+        /// </summary>
+        /// <returns></returns>
         private async void About()
         {
             var popup = new PopupViewModel
@@ -299,32 +320,36 @@ namespace EVTCLogUploader.ViewModels
             await ShowDialog.Handle(popup);
         }
 
+        /// <summary>
+        /// Creates a Folder picker for the progmram to pull EVTC files from and any sub directories.
+        /// </summary>
+        /// <param name="window">Current window of the program</param>
+        /// <returns></returns>
         private async void Folder(Window window)
         {
-            // TODO:: Update folder popup + Add translation
-            var fileDialog = new OpenFolderDialog();
-            if (fileDialog != null && window != null)
+            TopLevel? topLevel = TopLevel.GetTopLevel(window);
+            if (topLevel == null || topLevel.StorageProvider == null)
+                return;
+            IReadOnlyList<IStorageFolder> responce = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
             {
-                fileDialog.Title = "Open Folder";
-                if (_settingService.Path != "")
-                    fileDialog.Directory = _settingService.Path;
-                string? responce = await fileDialog.ShowAsync(window);
-                if (responce != null)
-                {
-                    _settingService.Path = responce;
-                    _settingService.Save();
-                    Thread thread = new(() => SearchFolder());
-                    thread.Start();
-                }
+                Title = Resources.Lang.Resources.LNG_Select_Folder,
+                SuggestedStartLocation = await topLevel.StorageProvider.TryGetFolderFromPathAsync(_settingService.Path),
+                AllowMultiple = false
+            });
+            if (responce.Any()) 
+            {
+                _settingService.Path = responce.First().Path.LocalPath;
+                _settingService.Save();
+                Thread thread = new(() => SearchFolder(false));
+                thread.Start();
             }
         }
 
         /// <summary>
-        /// Filters and sorts the current stored items.
+        /// Filters and sorts the currently stored items.
         /// </summary>
         /// <param name="date">Date to filter too</param>
         /// <param name="time">If date is present. What time to filter too</param>
-        /// <param name="select">Should the items be selected</param>
         /// <returns></returns>
         private void Filter(DateTimeOffset? date = null, TimeSpan? time = null)
         {
@@ -347,54 +372,29 @@ namespace EVTCLogUploader.ViewModels
         }
 
         /// <summary>
-        /// Loads the data from storageIO into the visible item
+        /// Uploads selected evtc files to dps.report. Requires "DataGrid" element in the window.
         /// </summary>
+        /// <param name="window">Current window of the program</param>
         /// <returns></returns>
-        public async void Load()
+        private async void UploadAsync(Window window)
         {
-            _storedItems = await _localDatabaseService.GetRecords();
-
-            if (_settingService.Path == "")
-            {
-                WipeDatabaseAndItems();
+            DataGrid? grid = window.Find<DataGrid>("DataGrid");
+            if (grid == null)
                 return;
-            }
-
-            if (_storedItems.Count == 0)
-                SearchFolder();
-            else
-                UpdateFolder();
-            Filter();
-        }
-
-        private void UpdateFolder()
-        {
-            IEnumerable<string> files = GetFiles(true);
-            if (!files.Any())
-                return;
-            GetItems(files);
-        }
-
-        private void SearchFolder()
-        {
-            WipeDatabaseAndItems();
-            IEnumerable<string> files = GetFiles(false);
-            GetItems(files);
-        }
-
-        private async void UploadAsync()
-        {
             var popup = new PopupViewModel();
-            if (SelectedItems.Count > 50 || SelectedItems.Count == 0)
+            if (grid.SelectedItems.Count > 50 || grid.SelectedItems.Count == 0)
             {
-                popup.Title = "Error: Inavlid amount of files to upload " + SelectedItems.Count + "/50";
+                popup.Title = string.Format(Resources.Lang.Resources.LNG_Error_Upload_Amount, grid.SelectedItems.Count);
                 await ShowDialog.Handle(popup);
                 return;
             }
-            SelectedItems.ToList().Sort((x, y) => x.CreationDate.CompareTo(y.CreationDate));
-            ProgressBarMax = SelectedItems.Count;
 
-            foreach (EVTCFile file in SelectedItems)
+            List<EVTCFile> list = grid.SelectedItems.Cast<EVTCFile>().ToList();
+
+            list.ToList().Sort((x, y) => x.CreationDate.CompareTo(y.CreationDate));
+            ProgressBarMax = list.Count;
+
+            foreach (EVTCFile file in list)
             {
                 if (file.UploadUrl == string.Empty)
                 {
@@ -404,23 +404,33 @@ namespace EVTCLogUploader.ViewModels
                 }
                 ProgressBarValue++;
             }
-            _localDatabaseService.UpdateRecordsURL(SelectedItems.ToList());
-            string result = FormatedUploadListString(SelectedItems.ToList());
-            if (Application.Current != null)
-                //if (Application.Current.Get != null)
-                    // await Application.Current.Clipboard.SetTextAsync(result);
+            _localDatabaseService.UpdateRecordsURL(list);
+            string result = FormatedUploadListString(list);
+
+            TopLevel? topLevel = TopLevel.GetTopLevel(window);
+            if (topLevel != null && topLevel.Clipboard != null)
+            {
+                await topLevel.Clipboard.SetTextAsync(result);
+            }
 
             ProgressBarValue = ProgressBarMax;
             popup.Title = result;
             await ShowDialog.Handle(popup);
             ProgressBarValue = 0;
+            
         }
 
+        /// <summary>
+        /// Formats the resulting uploaded files urls into single string.
+        /// </summary>
+        /// <param name="uploadlist">List of files that were uploaded</param>
+        /// <returns></returns>
         private string FormatedUploadListString(List<EVTCFile> uploadlist)
         {
             List<string> clipborad = new()
             {
-                $"Raid Logs {DateTime.Now:D}\n"
+               string.Format(Resources.Lang.Resources.LNG_Raid_Logs_Title_NewLine, $"{DateTime.Now:D}\n")
+
             };
             Encounter lastboss = Encounter.Empty;
             foreach (EVTCFile file in uploadlist)
@@ -438,40 +448,78 @@ namespace EVTCLogUploader.ViewModels
             return string.Join("\n", clipborad.ToArray());
         }
 
+        /// <summary>
+        /// Clears and recreates the database and removes currently stored files.
+        /// </summary>
+        /// <returns></returns>
         private void WipeDatabaseAndItems()
         {
             _storedItems.Clear();
             _localDatabaseService.WipeDB();
         }
 
+        /// <summary>
+        /// Loads the data from storageIO into the visible item.
+        /// </summary>
+        /// <returns></returns>
+        public async void Load()
+        {
+            _storedItems = await _localDatabaseService.GetRecords();
+
+            if (_settingService.Path == "")
+            {
+                WipeDatabaseAndItems();
+                return;
+            }
+            SearchFolder(_storedItems.Count != 0);
+            Filter();
+        }
+
+        /// <summary>
+        /// Wipes database and gets files to fill the data base with.
+        /// </summary>
+        /// <param name="update">Gets files to update the database with</param>
+        /// <returns></returns>
+        private void SearchFolder(bool update)
+        {
+            if (!update)
+                WipeDatabaseAndItems();
+            IEnumerable<string> files = GetFiles(update);
+            if (!files.Any())
+                return;
+            GetItems(files);
+        }
+
+        /// <summary>
+        /// Gets evtc files from the _settingService.Path and sub directories.
+        /// </summary>
+        /// <param name="filterAlreadyStored">Filter out files currently stored in _storedItems</param>
+        /// <returns></returns>
         private IEnumerable<string> GetFiles(bool filterAlreadyStored)
         {
-            IEnumerable<string> files = Directory.EnumerateFiles(_settingService.Path, "*evtc*", SearchOption.AllDirectories)
-                .Where(s =>
-                s.ToLower().EndsWith(".evtc") ||
-                s.ToLower().EndsWith(".evtc.zip") ||
-                s.ToLower().EndsWith(".zevtc"));
-
+            IEnumerable<string> files = new List<string>();
+            try
+            {
+                files = Directory.EnumerateFiles(_settingService.Path, "*evtc*", SearchOption.AllDirectories)
+                    .Where(s =>
+                    s.ToLower().EndsWith(".evtc") ||
+                    s.ToLower().EndsWith(".evtc.zip") ||
+                    s.ToLower().EndsWith(".zevtc"));
+            } 
+            catch (Exception e) //TODO:: Add better exception. Popup maybe?
+            { 
+                Console.WriteLine(e.Message);
+            }
             if (filterAlreadyStored)
                 return files.Where(s => !_storedItems.Any(val => s.Equals(val.FullPath)));
             return files;
-            /*
-            if (filterAlreadyStored)
-            {
-                return Directory.EnumerateFiles(_settingService.Path, "*evtc*", SearchOption.AllDirectories)
-                    .Where(s =>
-                    (s.ToLower().EndsWith(".evtc") ||
-                    s.ToLower().EndsWith(".evtc.zip") ||
-                    s.ToLower().EndsWith(".zevtc")) &&
-                    !_storedItems.Any(val => s.Equals(val.FullPath)));
-            }
-            return Directory.EnumerateFiles(_settingService.Path, "*evtc*", SearchOption.AllDirectories)
-                .Where(s =>
-                s.ToLower().EndsWith(".evtc") ||
-                s.ToLower().EndsWith(".evtc.zip") ||
-                s.ToLower().EndsWith(".zevtc"));*/
         }
 
+        /// <summary>
+        /// Reads list of files and adds them to the database + application.
+        /// </summary>
+        /// <param name="files">List of file locations to be read</param>
+        /// <returns></returns>
         private void GetItems(IEnumerable<string> files)
         {
             List<Task> bagTasks = new();

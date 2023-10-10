@@ -205,6 +205,33 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language code {0} is invalid.
+        /// </summary>
+        public static string LNG_Error_Language_Body {
+            get {
+                return ResourceManager.GetString("LNG_Error_Language_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error setting language.
+        /// </summary>
+        public static string LNG_Error_Language_Title {
+            get {
+                return ResourceManager.GetString("LNG_Error_Language_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Inavlid amount of files to upload {0}/50.
+        /// </summary>
+        public static string LNG_Error_Upload_Amount {
+            get {
+                return ResourceManager.GetString("LNG_Error_Upload_Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  EVTC Files.
         /// </summary>
         public static string LNG_File_Count {
@@ -385,6 +412,15 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error, Unsupported encounter.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Error {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Siege the Stronghold.
         /// </summary>
         public static string LNG_Menu_Encounter_Escort {
@@ -426,6 +462,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Menu_Encounter_Freezie {
             get {
                 return ResourceManager.GetString("LNG_Menu_Encounter_Freezie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golem.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Golem {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Golem", resourceCulture);
             }
         }
         
@@ -642,6 +687,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Menu_Encounter_TwistedCastle {
             get {
                 return ResourceManager.GetString("LNG_Menu_Encounter_TwistedCastle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error, Unkown encounter.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Unkown {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Unkown", resourceCulture);
             }
         }
         
@@ -1123,6 +1177,15 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Raid Logs {0}.
+        /// </summary>
+        public static string LNG_Raid_Logs_Title_NewLine {
+            get {
+                return ResourceManager.GetString("LNG_Raid_Logs_Title_NewLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language code: {0}.
         /// </summary>
         public static string LNG_Restart_Language_Body {
@@ -1173,6 +1236,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Select_All_Tooltip {
             get {
                 return ResourceManager.GetString("LNG_Select_All_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Folder.
+        /// </summary>
+        public static string LNG_Select_Folder {
+            get {
+                return ResourceManager.GetString("LNG_Select_Folder", resourceCulture);
             }
         }
     }

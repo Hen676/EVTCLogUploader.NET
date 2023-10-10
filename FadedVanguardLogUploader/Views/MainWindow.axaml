@@ -408,6 +408,7 @@
 				<Button Grid.Column="1"
 						HorizontalAlignment="Right"
 						Command="{Binding UploadCommand}"
+						CommandParameter="{Binding ElementName=EVTCLogUploader}"
 						ToolTip.Tip="{x:Static p:Resources.LNG_List_Upload_Tooltip}"
 						Content="{x:Static p:Resources.LNG_List_Upload}"/>
 			</Grid>
@@ -420,7 +421,6 @@
 					<DataGrid ItemsSource="{Binding Items}"
 							  AutoGenerateColumns="False"
 							  IsReadOnly="True"
-							  SelectedItem="{Binding SelectedItems}"
 							  SelectionMode="Extended"
 							  CanUserReorderColumns="True"
 							  CanUserResizeColumns="True"

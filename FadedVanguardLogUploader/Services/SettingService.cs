@@ -11,7 +11,7 @@ namespace EVTCLogUploader.Services
          *  
          *  Stores all settings for the application
          *  
-         *  TODO:: Save on application close
+         *  TODO:: Save on application alt-f4?
          */
 
         [DefaultSettingValue(""), UserScopedSetting]
@@ -56,7 +56,7 @@ namespace EVTCLogUploader.Services
 
         private static readonly List<string> supportedLanguages = new List<string>
         {
-            "en",
+            "en-GB",
             "fr",
             "de",
             "it",

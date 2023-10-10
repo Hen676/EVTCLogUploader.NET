@@ -10,6 +10,7 @@ namespace EVTCLogUploader.Models
 {
     public class EVTCFile
     {
+        [PrimaryKey]
         public string FullPath { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public DateTime CreationDate { get; set; } = DateTime.MinValue;
@@ -20,14 +21,13 @@ namespace EVTCLogUploader.Models
         public Specialization CharcterSpecOfMainUser { get; set; } = Specialization.None;
         public Encounter Boss { get; set; } = Encounter.Unkown;
         public string UploadUrl { get; set; } = string.Empty;
-        public bool Success { get; set; } = false; // TODO:: Remove?
         public FileType Type { get; set; } = FileType.None;
         public string ProfAndSpec { get; set; } = string.Empty;
-
 
 #if DEBUG
         private static int i = 0;
 #endif
+
         #region Constructor
         public EVTCFile() 
         {   }
