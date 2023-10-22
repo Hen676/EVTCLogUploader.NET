@@ -1,4 +1,5 @@
-﻿using EVTCLogUploader.Enums;
+﻿using DynamicData;
+using EVTCLogUploader.Enums;
 using EVTCLogUploader.Models.Log;
 using EVTCLogUploader.Utils.Determiners;
 using EVTCLogUploader.Utils.GameData;
@@ -9,108 +10,115 @@ namespace EVTCLogUploader.Services.IO
 {
     public class BinaryReaderHandlerIO
     {
-        private readonly BinaryArrayReaderIO reader;
-        private readonly Encounter encounter;
-        private readonly TimeSpan length;
-        private readonly DateTimeOffset SeverStartTime;
-        private readonly string charcterName;
-        private readonly string userName;
-        private readonly Profession charcterProf;
-        private readonly Specialization charcterSpec;
+        private readonly BinaryArrayReaderIO _reader;
+        private readonly AgentItem? _userAgent;
+        private readonly Header _header;
+        private readonly List<AgentItem> _agentItems;
+        private readonly List<SkillItem>? _skillItems;
+        private readonly List<EventItem> _eventItems;
 
         public BinaryReaderHandlerIO(BinaryArrayReaderIO read)
         {
-            reader = read;
-            Header header = EVTCHeader();
-            List<AgentItem> agents = EVTCAgent(header.Id);
-            encounter = EncounterDeterminer.Result(header.Id, agents);
-
-            AgentItem? user = agents.Find(x => x.Address == 2000);
-            if (user != null)
-            {
-                string[] names = user.Name.Replace("\0", string.Empty).Split(":", StringSplitOptions.RemoveEmptyEntries);
-                charcterName = names[0];
-                userName = names[1].Remove(names[1].Length - 1);
-
-                uint professionIndex = user.Prof;
-                if (professionIndex > 9)
-                {
-                    charcterProf = Profession.Unknown;
-                    charcterSpec = Specialization.None;
-                }
-                else
-                {
-                    charcterProf = (Profession)professionIndex;
-                    if (user.IsElite == 0)
-                    {
-                        charcterSpec = Specialization.None;
-                    }
-                    else if (user.IsElite == 1)
-                    {
-                        charcterSpec = HotSpecializationDeterminer.Result(charcterProf);
-                    }
-                    else
-                    {
-                        charcterSpec = (Specialization)user.IsElite;
-                    }
-                }
-            }
-            else
-            {
-                charcterName = "";
-                userName = "";
-                charcterProf = Profession.Unknown;
-                charcterSpec = Specialization.None;
-            }
+            _reader = read;
+            _header = new Header(read);
+            _agentItems = EVTCAgent();
+            _userAgent = _agentItems.Find(x => x.Address == 2000);
             SkipEVTCSkill();
-            List<EventItem> events = EVTCEvent(header.Revision);
-            SeverStartTime = DateTimeOffset.MinValue;
-            var start = events.Find(x => x.IsStatechange == StateChange.LogStart && x.Value != 0 && x.BuffDamage != 0);
-            var end = events.Find(x => x.IsStatechange == StateChange.LogEnd && x.Value != 0 && x.BuffDamage != 0);
+            _eventItems = EVTCEvent();
+        }
+
+        public BinaryReaderHandlerIO(BinaryArrayReaderIO read, bool getUserAgent)
+        {
+            _reader = read;
+            _header = new Header(read);
+            _agentItems = EVTCAgent();
+            if (getUserAgent)
+                _userAgent = _agentItems.Find(x => x.Address == 2000);
+            _skillItems = EVTCSkill();
+            _eventItems = EVTCEvent();
+        }
+
+        public TimeSpan GetLength()
+        {
+            EventItem? end = _eventItems.Find(x => x.IsStateChange == StateChange.LogEnd && x.Value != 0 && x.BuffDamage != 0);
+            if (end == null)
+                return TimeSpan.Zero;
+            return DateTimeOffset.FromUnixTimeSeconds(end?.Value ?? ((int)_eventItems[^1].Time)) - GetServerDateTimeOffset();
+        }
+
+        private DateTimeOffset GetServerDateTimeOffset()
+        {
+            EventItem? start = _eventItems.Find(x => x.IsStateChange == StateChange.LogStart && x.Value != 0 && x.BuffDamage != 0);
             if (start == null)
-            {
-                length = TimeSpan.Zero;
-                return;
-            }
-            SeverStartTime = DateTimeOffset.FromUnixTimeSeconds(start.Value);
-            length = DateTimeOffset.FromUnixTimeSeconds(end?.Value ?? ((int)events[^1].Time)) - SeverStartTime;
+                return DateTimeOffset.MinValue;
+            return DateTimeOffset.FromUnixTimeSeconds(start.Value);
         }
 
-        private Header EVTCHeader()
+        public DateTime GetServerDateTime() => GetServerDateTimeOffset().DateTime;
+
+        public string GetCharcterName()
         {
-            string buildVersision = reader.ReadString(12);
-            byte revision = reader.ReadByte();
-            ushort id = reader.ReadUShort();
-            reader.SkipBytes(1);
-            return new Header(buildVersision, revision, id);
+            string[] names = GetNames();
+            if (names.Length >= 1)
+                return names[0];
+            return "";
         }
 
-        private List<AgentItem> EVTCAgent(uint id)
+        public string GetUserName()
         {
-            int agentCount = reader.ReadInt();
-            List<AgentItem> val = new();
+            string[] names = GetNames();
+            if (names.Length >= 2)
+                return names[1].Remove(names[1].Length - 1);
+            return "";
+        }
+
+        private string[] GetNames() => _userAgent != null ? _userAgent.Name.Replace("\0", string.Empty).Split(":", StringSplitOptions.RemoveEmptyEntries) : Array.Empty<string>();
+
+        public Profession GetCharcterProf()
+        {
+            if (_userAgent == null)
+                return Profession.Unknown;
+
+            uint professionIndex = _userAgent.Prof;
+            if (professionIndex > 9)
+                return Profession.Unknown;
+            return (Profession)professionIndex;
+        }
+
+        public Specialization GetCharcterSpec()
+        {
+            if (_userAgent == null)
+                return Specialization.None;
+
+            uint professionIndex = _userAgent.Prof;
+            if (professionIndex > 9 || _userAgent.IsElite == 0)
+                return Specialization.None;
+            else if (_userAgent.IsElite == 1)
+                return HotSpecializationDeterminer.Result((Profession)professionIndex);
+            else
+                return (Specialization)_userAgent.IsElite;
+        }
+
+        public Encounter GetEncounter() => EncounterDeterminer.Result(_header.Id, _agentItems);
+
+        private List<uint> GetAgentIds() 
+        {
             List<uint> ids = new()
             {
-                id
+                _header.Id
             };
-
-            switch (id)
+            switch (_header.Id)
             {
                 case NPCIds.Berg:
                 case NPCIds.Zane:
                 case NPCIds.Narella:
-                    ids.Add(NPCIds.Berg);
-                    ids.Add(NPCIds.Zane);
-                    ids.Add(NPCIds.Narella);
-                    ids.Add(NPCIds.TrioCagePrisoner);
+                    ids.AddRange(new List<uint>() { NPCIds.Berg, NPCIds.Zane, NPCIds.Narella, NPCIds.TrioCagePrisoner });
                     break;
                 case NPCIds.Xera:
-                    ids.Add(NPCIds.HauntingStatue);
-                    ids.Add(NPCIds.XeraEnd);
+                    ids.AddRange(new List<uint>() { NPCIds.HauntingStatue, NPCIds.XeraEnd });
                     break;
                 case NPCIds.Deimos:
-                    ids.Add(GadgetIds.ShackledPrisoner);
-                    ids.Add(GadgetIds.DeimosLastPhase);
+                    ids.AddRange(new List<uint>() { GadgetIds.ShackledPrisoner, GadgetIds.DeimosLastPhase });
                     break;
                 case NPCIds.Dhuum:
                     ids.Add(NPCIds.EyeOfFate);
@@ -127,6 +135,24 @@ namespace EVTCLogUploader.Services.IO
                 case NPCIds.ClawOfTheFallen:
                     ids.Add(NPCIds.VoiceOfTheFallen);
                     break;
+                case NPCIds.PrototypeArsenite:
+                    ids.AddRange(new List<uint>(){ NPCIds.PrototypeIndigo, NPCIds.PrototypeVermillion});
+                    break;
+                case NPCIds.PrototypeIndigo:
+                    ids.AddRange(new List<uint>(){NPCIds.PrototypeArsenite,NPCIds.PrototypeVermillion});
+                    break;
+                case NPCIds.PrototypeVermillion:
+                    ids.AddRange(new List<uint>(){NPCIds.PrototypeIndigo,NPCIds.PrototypeArsenite});
+                    break;
+                case NPCIds.PrototypeArseniteChallengeMode:
+                    ids.AddRange(new List<uint>() { NPCIds.PrototypeIndigoChallengeMode, NPCIds.PrototypeVermillionChallengeMode });
+                    break;
+                case NPCIds.PrototypeIndigoChallengeMode:
+                    ids.AddRange(new List<uint>() { NPCIds.PrototypeArseniteChallengeMode, NPCIds.PrototypeVermillionChallengeMode });
+                    break;
+                case NPCIds.PrototypeVermillionChallengeMode:
+                    ids.AddRange(new List<uint>() { NPCIds.PrototypeIndigoChallengeMode, NPCIds.PrototypeArseniteChallengeMode });
+                    break;
                 case GadgetIds.TheDragonvoid:
                     ids.Add(GadgetIds.TheDragonvoidFinal);
                     break;
@@ -134,170 +160,51 @@ namespace EVTCLogUploader.Services.IO
                     ids.Add(GadgetIds.TheDragonvoid);
                     break;
             }
+            return ids;
+        }
+
+        private List<AgentItem> EVTCAgent()
+        {
+            int agentCount = _reader.ReadInt();
+            List<AgentItem> val = new();
+            List<uint> ids = GetAgentIds();
 
             for (int i = 0; i < agentCount; i++)
             {
-                ulong address = reader.ReadULong();
-                uint prof = reader.ReadUInt();
-                uint isElite = reader.ReadUInt();
-                if (isElite == 0xffffffff && !ids.Contains((ushort)prof))
-                {
-                    reader.SkipBytes(80);
+                AgentItem agentItem = new(_reader);
+                if (agentItem.IsElite == 0xffffffff && !ids.Contains((ushort)agentItem.Prof))
                     continue;
-                }
-                short toughness = reader.ReadShort();
-                short concentration = reader.ReadShort();
-                short healing = reader.ReadShort();
-                short hitboxWidth = reader.ReadShort();
-                short condition = reader.ReadShort();
-                short hitboxHeight = reader.ReadShort();
-                string name = reader.ReadString(68);
-                val.Add(new AgentItem(address, prof, isElite, toughness, concentration, condition, healing, hitboxWidth, hitboxHeight, name));
+                val.Add(agentItem);
             }
             return val;
         }
 
-        public TimeSpan GetLength()
+        private List<SkillItem>? EVTCSkill()
         {
-            return length;
-        }
+            int skillCount = _reader.ReadInt();
+            List<SkillItem> val = new();
 
-        public string GetCharcterName()
-        {
-            return charcterName;
-        }
-
-        public string GetUserName()
-        {
-            return userName;
-        }
-
-        public Profession GetCharcterProf()
-        {
-            return charcterProf;
-        }
-
-        public Specialization GetCharcterSpec()
-        {
-            return charcterSpec;
-        }
-
-        public Encounter GetEncounter()
-        {
-            return encounter;
-        }
-
-        public DateTime GetServerDateTime()
-        {
-            return SeverStartTime.DateTime;
-        }
-
-        private void SkipEVTCSkill()
-        {
-            int skillCount = reader.ReadInt();
-            reader.SkipBytes(skillCount * 68);
-        }
-
-        private List<EventItem> EVTCEvent(byte revision)
-        {
-            List<EventItem> val = new();
-            val = revision switch
-            {
-                0 => EventRevision0(val),
-                1 => EventRevision1(val),
-                _ => throw new ArgumentException("Only Revision 0 and 1 supported"),
-            };
+            for (int i = 0; i < skillCount; i++)
+                val.Add(new SkillItem(_reader));
             return val;
         }
 
-        private List<EventItem> EventRevision0(List<EventItem> val)
+        private void SkipEVTCSkill() => _reader.SkipBytes(_reader.ReadInt() * 68);
+
+        private List<EventItem> EVTCEvent()
         {
-            val.Add(ReadEventItem0());
-            while (reader.BytesRemaining() >= 128)
+            List<EventItem> val = new() { new EventItem(_reader, _header.Revision) };
+            while (_reader.BytesRemaining() >= 128)
             {
-                EventItem eventItem = ReadEventItem0();
-                if (CheckEvent(eventItem.IsStatechange))
+                EventItem eventItem = new(_reader, _header.Revision);
+                if (CheckEvent(eventItem.IsStateChange))
                     val.Add(eventItem);
             }
-            val.Add(ReadEventItem0());
+            val.Add(new EventItem(_reader, _header.Revision));
             return val;
         }
 
-        private EventItem ReadEventItem0()
-        {
-            ulong time = reader.ReadULong();
-            ulong srcAgent = reader.ReadULong();
-            ulong dstAgent = reader.ReadULong();
-            int value = reader.ReadInt();
-            int buffDmg = reader.ReadInt();
-            uint overstackValue = reader.ReadUShort();
-            uint skillId = reader.ReadUShort();
-            ushort srcInstid = reader.ReadUShort();
-            ushort dstInstid = reader.ReadUShort();
-            ushort srcMasterInstid = reader.ReadUShort();
-            reader.SkipBytes(9);
-            Iff iff = (Iff)reader.ReadByte();
-            Buff buff = (Buff)reader.ReadByte();
-            Result result = (Result)reader.ReadByte();
-            Activation isActivation = (Activation)reader.ReadByte();
-            BuffRemove isBuffRemove = (BuffRemove)reader.ReadByte();
-            byte isNinety = reader.ReadByte();
-            byte isFifty = reader.ReadByte();
-            byte isMoveing = reader.ReadByte();
-            StateChange isStateChange = (StateChange)reader.ReadByte();
-            byte isFlanking = reader.ReadByte();
-            byte isSheilds = reader.ReadByte();
-            byte isOffCycle = reader.ReadByte();
-            reader.SkipBytes(1);
-            return new EventItem(time, srcAgent, dstAgent, value, buffDmg, overstackValue, skillId, srcInstid, dstInstid, srcMasterInstid, iff, buff, result, isActivation, isBuffRemove, isNinety, isFifty, isMoveing, isStateChange, isFlanking, isSheilds, isOffCycle);
-        }
-
-        private List<EventItem> EventRevision1(List<EventItem> val)
-        {
-            val.Add(ReadEventItem1());
-            while (reader.BytesRemaining() >= 128)
-            {
-                EventItem eventItem = ReadEventItem1();
-                if (CheckEvent(eventItem.IsStatechange))
-                    val.Add(eventItem);
-            }
-            val.Add(ReadEventItem1());
-            return val;
-        }
-
-        private EventItem ReadEventItem1()
-        {
-            ulong time = reader.ReadULong();
-            ulong srcAgent = reader.ReadULong();
-            ulong dstAgent = reader.ReadULong();
-            int value = reader.ReadInt();
-            int buffDmg = reader.ReadInt();
-            uint overstackValue = reader.ReadUInt();
-            uint skillId = reader.ReadUInt();
-            ushort srcInstid = reader.ReadUShort();
-            ushort dstInstid = reader.ReadUShort();
-            ushort srcMasterInstid = reader.ReadUShort();
-            ushort dstMasterInstid = reader.ReadUShort();
-            Iff iff = (Iff)reader.ReadByte();
-            Buff buff = (Buff)reader.ReadByte();
-            Result result = (Result)reader.ReadByte();
-            Activation isActivation = (Activation)reader.ReadByte();
-            BuffRemove isBuffRemove = (BuffRemove)reader.ReadByte();
-            byte isNinety = reader.ReadByte();
-            byte isFifty = reader.ReadByte();
-            byte isMoveing = reader.ReadByte();
-            StateChange isStateChange = (StateChange)reader.ReadByte();
-            byte isFlanking = reader.ReadByte();
-            byte isSheilds = reader.ReadByte();
-            byte isOffCycle = reader.ReadByte();
-            reader.SkipBytes(4);
-            return new EventItem(time, srcAgent, dstAgent, value, buffDmg, overstackValue, skillId, srcInstid, dstInstid, srcMasterInstid, dstMasterInstid, iff, buff, result, isActivation, isBuffRemove, isNinety, isFifty, isMoveing, isStateChange, isFlanking, isSheilds, isOffCycle);
-        }
-
-        private static bool CheckEvent(StateChange stateChange)
-        {
-            return stateChange == StateChange.LogStart || stateChange == StateChange.LogEnd;
-        }
+        private static bool CheckEvent(StateChange stateChange) => stateChange == StateChange.LogStart || stateChange == StateChange.LogEnd;
     }
 }
 

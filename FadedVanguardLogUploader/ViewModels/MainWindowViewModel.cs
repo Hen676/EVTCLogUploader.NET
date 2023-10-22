@@ -14,14 +14,11 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using DynamicData;
-using Avalonia;
 using Avalonia.Styling;
 using EVTCLogUploader.Utils.Determiners;
 using EVTCLogUploader.Models;
 using System.Collections.Specialized;
-using Splat;
 using Avalonia.Platform.Storage;
-using System.Collections;
 
 namespace EVTCLogUploader.ViewModels
 {
@@ -43,8 +40,10 @@ namespace EVTCLogUploader.ViewModels
         public ReactiveCommand<Window, Unit> CloseCommand { get; }
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
         public ReactiveCommand<Window, Unit> UploadCommand { get; }
+        public ReactiveCommand<Unit, Unit> HideFilterCommand { get; }
         #endregion
 
+        #region Observables
         public ObservableCollection<EVTCFile> Items { get; } = new();
         public ObservableCollection<EncounterNode> FilterNodes { get; } = new()
         {
@@ -122,7 +121,6 @@ namespace EVTCLogUploader.ViewModels
             })
         };
         public ObservableCollection<EncounterNode> SelectedFilterNodes { get; } = new();
-
         public int FileCount
         {
             get => _fileCount;
@@ -148,6 +146,48 @@ namespace EVTCLogUploader.ViewModels
             get => _filterError;
             set => this.RaiseAndSetIfChanged(ref _filterError, value);
         }
+        public bool HideFilters
+        {
+            get => _hideFilters;
+            set => this.RaiseAndSetIfChanged(ref _hideFilters, value);
+        }
+        public DateTimeOffset? DateFrom
+        {
+            get => _dateFrom;
+            set
+            {
+                Filter(dateFrom: value);
+                this.RaiseAndSetIfChanged(ref _dateFrom, value);
+            }
+        }
+        public DateTimeOffset? DateTo
+        {
+            get => _dateTo;
+            set
+            {
+                Filter(dateTo: value);
+                this.RaiseAndSetIfChanged(ref _dateTo, value);
+            }
+        }
+        public TimeSpan? TimeFrom
+        {
+            get => _timeFrom;
+            set
+            {
+                Filter(timeFrom: value);
+                this.RaiseAndSetIfChanged(ref _timeFrom, value);
+            }
+        }
+        public TimeSpan? TimeTo
+        {
+            get => _timeTo;
+            set
+            {
+                Filter(timeTo: value);
+                this.RaiseAndSetIfChanged(ref _timeTo, value);
+            }
+        }
+        #endregion
 
         #region Private
         private List<EVTCFile> _storedItems = new();
@@ -157,13 +197,15 @@ namespace EVTCLogUploader.ViewModels
         private int _progressBarMax = 100;
         private ThemeVariant _theme;
         private bool _filterError;
+        private DateTimeOffset? _dateFrom;
+        private DateTimeOffset? _dateTo;
+        private TimeSpan? _timeFrom;
+        private TimeSpan? _timeTo;
+        private bool _hideFilters = true;
 
-        #region Serivces
-        private IUploaderService _uploaderService;
-        private ISettingService _settingService;
-        private ILocalDatabaseService _localDatabaseService;
-        #endregion
-
+        private readonly IUploaderService _uploaderService;
+        private readonly ISettingService _settingService;
+        private readonly ILocalDatabaseService _localDatabaseService;
         #endregion
 
         #region Constructors
@@ -184,6 +226,7 @@ namespace EVTCLogUploader.ViewModels
             ModeCommand = ReactiveCommand.Create(ThemeVarient);
             LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
 
+            HideFilterCommand = ReactiveCommand.Create(HideFilter);
             FilterFileTypeCommand = ReactiveCommand.Create<FileType>(FilterFileType);
             FilterEncounterCommand = ReactiveCommand.Create<Encounter>(FilterEncounter);
             FilterProfCommand = ReactiveCommand.Create<Profession>(FilterProf);
@@ -212,6 +255,7 @@ namespace EVTCLogUploader.ViewModels
             ModeCommand = ReactiveCommand.Create(ThemeVarient);
             LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
 
+            HideFilterCommand = ReactiveCommand.Create(HideFilter);
             FilterFileTypeCommand = ReactiveCommand.Create<FileType>(FilterFileType);
             FilterEncounterCommand = ReactiveCommand.Create<Encounter>(FilterEncounter);
             FilterProfCommand = ReactiveCommand.Create<Profession>(FilterProf);
@@ -224,14 +268,6 @@ namespace EVTCLogUploader.ViewModels
             UploadCommand = ReactiveCommand.Create<Window>(UploadAsync);
         }
         #endregion
-
-        private void SelectedFilterNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (sender is ObservableCollection<EncounterNode> list && list != null) {
-                _settingService.FilterSettings.EditEncounterList(list.ToList());
-                Filter();
-            }
-        }
 
         #region Filter Commands
         private void FilterFileType(FileType fileType)
@@ -252,6 +288,10 @@ namespace EVTCLogUploader.ViewModels
         private void ClearFilter()
         {
             _settingService.FilterSettings.ClearFilters();
+            DateFrom = null;
+            DateTo = null;
+            TimeFrom = null;
+            TimeTo = null;
             Filter();
         }
         private void ErrorHidden()
@@ -260,8 +300,25 @@ namespace EVTCLogUploader.ViewModels
             FilterError = _settingService.FilterSettings.ErrorFilter;
             Filter();
         }
+        private void HideFilter()
+        {
+            HideFilters = !HideFilters;
+            if (HideFilters) {
+                DateTo = null;
+                TimeTo = null;
+            }
+        }
         #endregion
 
+
+        private void SelectedFilterNodes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (sender is ObservableCollection<EncounterNode> list && list != null)
+            {
+                _settingService.FilterSettings.EditEncounterList(list.ToList());
+                Filter();
+            }
+        }
         private void Close(Window window) => window.Close();
         public void Save() => _settingService.Save();
         private void WipeDB() => _localDatabaseService.WipeDB();
@@ -338,7 +395,7 @@ namespace EVTCLogUploader.ViewModels
             });
             if (responce.Any()) 
             {
-                _settingService.Path = responce.First().Path.LocalPath;
+                _settingService.Path = responce[0].Path.LocalPath;
                 _settingService.Save();
                 Thread thread = new(() => SearchFolder(false));
                 thread.Start();
@@ -351,12 +408,17 @@ namespace EVTCLogUploader.ViewModels
         /// <param name="date">Date to filter too</param>
         /// <param name="time">If date is present. What time to filter too</param>
         /// <returns></returns>
-        private void Filter(DateTimeOffset? date = null, TimeSpan? time = null)
+        private void Filter(DateTimeOffset? dateFrom = null, TimeSpan? timeFrom = null, DateTimeOffset? dateTo = null, TimeSpan? timeTo = null)
         {
-            if (date.HasValue)
-                _settingService.FilterSettings.TimeOffsetMin = date.Value;
-            if (time.HasValue)
-                _settingService.FilterSettings.TimeOffsetMin = _settingService.FilterSettings.TimeOffsetMin.Date + time.Value;
+            if (dateFrom.HasValue)
+                _settingService.FilterSettings.TimeOffsetMin = dateFrom.Value;
+            if (timeFrom.HasValue)
+                _settingService.FilterSettings.TimeOffsetMin = _settingService.FilterSettings.TimeOffsetMin.Date + timeFrom.Value;
+
+            if (dateTo.HasValue)
+                _settingService.FilterSettings.TimeOffsetMax = dateTo.Value;
+            if (timeTo.HasValue)
+                _settingService.FilterSettings.TimeOffsetMax = _settingService.FilterSettings.TimeOffsetMax.Date + timeTo.Value;
 
             _filteredItems = _storedItems.Where(x => _settingService.FilterSettings.Predicate(x)).ToList();
             FileCount = _filteredItems.Count;
@@ -425,7 +487,7 @@ namespace EVTCLogUploader.ViewModels
         /// </summary>
         /// <param name="uploadlist">List of files that were uploaded</param>
         /// <returns></returns>
-        private string FormatedUploadListString(List<EVTCFile> uploadlist)
+        private static string FormatedUploadListString(List<EVTCFile> uploadlist)
         {
             List<string> clipborad = new()
             {
@@ -523,6 +585,7 @@ namespace EVTCLogUploader.ViewModels
         private void GetItems(IEnumerable<string> files)
         {
             List<Task> bagTasks = new();
+            List<EVTCFile> EVTCFiles = new();
             try
             {
                 ProgressBarMax = files.Count();
@@ -531,7 +594,7 @@ namespace EVTCLogUploader.ViewModels
                     bagTasks.Add(Task.Run(() =>
                     {
                         if (File.Exists(file))
-                            _storedItems.Add(new(file));
+                            EVTCFiles.Add(new(file));
                         ProgressBarValue++;
                     }));
                 }
@@ -541,7 +604,8 @@ namespace EVTCLogUploader.ViewModels
                 Console.Error.WriteLine(ex.Message);
             }
             Task.WaitAll(bagTasks.ToArray());
-            _localDatabaseService.AddRecords(_storedItems);
+            _storedItems.Add(EVTCFiles);
+            _localDatabaseService.AddRecords(EVTCFiles);
             Filter();
             ProgressBarValue = 0;
         }

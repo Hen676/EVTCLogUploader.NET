@@ -71,6 +71,9 @@
 
         public const int AiKeeperOfThePeak = 23254;
 
+        public const int KanaxaiNM = 25572;
+        public const int KanaxaiCM = 25577;
+
         // Strikes
         public const int Freezie = 21333;
 
@@ -87,5 +90,15 @@
         public const int MinisterLi = 24485;
         public const int MinisterLiCM = 24266;
         public const int VoidAmalgamate = 24375;
+
+        public const int PrototypeVermillion = 25413;
+        public const int PrototypeArsenite = 25415;
+        public const int PrototypeIndigo = 25419;
+        public const int PrototypeVermillionChallengeMode = 25414;
+        public const int PrototypeArseniteChallengeMode = 25416;
+        public const int PrototypeIndigoChallengeMode = 25423;
+
+        public const int Dagda = 25705;
+        public const int Cerus = 25989;
     }
 }

@@ -16,7 +16,7 @@ namespace EVTCLogUploader.Utils.Determiners
             {
                 switch (id)
                 {
-                    // Raids
+                    #region Raids
                     case NPCIds.ValeGuardian: return Encounter.ValeGuardian;
                     case NPCIds.Gorseval: return Encounter.Gorseval;
                     case NPCIds.Sabetha: return Encounter.Sabetha;
@@ -62,8 +62,9 @@ namespace EVTCLogUploader.Utils.Determiners
                     case NPCIds.CardinalAdina: return Encounter.Adina;
                     case NPCIds.CadinalSabir: return Encounter.Sabir;
                     case NPCIds.QadimThePeerless: return Encounter.QadimThePeerless;
+                    #endregion
 
-                    // Strikes
+                    #region Strikes
                     case NPCIds.Freezie: return Encounter.Freezie;
 
                     case NPCIds.IcebroodConstruct: return Encounter.ShiverpeaksPass;
@@ -80,7 +81,15 @@ namespace EVTCLogUploader.Utils.Determiners
                     case NPCIds.MinisterLiCM: return Encounter.KainengOverlook;
                     case NPCIds.VoidAmalgamate: return Encounter.HarvestTemple;
 
-                    // Fractels
+                    case NPCIds.PrototypeArsenite:
+                    case NPCIds.PrototypeArseniteChallengeMode:
+                    case NPCIds.PrototypeIndigo:
+                    case NPCIds.PrototypeIndigoChallengeMode:
+                    case NPCIds.PrototypeVermillion:
+                    case NPCIds.PrototypeVermillionChallengeMode: return Encounter.OldLionsCourt;
+                    #endregion
+
+                    #region Fractels
                     case NPCIds.MAMA: return Encounter.MAMA;
                     case NPCIds.SiaxTheCorrupted: return Encounter.Siax;
                     case NPCIds.EnsolyssOfTheEndlessTorment: return Encounter.Ensolyss;
@@ -88,19 +97,25 @@ namespace EVTCLogUploader.Utils.Determiners
                     case NPCIds.Artsariiv: return Encounter.Artsariiv;
                     case NPCIds.Arkk: return Encounter.Arkk;
                     case NPCIds.AiKeeperOfThePeak: return Encounter.AiKeeperOfThePeak;
+                    case NPCIds.KanaxaiNM:
+                    case NPCIds.KanaxaiCM: return Encounter.Kanaxai;
+                    #endregion
 
-                    // Golem
-                    case NPCIds.StandardKittyGolem:
-                    case NPCIds.MediumKittyGolem:
-                    case NPCIds.LargeKittyGolem:
-                    case NPCIds.MassiveKittyGolem: return Encounter.Golem;
+                    #region Golems
+                    case NPCIds.StandardKittyGolem: return Encounter.StandardKittyGolem;
+                    case NPCIds.MediumKittyGolem: return Encounter.MediumKittyGolem;
+                    case NPCIds.LargeKittyGolem: return Encounter.LargeKittyGolem;
+                    case NPCIds.MassiveKittyGolem: return Encounter.MassiveKittyGolem;
+                    #endregion
                 }
             }
             else
             {
                 switch (gadget.Prof & 0xffff)
                 {
+                    // Raids
                     case GadgetIds.ConjuredAmalgamate: return Encounter.ConjuredAmalgamate;
+                    // Strikes
                     case GadgetIds.TheDragonvoidFinal:
                     case GadgetIds.TheDragonvoid: return Encounter.HarvestTemple;
                 }

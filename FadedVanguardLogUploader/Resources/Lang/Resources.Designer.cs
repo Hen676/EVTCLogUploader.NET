@@ -232,7 +232,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  EVTC Files.
+        ///   Looks up a localized string similar to EVTC Files.
         /// </summary>
         public static string LNG_File_Count {
             get {
@@ -246,6 +246,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Filter_From_SemiColon {
             get {
                 return ResourceManager.GetString("LNG_Filter_From_SemiColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To:.
+        /// </summary>
+        public static string LNG_Filter_To_SemiColon {
+            get {
+                return ResourceManager.GetString("LNG_Filter_To_SemiColon", resourceCulture);
             }
         }
         
@@ -412,7 +421,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error, Unsupported encounter.
+        ///   Looks up a localized string similar to Error, Unlocalised encounter.
         /// </summary>
         public static string LNG_Menu_Encounter_Error {
             get {
@@ -808,7 +817,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _File.
+        ///   Looks up a localized string similar to File.
         /// </summary>
         public static string LNG_Menu_File {
             get {
@@ -871,7 +880,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Filter.
+        ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string LNG_Menu_Filter {
             get {
@@ -943,7 +952,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Sort.
+        ///   Looks up a localized string similar to Sort.
         /// </summary>
         public static string LNG_Menu_Filter_Sort {
             get {
@@ -1006,7 +1015,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Specialization.
+        ///   Looks up a localized string similar to Specialization.
         /// </summary>
         public static string LNG_Menu_Filter_Spec {
             get {
@@ -1024,7 +1033,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Help.
+        ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string LNG_Menu_Help {
             get {
@@ -1123,7 +1132,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Settings.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string LNG_Menu_Settings {
             get {

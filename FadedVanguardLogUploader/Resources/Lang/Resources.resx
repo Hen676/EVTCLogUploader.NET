@@ -181,11 +181,13 @@
     <value>Error: Inavlid amount of files to upload {0}/50</value>
   </data>
   <data name="LNG_File_Count" xml:space="preserve">
-    <value> EVTC Files</value>
-    <comment>Needs a space at the beginning</comment>
+    <value>EVTC Files</value>
   </data>
   <data name="LNG_Filter_From_SemiColon" xml:space="preserve">
     <value>From:</value>
+  </data>
+  <data name="LNG_Filter_To_SemiColon" xml:space="preserve">
+    <value>To:</value>
   </data>
   <data name="LNG_List_Bar_Tooltip" xml:space="preserve">
     <value>Progress bar</value>
@@ -242,7 +244,7 @@
     <value>End of Dragons</value>
   </data>
   <data name="LNG_Menu_Encounter_Error" xml:space="preserve">
-    <value>Error, Unsupported encounter</value>
+    <value>Error, Unlocalised encounter</value>
   </data>
   <data name="LNG_Menu_Encounter_Escort" xml:space="preserve">
     <value>Siege the Stronghold</value>
@@ -374,7 +376,7 @@
     <value>Xunlai Jade Junkyard</value>
   </data>
   <data name="LNG_Menu_File" xml:space="preserve">
-    <value>_File</value>
+    <value>File</value>
   </data>
   <data name="LNG_Menu_File_CompressAll" xml:space="preserve">
     <value>Compress All EVTC Files</value>
@@ -395,7 +397,7 @@
     <value>Wipe Data</value>
   </data>
   <data name="LNG_Menu_Filter" xml:space="preserve">
-    <value>_Filter</value>
+    <value>Filter</value>
   </data>
   <data name="LNG_Menu_Filter_FileType" xml:space="preserve">
     <value>File Types</value>
@@ -419,7 +421,7 @@
     <value>Raids</value>
   </data>
   <data name="LNG_Menu_Filter_Sort" xml:space="preserve">
-    <value>_Sort</value>
+    <value>Sort</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Asc" xml:space="preserve">
     <value>↑ Ascending</value>
@@ -440,13 +442,13 @@
     <value>Username</value>
   </data>
   <data name="LNG_Menu_Filter_Spec" xml:space="preserve">
-    <value>_Specialization</value>
+    <value>Specialization</value>
   </data>
   <data name="LNG_Menu_Filter_Strikes" xml:space="preserve">
     <value>Strikes</value>
   </data>
   <data name="LNG_Menu_Help" xml:space="preserve">
-    <value>_Help</value>
+    <value>Help</value>
   </data>
   <data name="LNG_Menu_Help_About" xml:space="preserve">
     <value>About</value>
@@ -479,7 +481,7 @@
     <value>Warrier</value>
   </data>
   <data name="LNG_Menu_Settings" xml:space="preserve">
-    <value>_Settings</value>
+    <value>Settings</value>
   </data>
   <data name="LNG_Menu_Settings_ClearFilter" xml:space="preserve">
     <value>Clear Filter</value>

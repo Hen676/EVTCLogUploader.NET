@@ -1,5 +1,4 @@
-﻿using DynamicData;
-using EVTCLogUploader.Enums;
+﻿using EVTCLogUploader.Enums;
 using EVTCLogUploader.Models;
 using System;
 using System.Collections.Generic;
@@ -13,15 +12,16 @@ namespace EVTCLogUploader.Utils
         public DateTimeOffset TimeOffsetMax = DateTimeOffset.MaxValue;
         public bool ErrorFilter = true;
         public List<Encounter> FilterEncounter = new();
-        List<Profession> ProfessionFilter = new();
-        List<FileType> FileTypeFilter = new();
+
+        private readonly List<Profession> _professionFilter = new();
+        private readonly List<FileType> _fileTypeFilter = new();
 
 
         public bool Predicate(EVTCFile i)
         {
             return (FilterEncounter.Count == 0 || FilterEncounter.Contains(i.Boss))
-                && (ProfessionFilter.Count == 0 || ProfessionFilter.Contains(i.CharcterClassOfMainUser))
-                && (FileTypeFilter.Count == 0 || FileTypeFilter.Contains(i.Type))
+                && (_professionFilter.Count == 0 || _professionFilter.Contains(i.CharcterClassOfMainUser))
+                && (_fileTypeFilter.Count == 0 || _fileTypeFilter.Contains(i.Type))
                 && !(ErrorFilter && i.Boss == Encounter.Unkown)
                 && i.CreationDate >= TimeOffsetMin
                 && i.CreationDate <= TimeOffsetMax;
@@ -29,9 +29,11 @@ namespace EVTCLogUploader.Utils
 
         public void ClearFilters()
         {
+            TimeOffsetMin = DateTimeOffset.MinValue;
+            TimeOffsetMax = DateTimeOffset.MaxValue;
             FilterEncounter.Clear();
-            FileTypeFilter.Clear();
-            ProfessionFilter.Clear();
+            _fileTypeFilter.Clear();
+            _professionFilter.Clear();
         }
 
         public void EditEncounterList(List<EncounterNode> encounters)
@@ -66,18 +68,18 @@ namespace EVTCLogUploader.Utils
 
         public void EditFileTypeList(FileType fileType)
         {
-            if (!FileTypeFilter.Contains(fileType))
-                FileTypeFilter.Add(fileType);
+            if (!_fileTypeFilter.Contains(fileType))
+                _fileTypeFilter.Add(fileType);
             else
-                FileTypeFilter.Remove(fileType);
+                _fileTypeFilter.Remove(fileType);
         }
 
         public void EditProfessionList(Profession profession)
         {
-            if (!ProfessionFilter.Contains(profession))
-                ProfessionFilter.Add(profession);
+            if (!_professionFilter.Contains(profession))
+                _professionFilter.Add(profession);
             else
-                ProfessionFilter.Remove(profession);
+                _professionFilter.Remove(profession);
         }
     }
 }

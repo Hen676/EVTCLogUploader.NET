@@ -9,58 +9,58 @@ namespace EVTCLogUploader.Services
 {
     public class LocalDatabaseService : ILocalDatabaseService
     {
-        private SQLiteAsyncConnection Database;
-        private const SQLiteOpenFlags Flags =
+        public string DatabasePath;
+        private readonly SQLiteAsyncConnection _database;
+        private const SQLiteOpenFlags _flags =
         SQLiteOpenFlags.ReadWrite |
         SQLiteOpenFlags.Create |
         SQLiteOpenFlags.SharedCache;
-        public string DatabasePath;
-        bool initalised = false;
+        private bool _initalised = false;
 
         public LocalDatabaseService() 
         {
             DatabasePath = Path.Combine(Directory.GetCurrentDirectory(), "data.db");
-            Database = new(DatabasePath, Flags);
+            _database = new(DatabasePath, _flags);
         }
 
         public LocalDatabaseService(string path)
         {
             DatabasePath = path;
-            Database = new(path, Flags);
+            _database = new(path, _flags);
         }
 
         private async void Init()
         {
-            await Database.CreateTableAsync<EVTCFile>();
-            initalised = true;
+            await _database.CreateTableAsync<EVTCFile>();
+            _initalised = true;
         }
 
         public async void AddRecords(List<EVTCFile> records)
         {
-            if (!initalised)
+            if (!_initalised)
                 Init();
-            await Database.InsertAllAsync(records);
+            await _database.InsertAllAsync(records);
         }
 
         public async Task<List<EVTCFile>> GetRecords()
         {
-            if (!initalised)
+            if (!_initalised)
                 Init();
-            return await Database.Table<EVTCFile>().ToListAsync();
+            return await _database.Table<EVTCFile>().ToListAsync();
         }
 
         public async void UpdateRecordsURL(List<EVTCFile> newValues)
         {
-            if (!initalised)
+            if (!_initalised)
                 Init();
-            await Database.UpdateAllAsync(newValues);
+            await _database.UpdateAllAsync(newValues);
         }
 
         public async void WipeDB()
         {
-            if (!initalised)
+            if (!_initalised)
                 return;
-            await Database.DropTableAsync<EVTCFile>();
+            await _database.DropTableAsync<EVTCFile>();
             Init();
         }
     }

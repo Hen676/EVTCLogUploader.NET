@@ -1,4 +1,6 @@
-﻿namespace EVTCLogUploader.Models.Log
+﻿using EVTCLogUploader.Services.IO;
+
+namespace EVTCLogUploader.Models.Log
 {
     public class Header
     {
@@ -12,6 +14,14 @@
             BuildVerision = buildVerision;
             Revision = revision;
             Id = id;
+        }
+
+        public Header(BinaryArrayReaderIO reader) 
+        {
+            BuildVerision = reader.ReadString(12);
+            Revision = reader.ReadByte();
+            Id = reader.ReadUShort();
+            reader.SkipBytes(1);
         }
     }
 }

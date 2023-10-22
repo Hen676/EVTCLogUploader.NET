@@ -23,7 +23,7 @@ namespace EVTCLogUploaderTests
         {
             var myfile = "20200719-210434.evtc";
 
-            BinaryArrayReaderIO reader = new BinaryArrayReaderIO(File.ReadAllBytes(myfile), new UTF8Encoding());
+            BinaryArrayReaderIO reader = new(File.ReadAllBytes(myfile), new UTF8Encoding());
 
             BinaryReaderHandlerIO handler = new(reader);
 
@@ -32,12 +32,16 @@ namespace EVTCLogUploaderTests
             string userName = handler.GetUserName(); // "Hen.5687"
             Profession charcterClass = handler.GetCharcterProf(); // Necromancer
             Specialization charcterSpec = handler.GetCharcterSpec(); // Scourge
+            TimeSpan lenegth = handler.GetLength();
+            DateTime date = handler.GetServerDateTime();
 
             Assert.IsTrue(encounter == Encounter.Qadim, "Binary Reader Failed: Wrong encounter was given ({0} instead of Quadim)", encounter);
             Assert.IsTrue(charcterName.Equals("Cake Panity"), "Binary Reader Failed: Wrong charcter name was given ({0} instead of Cake Panity)", charcterName);
             Assert.IsTrue(userName.Equals("Hen.5687"), "Binary Reader Failed: Wrong user name was given ({0} instead of Hen.5687)", userName);
             Assert.IsTrue(charcterClass == Profession.Necromancer, "Binary Reader Failed: Wrong profession was given ({0} instead of Necromancer)", charcterClass);
             Assert.IsTrue(charcterSpec == Specialization.Scourge, "Binary Reader Failed: Wrong specialization was given ({0} instead of Scourge)", charcterSpec);
+            Assert.IsTrue(lenegth.Ticks == 7_740_000_000, "Binary Reader Failed: Wrong lenegth was given ({0})", lenegth);
+            Assert.IsTrue(date.Ticks == 637_307_850_990_000_000, "Binary Reader Failed: Wrong date was given ({0})", date);
         }
 
         [TestMethod]

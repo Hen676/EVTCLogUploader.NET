@@ -27,7 +27,13 @@ namespace EVTCLogUploader.Utils.Determiners
             Encounter.ForgingSteel => Resources.Lang.Resources.LNG_Menu_Encounter_ForgingSteel,
             Encounter.FraenirOfJormag => Resources.Lang.Resources.LNG_Menu_Encounter_FraenirOfJormag,
             Encounter.Freezie => Resources.Lang.Resources.LNG_Menu_Encounter_Freezie,
-            Encounter.Golem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
+
+            // TODO:: Add locailsation to multiple golem sizes
+            Encounter.StandardKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
+            Encounter.MediumKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
+            Encounter.LargeKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
+            Encounter.MassiveKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
+
             Encounter.Gorseval => Resources.Lang.Resources.LNG_Menu_Encounter_Gorseval,
             Encounter.HarvestTemple => Resources.Lang.Resources.LNG_Menu_Encounter_HarvestTemple,
             Encounter.KainengOverlook => Resources.Lang.Resources.LNG_Menu_Encounter_KainengOverlook,

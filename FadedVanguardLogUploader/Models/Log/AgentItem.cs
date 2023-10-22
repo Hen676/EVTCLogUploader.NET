@@ -1,4 +1,8 @@
-﻿namespace EVTCLogUploader.Models.Log
+﻿using EVTCLogUploader.Services.IO;
+using System.Reflection.PortableExecutable;
+using Tmds.DBus.Protocol;
+
+namespace EVTCLogUploader.Models.Log
 {
     public class AgentItem
     {
@@ -28,6 +32,20 @@
             HitboxWidth = hitboxWidth;
             HitboxHeight = hitboxHeight;
             Name = name;
+        }
+
+        public AgentItem(BinaryArrayReaderIO reader) 
+        {
+            Address = reader.ReadULong();
+            Prof = reader.ReadUInt();
+            IsElite = reader.ReadUInt();
+            Toughness = reader.ReadShort();
+            Concentration = reader.ReadShort();
+            Healing = reader.ReadShort();
+            HitboxWidth = reader.ReadShort();
+            Condition = reader.ReadShort();
+            HitboxHeight = reader.ReadShort();
+            Name = reader.ReadString(68);
         }
     }
 }
