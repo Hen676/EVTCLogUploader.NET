@@ -1,4 +1,7 @@
-﻿namespace EVTCLogUploader.Models.Log
+﻿using EVTCLogUploader.Services.IO;
+using Tmds.DBus.Protocol;
+
+namespace EVTCLogUploader.Models.Log
 {
     public class SkillItem
     {
@@ -9,6 +12,12 @@
         {
             Name = name;
             Id = id;
+        }
+
+        public SkillItem(BinaryArrayReaderIO reader)
+        {
+            Id = reader.ReadInt();
+            Name = reader.ReadString(64);
         }
     }
 }

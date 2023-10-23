@@ -122,7 +122,7 @@
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_About_Repository_Colon" xml:space="preserve">
-    <value>Aufbewahrungsort: {0}</value>
+    <value>Repository: {0}</value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_About_Version_Colon" xml:space="preserve">
@@ -154,15 +154,15 @@
     <value>Nutzername</value>
   </data>
   <data name="LNG_DataGrid_Tooltip_FileName_Colon" xml:space="preserve">
-    <value>Dateinamen: </value>
+    <value>Dateiname:</value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_DataGrid_Tooltip_FilePath_Colon" xml:space="preserve">
-    <value>Dateipfad: </value>
+    <value>Dateipfad:</value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_DataGrid_Tooltip_Url_Colon" xml:space="preserve">
-    <value>Upload-URL: </value>
+    <value>Upload-URL:</value>
     <comment>Needs a space after</comment>
   </data>
   <data name="LNG_Deselect_All" xml:space="preserve">
@@ -171,12 +171,23 @@
   <data name="LNG_Deselect_All_Tooltip" xml:space="preserve">
     <value>Deaktivieren Sie alle verfügbaren Dateien</value>
   </data>
+  <data name="LNG_Error_Language_Body" xml:space="preserve">
+    <value>Der Sprachcode {0} ist ungültig</value>
+  </data>
+  <data name="LNG_Error_Language_Title" xml:space="preserve">
+    <value>Fehler beim Festlegen der Sprache</value>
+  </data>
+  <data name="LNG_Error_Upload_Amount" xml:space="preserve">
+    <value>Fehler: Ungültige Anzahl der hochzuladenden Dateien {0}/50</value>
+  </data>
   <data name="LNG_File_Count" xml:space="preserve">
-    <value> EVTC-Dateien</value>
-    <comment>Needs a space at the beginning</comment>
+    <value>EVTC-Dateien</value>
   </data>
   <data name="LNG_Filter_From_SemiColon" xml:space="preserve">
     <value>Aus:</value>
+  </data>
+  <data name="LNG_Filter_To_SemiColon" xml:space="preserve">
+    <value>Zu:</value>
   </data>
   <data name="LNG_List_Bar_Tooltip" xml:space="preserve">
     <value>Fortschrittsanzeige</value>
@@ -194,7 +205,7 @@
     <value>Ätherklingen-Versteck</value>
   </data>
   <data name="LNG_Menu_Encounter_Arkk" xml:space="preserve">
-    <value>Arche</value>
+    <value>Arkk</value>
   </data>
   <data name="LNG_Menu_Encounter_Artsariiv" xml:space="preserve">
     <value>Artsariiv</value>
@@ -215,7 +226,10 @@
     <value>Kalter Krieg</value>
   </data>
   <data name="LNG_Menu_Encounter_ConjuredAmalgamate" xml:space="preserve">
-    <value>Beschworenes Amalgamat</value>
+    <value>Beschworenes Amalgam</value>
+  </data>
+  <data name="LNG_Menu_Encounter_CosmicObservatory" xml:space="preserve">
+    <value>Kosmisches Observatorium</value>
   </data>
   <data name="LNG_Menu_Encounter_Deimos" xml:space="preserve">
     <value>Deimos</value>
@@ -232,14 +246,17 @@
   <data name="LNG_Menu_Encounter_EOD" xml:space="preserve">
     <value>Ende der Drachen</value>
   </data>
+  <data name="LNG_Menu_Encounter_Error" xml:space="preserve">
+    <value>Fehler, nicht lokalisierte Begegnung</value>
+  </data>
   <data name="LNG_Menu_Encounter_Escort" xml:space="preserve">
     <value>Belagere die Festung</value>
   </data>
   <data name="LNG_Menu_Encounter_Eyes" xml:space="preserve">
-    <value>Auge des Urteils &amp; Auge des Schicksals</value>
+    <value>Auge des Urteils und Auge des Schicksals</value>
   </data>
   <data name="LNG_Menu_Encounter_ForgingSteel" xml:space="preserve">
-    <value>Schmieden von Stahl</value>
+    <value>Schmiedestahl</value>
   </data>
   <data name="LNG_Menu_Encounter_FraenirOfJormag" xml:space="preserve">
     <value>Fraenir von Jormag</value>
@@ -247,17 +264,26 @@
   <data name="LNG_Menu_Encounter_Freezie" xml:space="preserve">
     <value>Geheimes Versteck der Schneemänner</value>
   </data>
+  <data name="LNG_Menu_Encounter_Golems" xml:space="preserve">
+    <value>Golems</value>
+  </data>
   <data name="LNG_Menu_Encounter_Gorseval" xml:space="preserve">
-    <value>Gorseval der Vielgestaltige</value>
+    <value>Gorseval der Vielfältige</value>
   </data>
   <data name="LNG_Menu_Encounter_HarvestTemple" xml:space="preserve">
-    <value>Tempel der Ernte</value>
+    <value>Erntetempel</value>
   </data>
   <data name="LNG_Menu_Encounter_KainengOverlook" xml:space="preserve">
-    <value>Blick auf Kaineng</value>
+    <value>Kaineng-Aussichtspunkt</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Kanaxai" xml:space="preserve">
+    <value>Kanaxai</value>
   </data>
   <data name="LNG_Menu_Encounter_KeepConstruct" xml:space="preserve">
     <value>Konstrukt behalten</value>
+  </data>
+  <data name="LNG_Menu_Encounter_LargeKittyGolem" xml:space="preserve">
+    <value>Großer Kitty-Golem</value>
   </data>
   <data name="LNG_Menu_Encounter_LW5" xml:space="preserve">
     <value>Die Eisbrut-Saga</value>
@@ -265,14 +291,23 @@
   <data name="LNG_Menu_Encounter_MAMA" xml:space="preserve">
     <value>MUTTER</value>
   </data>
+  <data name="LNG_Menu_Encounter_MassiveKittyGolem" xml:space="preserve">
+    <value>Massiver Kitty-Golem</value>
+  </data>
   <data name="LNG_Menu_Encounter_Mattias" xml:space="preserve">
-    <value>Mathias Gabriel</value>
+    <value>Matthias Gabrel</value>
+  </data>
+  <data name="LNG_Menu_Encounter_MediumKittyGolem" xml:space="preserve">
+    <value>Mittlerer Kitty-Golem</value>
   </data>
   <data name="LNG_Menu_Encounter_MursaatOverseer" xml:space="preserve">
     <value>Mursaat-Aufseher</value>
   </data>
   <data name="LNG_Menu_Encounter_Nightmare" xml:space="preserve">
     <value>Albtraum-Fraktal</value>
+  </data>
+  <data name="LNG_Menu_Encounter_OldLionsCourt" xml:space="preserve">
+    <value>Hof des alten Löwen</value>
   </data>
   <data name="LNG_Menu_Encounter_Qadim" xml:space="preserve">
     <value>Qadim</value>
@@ -293,31 +328,43 @@
     <value>Samarog</value>
   </data>
   <data name="LNG_Menu_Encounter_ShatteredObservatory" xml:space="preserve">
-    <value>Fraktal des zerschmetterten Observatoriums</value>
+    <value>Zerschmettertes Observatoriums-Fraktal</value>
   </data>
   <data name="LNG_Menu_Encounter_ShiverpeaksPass" xml:space="preserve">
     <value>Zittergipfelpass</value>
   </data>
   <data name="LNG_Menu_Encounter_Siax" xml:space="preserve">
-    <value>Siax der Korrumpierte</value>
+    <value>Siax der Verdorbene</value>
   </data>
   <data name="LNG_Menu_Encounter_Skorvald" xml:space="preserve">
     <value>Skorvald der Zerschmetterte</value>
   </data>
   <data name="LNG_Menu_Encounter_Slothasor" xml:space="preserve">
-    <value>Faultier</value>
+    <value>Slothasor</value>
+  </data>
+  <data name="LNG_Menu_Encounter_SOFO" xml:space="preserve">
+    <value>Geheimnisse des Obskuren</value>
   </data>
   <data name="LNG_Menu_Encounter_SoullessHorror" xml:space="preserve">
-    <value>Seelenloses Grauen</value>
+    <value>Seelenloser Horror</value>
+  </data>
+  <data name="LNG_Menu_Encounter_StandardKittyGolem" xml:space="preserve">
+    <value>Standard-Kitty-Golem</value>
   </data>
   <data name="LNG_Menu_Encounter_SunquaPeak" xml:space="preserve">
     <value>Sunqua Peak-Fraktal</value>
   </data>
+  <data name="LNG_Menu_Encounter_TempleOfFebe" xml:space="preserve">
+    <value>Febe-Tempel</value>
+  </data>
   <data name="LNG_Menu_Encounter_TwinLargos" xml:space="preserve">
-    <value>Zwilling Largos</value>
+    <value>Zwillingslargos</value>
   </data>
   <data name="LNG_Menu_Encounter_TwistedCastle" xml:space="preserve">
     <value>Verdrehtes Schloss</value>
+  </data>
+  <data name="LNG_Menu_Encounter_Unkown" xml:space="preserve">
+    <value>Fehler, unbekannte Begegnung</value>
   </data>
   <data name="LNG_Menu_Encounter_ValeGuardian" xml:space="preserve">
     <value>Talwächter</value>
@@ -329,19 +376,19 @@
     <value>Geistertal</value>
   </data>
   <data name="LNG_Menu_Encounter_W2" xml:space="preserve">
-    <value>Erlösungspass</value>
+    <value>Heilspass</value>
   </data>
   <data name="LNG_Menu_Encounter_W3" xml:space="preserve">
     <value>Festung der Gläubigen</value>
   </data>
   <data name="LNG_Menu_Encounter_W4" xml:space="preserve">
-    <value>Bastion der Büßer</value>
+    <value>Bastion des Büßers</value>
   </data>
   <data name="LNG_Menu_Encounter_W5" xml:space="preserve">
     <value>Halle der Ketten</value>
   </data>
   <data name="LNG_Menu_Encounter_W6" xml:space="preserve">
-    <value>Mythenschreiber Gambit</value>
+    <value>Mythenschreiber-Gambit</value>
   </data>
   <data name="LNG_Menu_Encounter_W7" xml:space="preserve">
     <value>Der Schlüssel von Ahdashim</value>
@@ -356,13 +403,13 @@
     <value>Xunlai-Jade-Schrottplatz</value>
   </data>
   <data name="LNG_Menu_File" xml:space="preserve">
-    <value>_Datei</value>
+    <value>Datei</value>
   </data>
   <data name="LNG_Menu_File_CompressAll" xml:space="preserve">
-    <value>Alle EVTC-Dateien komprimieren</value>
+    <value>Komprimieren Sie alle EVTC-Dateien</value>
   </data>
   <data name="LNG_Menu_File_CompressSelected" xml:space="preserve">
-    <value>Ausgewählte EVTC-Dateien komprimieren</value>
+    <value>Komprimieren Sie ausgewählte EVTC-Dateien</value>
   </data>
   <data name="LNG_Menu_File_Exit" xml:space="preserve">
     <value>Ausfahrt</value>
@@ -377,7 +424,7 @@
     <value>Daten löschen</value>
   </data>
   <data name="LNG_Menu_Filter" xml:space="preserve">
-    <value>_Filter</value>
+    <value>Filter</value>
   </data>
   <data name="LNG_Menu_Filter_FileType" xml:space="preserve">
     <value>Datentypen</value>
@@ -401,19 +448,13 @@
     <value>Überfälle</value>
   </data>
   <data name="LNG_Menu_Filter_Sort" xml:space="preserve">
-    <value>_Sortieren</value>
-  </data>
-  <data name="LNG_Menu_Filter_Sort_Asc" xml:space="preserve">
-    <value>↑ Aufsteigend</value>
+    <value>Sortieren</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_CharName" xml:space="preserve">
     <value>Charaktername</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Date" xml:space="preserve">
     <value>Datum</value>
-  </data>
-  <data name="LNG_Menu_Filter_Sort_Des" xml:space="preserve">
-    <value>↓ Absteigend</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Length" xml:space="preserve">
     <value>Länge</value>
@@ -422,13 +463,13 @@
     <value>Nutzername</value>
   </data>
   <data name="LNG_Menu_Filter_Spec" xml:space="preserve">
-    <value>_Spezialisierung</value>
+    <value>Spezialisierung</value>
   </data>
   <data name="LNG_Menu_Filter_Strikes" xml:space="preserve">
     <value>Streiks</value>
   </data>
   <data name="LNG_Menu_Help" xml:space="preserve">
-    <value>_Hilfe</value>
+    <value>Helfen</value>
   </data>
   <data name="LNG_Menu_Help_About" xml:space="preserve">
     <value>Um</value>
@@ -461,7 +502,7 @@
     <value>Krieger</value>
   </data>
   <data name="LNG_Menu_Settings" xml:space="preserve">
-    <value>_Einstellungen</value>
+    <value>Einstellungen</value>
   </data>
   <data name="LNG_Menu_Settings_ClearFilter" xml:space="preserve">
     <value>Filter löschen</value>
@@ -478,22 +519,28 @@
   <data name="LNG_Menu_Spec_None" xml:space="preserve">
     <value>Keiner</value>
   </data>
+  <data name="LNG_Raid_Logs_Title_NewLine" xml:space="preserve">
+    <value>Raid-Protokolle {0}</value>
+  </data>
   <data name="LNG_Restart_Language_Body" xml:space="preserve">
     <value>Sprachcode: {0}</value>
   </data>
   <data name="LNG_Restart_Language_Title" xml:space="preserve">
-    <value>Ein Neustart ist erforderlich, damit die Sprachänderung wirksam wird</value>
+    <value>Damit die Sprachänderung wirksam wird, ist ein Neustart erforderlich</value>
   </data>
   <data name="LNG_Restart_Theme_Body" xml:space="preserve">
-    <value>Dunkles Design: {0}</value>
+    <value>Dunkles Thema: {0}</value>
   </data>
   <data name="LNG_Restart_Theme_Title" xml:space="preserve">
-    <value>Ein Neustart ist erforderlich, damit die Designänderung wirksam wird</value>
+    <value>Damit die Designänderung wirksam wird, ist ein Neustart erforderlich</value>
   </data>
   <data name="LNG_Select_All" xml:space="preserve">
     <value>Wählen Sie Alle</value>
   </data>
   <data name="LNG_Select_All_Tooltip" xml:space="preserve">
     <value>Wählen Sie alle gefilterten Dateien aus</value>
+  </data>
+  <data name="LNG_Select_Folder" xml:space="preserve">
+    <value>Ordner auswählen</value>
   </data>
 </root>

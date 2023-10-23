@@ -1,10 +1,11 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Themes.Fluent;
-using EVTCLogUploader.Settings;
+using Avalonia.Styling;
+using EVTCLogUploader.Services;
+using EVTCLogUploader.ViewModels;
 using EVTCLogUploader.Views;
-using System;
+using Splat;
 using System.Globalization;
 using System.Threading;
 
@@ -12,26 +13,31 @@ namespace EVTCLogUploader
 {
     public partial class App : Application
     {
-        public static AppSettings Settings = new();
-        private static FluentTheme Fluent = new(new Uri("avares://ControlCatalog/Styles"));
-        public static string Version = "1.1.0";
-        public static string ProgramName = "EVTC Log Uploader";
+        public const string Version = "1.1.1";
+        public const string ProgramName = "EVTC Log Uploader";
+        private ISettingService _settingService;
+
+        public App() 
+        {
+            Name = ProgramName;
+            _settingService = Locator.Current.GetService<SettingService>() ?? new SettingService();
+        }
 
         public override void Initialize()
         {
-            Fluent.Mode = Settings.ModeToggle ? FluentThemeMode.Dark : FluentThemeMode.Light;
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(Settings.Lang);
-
-            Styles.Insert(0, Fluent);
             AvaloniaXamlLoader.Load(this);
         }
 
         public override void OnFrameworkInitializationCompleted()
         {
+            RequestedThemeVariant = _settingService.ModeToggle ? ThemeVariant.Dark : ThemeVariant.Light;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfoByIetfLanguageTag(_settingService.Language);
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow
                 {
+                    DataContext = new MainWindowViewModel()
                 };
             }
             base.OnFrameworkInitializationCompleted();

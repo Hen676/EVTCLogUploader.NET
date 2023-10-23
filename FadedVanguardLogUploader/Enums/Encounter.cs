@@ -7,7 +7,7 @@
 
         // Raids
         // W1
-        ValeGuardian, Gorseval, Sabetha,
+        ValeGuardian = 10_000, Gorseval, Sabetha,
         // W2
         Slothasor, BanditTrio, Mattias,
         // W3
@@ -24,20 +24,30 @@
 
         // Strikes
         // Holiday
-        Freezie,
+        Freezie = 20_000,
         // Icebrood
         ShiverpeaksPass,
         VoiceAndClawOfTheFallen, FraenirOfJormag, Boneskinner,
         WhisperOfJormag, ForgingSteel, ColdWar,
         // EOD
         AetherbladeHideout, XunlaiJadeJunkyard, KainengOverlook, HarvestTemple,
+        // LWS 1
+        OldLionsCourt,
+        // SOFO
+        CosmicObservatory,
+        TempleOfFebe,
 
-        // Fractels
-        MAMA, Siax, Ensolyss,
-        Skorvald, Artsariiv, Arkk,
-        AiKeeperOfThePeak,
 
         // Golem
-        Golem
+        StandardKittyGolem = 30_000,
+        MediumKittyGolem,
+        LargeKittyGolem,
+        MassiveKittyGolem,
+
+        // Fractels
+        MAMA = 40_000, Siax, Ensolyss,
+        Skorvald, Artsariiv, Arkk,
+        AiKeeperOfThePeak,
+        Kanaxai
     }
 }

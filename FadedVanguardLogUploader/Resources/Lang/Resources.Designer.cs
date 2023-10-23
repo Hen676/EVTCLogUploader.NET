@@ -205,7 +205,34 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  EVTC Files.
+        ///   Looks up a localized string similar to Language code {0} is invalid.
+        /// </summary>
+        public static string LNG_Error_Language_Body {
+            get {
+                return ResourceManager.GetString("LNG_Error_Language_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error setting language.
+        /// </summary>
+        public static string LNG_Error_Language_Title {
+            get {
+                return ResourceManager.GetString("LNG_Error_Language_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Inavlid amount of files to upload {0}/50.
+        /// </summary>
+        public static string LNG_Error_Upload_Amount {
+            get {
+                return ResourceManager.GetString("LNG_Error_Upload_Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EVTC Files.
         /// </summary>
         public static string LNG_File_Count {
             get {
@@ -219,6 +246,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Filter_From_SemiColon {
             get {
                 return ResourceManager.GetString("LNG_Filter_From_SemiColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To:.
+        /// </summary>
+        public static string LNG_Filter_To_SemiColon {
+            get {
+                return ResourceManager.GetString("LNG_Filter_To_SemiColon", resourceCulture);
             }
         }
         
@@ -340,6 +376,15 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cosmic Observatory.
+        /// </summary>
+        public static string LNG_Menu_Encounter_CosmicObservatory {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_CosmicObservatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deimos.
         /// </summary>
         public static string LNG_Menu_Encounter_Deimos {
@@ -381,6 +426,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Menu_Encounter_EOD {
             get {
                 return ResourceManager.GetString("LNG_Menu_Encounter_EOD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error, Unlocalised encounter.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Error {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Error", resourceCulture);
             }
         }
         
@@ -430,6 +484,15 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Golems.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Golems {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Golems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gorseval the Multifarious.
         /// </summary>
         public static string LNG_Menu_Encounter_Gorseval {
@@ -457,11 +520,29 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kanaxai.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Kanaxai {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Kanaxai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keep Construct.
         /// </summary>
         public static string LNG_Menu_Encounter_KeepConstruct {
             get {
                 return ResourceManager.GetString("LNG_Menu_Encounter_KeepConstruct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large Kitty Golem.
+        /// </summary>
+        public static string LNG_Menu_Encounter_LargeKittyGolem {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_LargeKittyGolem", resourceCulture);
             }
         }
         
@@ -484,11 +565,29 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Massive Kitty Golem.
+        /// </summary>
+        public static string LNG_Menu_Encounter_MassiveKittyGolem {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_MassiveKittyGolem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Matthias Gabrel.
         /// </summary>
         public static string LNG_Menu_Encounter_Mattias {
             get {
                 return ResourceManager.GetString("LNG_Menu_Encounter_Mattias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium Kitty Golem.
+        /// </summary>
+        public static string LNG_Menu_Encounter_MediumKittyGolem {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_MediumKittyGolem", resourceCulture);
             }
         }
         
@@ -507,6 +606,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Menu_Encounter_Nightmare {
             get {
                 return ResourceManager.GetString("LNG_Menu_Encounter_Nightmare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Lion&apos;s Court.
+        /// </summary>
+        public static string LNG_Menu_Encounter_OldLionsCourt {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_OldLionsCourt", resourceCulture);
             }
         }
         
@@ -610,6 +718,15 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Secrets of the Obscure.
+        /// </summary>
+        public static string LNG_Menu_Encounter_SOFO {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_SOFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Soulless Horror.
         /// </summary>
         public static string LNG_Menu_Encounter_SoullessHorror {
@@ -619,11 +736,29 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Standard Kitty Golem.
+        /// </summary>
+        public static string LNG_Menu_Encounter_StandardKittyGolem {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_StandardKittyGolem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sunqua Peak Fractal.
         /// </summary>
         public static string LNG_Menu_Encounter_SunquaPeak {
             get {
                 return ResourceManager.GetString("LNG_Menu_Encounter_SunquaPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Temple of Febe.
+        /// </summary>
+        public static string LNG_Menu_Encounter_TempleOfFebe {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_TempleOfFebe", resourceCulture);
             }
         }
         
@@ -642,6 +777,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Menu_Encounter_TwistedCastle {
             get {
                 return ResourceManager.GetString("LNG_Menu_Encounter_TwistedCastle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error, Unkown encounter.
+        /// </summary>
+        public static string LNG_Menu_Encounter_Unkown {
+            get {
+                return ResourceManager.GetString("LNG_Menu_Encounter_Unkown", resourceCulture);
             }
         }
         
@@ -754,7 +898,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _File.
+        ///   Looks up a localized string similar to File.
         /// </summary>
         public static string LNG_Menu_File {
             get {
@@ -817,7 +961,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Filter.
+        ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string LNG_Menu_Filter {
             get {
@@ -889,20 +1033,11 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Sort.
+        ///   Looks up a localized string similar to Sort.
         /// </summary>
         public static string LNG_Menu_Filter_Sort {
             get {
                 return ResourceManager.GetString("LNG_Menu_Filter_Sort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ↑ Ascending.
-        /// </summary>
-        public static string LNG_Menu_Filter_Sort_Asc {
-            get {
-                return ResourceManager.GetString("LNG_Menu_Filter_Sort_Asc", resourceCulture);
             }
         }
         
@@ -925,15 +1060,6 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ↓ Descending.
-        /// </summary>
-        public static string LNG_Menu_Filter_Sort_Des {
-            get {
-                return ResourceManager.GetString("LNG_Menu_Filter_Sort_Des", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Length.
         /// </summary>
         public static string LNG_Menu_Filter_Sort_Length {
@@ -952,7 +1078,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Specialization.
+        ///   Looks up a localized string similar to Specialization.
         /// </summary>
         public static string LNG_Menu_Filter_Spec {
             get {
@@ -970,7 +1096,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Help.
+        ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string LNG_Menu_Help {
             get {
@@ -1069,7 +1195,7 @@ namespace EVTCLogUploader.Resources.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Settings.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string LNG_Menu_Settings {
             get {
@@ -1119,6 +1245,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Menu_Spec_None {
             get {
                 return ResourceManager.GetString("LNG_Menu_Spec_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raid Logs {0}.
+        /// </summary>
+        public static string LNG_Raid_Logs_Title_NewLine {
+            get {
+                return ResourceManager.GetString("LNG_Raid_Logs_Title_NewLine", resourceCulture);
             }
         }
         
@@ -1173,6 +1308,15 @@ namespace EVTCLogUploader.Resources.Lang {
         public static string LNG_Select_All_Tooltip {
             get {
                 return ResourceManager.GetString("LNG_Select_All_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Folder.
+        /// </summary>
+        public static string LNG_Select_Folder {
+            get {
+                return ResourceManager.GetString("LNG_Select_Folder", resourceCulture);
             }
         }
     }
