@@ -100,7 +100,7 @@ namespace EVTCLogUploader.Services.IO
 
         public Encounter GetEncounter() => EncounterDeterminer.Result(_header.Id, _agentItems);
 
-        private List<uint> GetAgentIds() 
+        private List<uint> GetAgentIds()
         {
             List<uint> ids = new()
             {
@@ -135,13 +135,13 @@ namespace EVTCLogUploader.Services.IO
                     ids.Add(NPCIds.VoiceOfTheFallen);
                     break;
                 case NPCIds.PrototypeArsenite:
-                    ids.AddRange(new List<uint>(){ NPCIds.PrototypeIndigo, NPCIds.PrototypeVermillion});
+                    ids.AddRange(new List<uint>() { NPCIds.PrototypeIndigo, NPCIds.PrototypeVermillion });
                     break;
                 case NPCIds.PrototypeIndigo:
-                    ids.AddRange(new List<uint>(){NPCIds.PrototypeArsenite,NPCIds.PrototypeVermillion});
+                    ids.AddRange(new List<uint>() { NPCIds.PrototypeArsenite, NPCIds.PrototypeVermillion });
                     break;
                 case NPCIds.PrototypeVermillion:
-                    ids.AddRange(new List<uint>(){NPCIds.PrototypeIndigo,NPCIds.PrototypeArsenite});
+                    ids.AddRange(new List<uint>() { NPCIds.PrototypeIndigo, NPCIds.PrototypeArsenite });
                     break;
                 case NPCIds.PrototypeArseniteChallengeMode:
                     ids.AddRange(new List<uint>() { NPCIds.PrototypeIndigoChallengeMode, NPCIds.PrototypeVermillionChallengeMode });

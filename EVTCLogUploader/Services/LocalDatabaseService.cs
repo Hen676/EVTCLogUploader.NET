@@ -2,7 +2,6 @@
 using SQLite;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EVTCLogUploader.Services
@@ -17,7 +16,7 @@ namespace EVTCLogUploader.Services
         SQLiteOpenFlags.SharedCache;
         private bool _initalised = false;
 
-        public LocalDatabaseService() 
+        public LocalDatabaseService()
         {
             DatabasePath = Path.Combine(Directory.GetCurrentDirectory(), "data.db");
             _database = new(DatabasePath, _flags);

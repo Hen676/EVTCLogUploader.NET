@@ -106,7 +106,7 @@ namespace EVTCLogUploader.Utils.Determiners
                     case NPCIds.MediumKittyGolem: return Encounter.MediumKittyGolem;
                     case NPCIds.LargeKittyGolem: return Encounter.LargeKittyGolem;
                     case NPCIds.MassiveKittyGolem: return Encounter.MassiveKittyGolem;
-                    #endregion
+                        #endregion
                 }
             }
             else

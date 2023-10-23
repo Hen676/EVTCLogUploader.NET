@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FadedVanguardLogUploader\EVTCLogUploader.csproj" />
+    <ProjectReference Include="..\EVTCLogUploader\EVTCLogUploader.csproj" />
   </ItemGroup>
 
   <ItemGroup>

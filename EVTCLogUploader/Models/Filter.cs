@@ -44,14 +44,17 @@ namespace EVTCLogUploader.Utils
             FilterEncounter.AddRange(list);
         }
 
-        private List<Encounter> GetEncounters(List<EncounterNode> encounters) 
+        private List<Encounter> GetEncounters(List<EncounterNode> encounters)
         {
             List<Encounter> list = new();
-            encounters.ForEach(e => {
-                if (e.SubNodes != null) {
+            encounters.ForEach(e =>
+            {
+                if (e.SubNodes != null)
+                {
                     list.AddRange(GetEncounters(e.SubNodes.ToList()));
                 }
-                if (e.Boss.HasValue) {
+                if (e.Boss.HasValue)
+                {
                     list.Add(e.Boss.Value);
                 }
             });

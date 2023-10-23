@@ -15,7 +15,7 @@
 		MinHeight="450"
 		x:Name="EVTCLogUploader"
         x:Class="EVTCLogUploader.Views.MainWindow"
-        Icon="/Assets/Logo.png"
+        Icon="/Assets/Logo.ico"
         Title="EVTC Log Uploader"
 		ExtendClientAreaToDecorationsHint="True"	
 		RequestedThemeVariant="{Binding Theme}"

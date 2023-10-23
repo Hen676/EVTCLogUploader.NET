@@ -29,8 +29,8 @@ namespace EVTCLogUploader.Models
 #endif
 
         #region Constructor
-        public EVTCFile() 
-        {   }
+        public EVTCFile()
+        { }
 
         public EVTCFile(string fullPath, string name, DateTime creationDate, string userName, string charcterName, TimeSpan length, Profession charcterClass, Specialization charcterSpec, Encounter encounter, string uploadUrl, FileType fileType)
         {
@@ -105,7 +105,7 @@ namespace EVTCLogUploader.Models
             CreationDate = handler.GetServerDateTime();
         }
 
-        public void LoadDisplayInfomation() 
+        public void LoadDisplayInfomation()
         {
             if (CharcterSpecOfMainUser == Specialization.None)
             {

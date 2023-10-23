@@ -7,6 +7,7 @@
     <TrimMode>copyused</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <Platforms>AnyCPU;x86</Platforms>
+	<ApplicationIcon>Assets/Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -14,6 +15,7 @@
     <None Remove="Assets\Brands-Regular-400.otf" />
     <None Remove="Assets\Free-Regular-400.otf" />
     <None Remove="Assets\Free-Solid-900.otf" />
+    <None Remove="Assets\Logo.ico" />
     <None Remove="Assets\Logo.png" />
     <None Remove="Resources\Lang\Logo.png" />
   </ItemGroup>

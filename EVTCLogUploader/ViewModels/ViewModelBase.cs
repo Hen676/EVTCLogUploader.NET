@@ -10,7 +10,7 @@ namespace EVTCLogUploader.ViewModels
 
         public void Close(Window window) => window.Close();
 
-        public ViewModelBase() 
+        public ViewModelBase()
         {
             CloseCommand = ReactiveCommand.Create<Window>(Close);
         }

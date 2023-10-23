@@ -1,25 +1,25 @@
 using Avalonia.Controls;
+using Avalonia.Platform.Storage;
+using Avalonia.Styling;
+using Avalonia.Threading;
+using DynamicData;
 using EVTCLogUploader.Enums;
+using EVTCLogUploader.Models;
+using EVTCLogUploader.Models.Responce;
 using EVTCLogUploader.Services;
+using EVTCLogUploader.Utils.Determiners;
 using ReactiveUI;
+using Splat;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.IO;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
-using Avalonia.Threading;
-using EVTCLogUploader.Models.Responce;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
-using System.Linq;
-using DynamicData;
-using Avalonia.Styling;
-using EVTCLogUploader.Utils.Determiners;
-using EVTCLogUploader.Models;
-using System.Collections.Specialized;
-using Avalonia.Platform.Storage;
-using Splat;
 
 namespace EVTCLogUploader.ViewModels
 {
@@ -126,7 +126,7 @@ namespace EVTCLogUploader.ViewModels
                 new EncounterNode(Encounter.AiKeeperOfThePeak),
                 new EncounterNode(Encounter.Kanaxai)
             }),
-            new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_Golems, new ObservableCollection<EncounterNode>{ 
+            new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_Golems, new ObservableCollection<EncounterNode>{
                 new EncounterNode(Encounter.StandardKittyGolem),
                 new EncounterNode(Encounter.MediumKittyGolem),
                 new EncounterNode(Encounter.LargeKittyGolem),
@@ -275,7 +275,7 @@ namespace EVTCLogUploader.ViewModels
             DateTo = null;
             TimeFrom = null;
             TimeTo = null;
-            SelectedFilterNodes.Clear(); 
+            SelectedFilterNodes.Clear();
             Filter();
         }
         private void ErrorHidden()
@@ -287,7 +287,8 @@ namespace EVTCLogUploader.ViewModels
         private void HideFilter()
         {
             HideFilters = !HideFilters;
-            if (HideFilters) {
+            if (HideFilters)
+            {
                 DateTo = null;
                 TimeTo = null;
             }
@@ -334,7 +335,7 @@ namespace EVTCLogUploader.ViewModels
                     Body = string.Format(Resources.Lang.Resources.LNG_Restart_Language_Body, code)
                 };
             }
-            else 
+            else
             {
                 popup = new PopupViewModel
                 {
@@ -354,7 +355,7 @@ namespace EVTCLogUploader.ViewModels
             var popup = new PopupViewModel
             {
                 Title = App.ProgramName,
-                Body = string.Format(Resources.Lang.Resources.LNG_About_Version_Colon, App.Version+"\n") +
+                Body = string.Format(Resources.Lang.Resources.LNG_About_Version_Colon, App.Version + "\n") +
                 string.Format(Resources.Lang.Resources.LNG_About_Creator_Colon, "Hen676\n") +
                 string.Format(Resources.Lang.Resources.LNG_About_Repository_Colon, "https://github.com/Hen676/EVTCLogUploader.NET")
             };
@@ -377,7 +378,7 @@ namespace EVTCLogUploader.ViewModels
                 SuggestedStartLocation = await topLevel.StorageProvider.TryGetFolderFromPathAsync(_settingService.Path),
                 AllowMultiple = false
             });
-            if (responce.Any()) 
+            if (responce.Any())
             {
                 _settingService.Path = responce[0].Path.LocalPath;
                 _settingService.Save();
@@ -463,7 +464,7 @@ namespace EVTCLogUploader.ViewModels
             popup.Title = result;
             await ShowDialog.Handle(popup);
             ProgressBarValue = 0;
-            
+
         }
 
         /// <summary>
@@ -551,9 +552,9 @@ namespace EVTCLogUploader.ViewModels
                     s.ToLower().EndsWith(".evtc") ||
                     s.ToLower().EndsWith(".evtc.zip") ||
                     s.ToLower().EndsWith(".zevtc"));
-            } 
+            }
             catch (Exception e) //TODO:: Add better exception. Popup maybe?
-            { 
+            {
                 Console.WriteLine(e.Message);
             }
             if (filterAlreadyStored)

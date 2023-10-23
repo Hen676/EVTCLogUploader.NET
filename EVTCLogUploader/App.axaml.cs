@@ -17,7 +17,7 @@ namespace EVTCLogUploader
         public const string ProgramName = "EVTC Log Uploader";
         private ISettingService _settingService;
 
-        public App() 
+        public App()
         {
             Name = ProgramName;
             _settingService = Locator.Current.GetService<SettingService>() ?? new SettingService();
