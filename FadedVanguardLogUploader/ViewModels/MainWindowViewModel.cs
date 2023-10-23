@@ -19,6 +19,7 @@ using EVTCLogUploader.Utils.Determiners;
 using EVTCLogUploader.Models;
 using System.Collections.Specialized;
 using Avalonia.Platform.Storage;
+using Splat;
 
 namespace EVTCLogUploader.ViewModels
 {
@@ -37,7 +38,6 @@ namespace EVTCLogUploader.ViewModels
         public ReactiveCommand<Unit, Unit> ClearFilterCommand { get; }
         public ReactiveCommand<Unit, Unit> ErrorHiddenCommand { get; }
         public ReactiveCommand<Unit, Unit> WipeDBCommand { get; }
-        public ReactiveCommand<Window, Unit> CloseCommand { get; }
         public ReactiveCommand<Window, Unit> FolderCommand { get; }
         public ReactiveCommand<Window, Unit> UploadCommand { get; }
         public ReactiveCommand<Unit, Unit> HideFilterCommand { get; }
@@ -90,6 +90,7 @@ namespace EVTCLogUploader.ViewModels
                 }),
             }),
             new EncounterNode(Resources.Lang.Resources.LNG_Menu_Filter_Strikes, new ObservableCollection<EncounterNode>{
+                new EncounterNode(Encounter.Freezie),
                 new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_LW5, new ObservableCollection<EncounterNode>{
                     new EncounterNode(Encounter.ShiverpeaksPass),
                     new EncounterNode(Encounter.VoiceAndClawOfTheFallen),
@@ -104,6 +105,11 @@ namespace EVTCLogUploader.ViewModels
                     new EncounterNode(Encounter.XunlaiJadeJunkyard),
                     new EncounterNode(Encounter.KainengOverlook),
                     new EncounterNode(Encounter.HarvestTemple)
+                }),
+                new EncounterNode(Encounter.OldLionsCourt),
+                new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_SOFO, new ObservableCollection<EncounterNode>{
+                    new EncounterNode(Encounter.CosmicObservatory),
+                    new EncounterNode(Encounter.TempleOfFebe)
                 })
             }),
             new EncounterNode(Resources.Lang.Resources.LNG_Menu_Filter_Fractels, new ObservableCollection<EncounterNode>{
@@ -117,7 +123,14 @@ namespace EVTCLogUploader.ViewModels
                     new EncounterNode(Encounter.Artsariiv),
                     new EncounterNode(Encounter.Arkk)
                 }),
-                new EncounterNode(Encounter.AiKeeperOfThePeak)
+                new EncounterNode(Encounter.AiKeeperOfThePeak),
+                new EncounterNode(Encounter.Kanaxai)
+            }),
+            new EncounterNode(Resources.Lang.Resources.LNG_Menu_Encounter_Golems, new ObservableCollection<EncounterNode>{ 
+                new EncounterNode(Encounter.StandardKittyGolem),
+                new EncounterNode(Encounter.MediumKittyGolem),
+                new EncounterNode(Encounter.LargeKittyGolem),
+                new EncounterNode(Encounter.MassiveKittyGolem)
             })
         };
         public ObservableCollection<EncounterNode> SelectedFilterNodes { get; } = new();
@@ -203,18 +216,18 @@ namespace EVTCLogUploader.ViewModels
         private TimeSpan? _timeTo;
         private bool _hideFilters = true;
 
-        private readonly IUploaderService _uploaderService;
-        private readonly ISettingService _settingService;
-        private readonly ILocalDatabaseService _localDatabaseService;
+        private IUploaderService _uploaderService;
+        private ISettingService _settingService;
+        private ILocalDatabaseService _localDatabaseService;
         #endregion
 
-        #region Constructors
+        #region Constructor
         public MainWindowViewModel()
         {
             // Only use in debug check
-            _uploaderService = new UploaderService();
-            _settingService = new SettingService();
-            _localDatabaseService = new LocalDatabaseService();
+            _uploaderService = Locator.Current.GetService<IUploaderService>() ?? new UploaderService();
+            _settingService = Locator.Current.GetService<ISettingService>() ?? new SettingService();
+            _localDatabaseService = Locator.Current.GetService<ILocalDatabaseService>() ?? new LocalDatabaseService();
 
             _theme = ThemeVarientDeterminer.Result(_settingService.ModeToggle);
             _filterError = _settingService.FilterSettings.ErrorFilter;
@@ -234,36 +247,6 @@ namespace EVTCLogUploader.ViewModels
 
             ErrorHiddenCommand = ReactiveCommand.Create(ErrorHidden);
             WipeDBCommand = ReactiveCommand.Create(WipeDB);
-            CloseCommand = ReactiveCommand.Create<Window>(Close);
-            FolderCommand = ReactiveCommand.Create<Window>(Folder);
-            UploadCommand = ReactiveCommand.Create<Window>(UploadAsync);
-        }
-
-        public MainWindowViewModel(IUploaderService uploaderService, ISettingService settingService, ILocalDatabaseService localDatabaseService)
-        {
-            _uploaderService = uploaderService;
-            _settingService = settingService;
-            _localDatabaseService = localDatabaseService;
-
-            _theme = ThemeVarientDeterminer.Result(_settingService.ModeToggle);
-            _filterError = _settingService.FilterSettings.ErrorFilter;
-
-            SelectedFilterNodes.CollectionChanged += SelectedFilterNodes_CollectionChanged;
-
-            AboutCommand = ReactiveCommand.Create(About);
-            SaveCommand = ReactiveCommand.Create(Save);
-            ModeCommand = ReactiveCommand.Create(ThemeVarient);
-            LanguageCommand = ReactiveCommand.Create<string>(ChangeLanguageAsync);
-
-            HideFilterCommand = ReactiveCommand.Create(HideFilter);
-            FilterFileTypeCommand = ReactiveCommand.Create<FileType>(FilterFileType);
-            FilterEncounterCommand = ReactiveCommand.Create<Encounter>(FilterEncounter);
-            FilterProfCommand = ReactiveCommand.Create<Profession>(FilterProf);
-            ClearFilterCommand = ReactiveCommand.Create(ClearFilter);
-
-            ErrorHiddenCommand = ReactiveCommand.Create(ErrorHidden);
-            WipeDBCommand = ReactiveCommand.Create(WipeDB);
-            CloseCommand = ReactiveCommand.Create<Window>(Close);
             FolderCommand = ReactiveCommand.Create<Window>(Folder);
             UploadCommand = ReactiveCommand.Create<Window>(UploadAsync);
         }
@@ -292,6 +275,7 @@ namespace EVTCLogUploader.ViewModels
             DateTo = null;
             TimeFrom = null;
             TimeTo = null;
+            SelectedFilterNodes.Clear(); 
             Filter();
         }
         private void ErrorHidden()
@@ -319,7 +303,7 @@ namespace EVTCLogUploader.ViewModels
                 Filter();
             }
         }
-        private void Close(Window window) => window.Close();
+
         public void Save() => _settingService.Save();
         private void WipeDB() => _localDatabaseService.WipeDB();
 

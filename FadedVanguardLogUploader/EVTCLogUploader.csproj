@@ -55,9 +55,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>en-GB.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Lang\Resources.pl-PL.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Lang\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

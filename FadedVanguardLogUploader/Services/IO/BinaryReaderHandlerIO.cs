@@ -1,5 +1,4 @@
-﻿using DynamicData;
-using EVTCLogUploader.Enums;
+﻿using EVTCLogUploader.Enums;
 using EVTCLogUploader.Models.Log;
 using EVTCLogUploader.Utils.Determiners;
 using EVTCLogUploader.Utils.GameData;

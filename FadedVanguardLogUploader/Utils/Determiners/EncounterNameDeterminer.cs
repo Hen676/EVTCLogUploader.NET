@@ -27,13 +27,10 @@ namespace EVTCLogUploader.Utils.Determiners
             Encounter.ForgingSteel => Resources.Lang.Resources.LNG_Menu_Encounter_ForgingSteel,
             Encounter.FraenirOfJormag => Resources.Lang.Resources.LNG_Menu_Encounter_FraenirOfJormag,
             Encounter.Freezie => Resources.Lang.Resources.LNG_Menu_Encounter_Freezie,
-
-            // TODO:: Add locailsation to multiple golem sizes
-            Encounter.StandardKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
-            Encounter.MediumKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
-            Encounter.LargeKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
-            Encounter.MassiveKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_Golem,
-
+            Encounter.StandardKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_StandardKittyGolem,
+            Encounter.MediumKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_MediumKittyGolem,
+            Encounter.LargeKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_LargeKittyGolem,
+            Encounter.MassiveKittyGolem => Resources.Lang.Resources.LNG_Menu_Encounter_MassiveKittyGolem,
             Encounter.Gorseval => Resources.Lang.Resources.LNG_Menu_Encounter_Gorseval,
             Encounter.HarvestTemple => Resources.Lang.Resources.LNG_Menu_Encounter_HarvestTemple,
             Encounter.KainengOverlook => Resources.Lang.Resources.LNG_Menu_Encounter_KainengOverlook,
@@ -59,6 +56,10 @@ namespace EVTCLogUploader.Utils.Determiners
             Encounter.WhisperOfJormag => Resources.Lang.Resources.LNG_Menu_Encounter_WhisperOfJormag,
             Encounter.Xera => Resources.Lang.Resources.LNG_Menu_Encounter_Xera,
             Encounter.XunlaiJadeJunkyard => Resources.Lang.Resources.LNG_Menu_Encounter_XunlaiJadeJunkyard,
+            Encounter.Kanaxai => Resources.Lang.Resources.LNG_Menu_Encounter_Kanaxai,
+            Encounter.OldLionsCourt => Resources.Lang.Resources.LNG_Menu_Encounter_OldLionsCourt,
+            Encounter.CosmicObservatory => Resources.Lang.Resources.LNG_Menu_Encounter_CosmicObservatory,
+            Encounter.TempleOfFebe => Resources.Lang.Resources.LNG_Menu_Encounter_TempleOfFebe,
             _ => Resources.Lang.Resources.LNG_Menu_Encounter_Error,
         };
     }

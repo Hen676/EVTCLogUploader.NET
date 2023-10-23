@@ -228,6 +228,9 @@
   <data name="LNG_Menu_Encounter_ConjuredAmalgamate" xml:space="preserve">
     <value>Conjured Amalgamate</value>
   </data>
+  <data name="LNG_Menu_Encounter_CosmicObservatory" xml:space="preserve">
+    <value>Cosmic Observatory</value>
+  </data>
   <data name="LNG_Menu_Encounter_Deimos" xml:space="preserve">
     <value>Deimos</value>
   </data>
@@ -261,8 +264,8 @@
   <data name="LNG_Menu_Encounter_Freezie" xml:space="preserve">
     <value>Secret Lair of the Snowmen</value>
   </data>
-  <data name="LNG_Menu_Encounter_Golem" xml:space="preserve">
-    <value>Golem</value>
+  <data name="LNG_Menu_Encounter_Golems" xml:space="preserve">
+    <value>Golems</value>
   </data>
   <data name="LNG_Menu_Encounter_Gorseval" xml:space="preserve">
     <value>Gorseval the Multifarious</value>
@@ -273,8 +276,14 @@
   <data name="LNG_Menu_Encounter_KainengOverlook" xml:space="preserve">
     <value>Kaineng Overlook</value>
   </data>
+  <data name="LNG_Menu_Encounter_Kanaxai" xml:space="preserve">
+    <value>Kanaxai</value>
+  </data>
   <data name="LNG_Menu_Encounter_KeepConstruct" xml:space="preserve">
     <value>Keep Construct</value>
+  </data>
+  <data name="LNG_Menu_Encounter_LargeKittyGolem" xml:space="preserve">
+    <value>Large Kitty Golem</value>
   </data>
   <data name="LNG_Menu_Encounter_LW5" xml:space="preserve">
     <value>The Icebrood Saga</value>
@@ -282,14 +291,23 @@
   <data name="LNG_Menu_Encounter_MAMA" xml:space="preserve">
     <value>MAMA</value>
   </data>
+  <data name="LNG_Menu_Encounter_MassiveKittyGolem" xml:space="preserve">
+    <value>Massive Kitty Golem</value>
+  </data>
   <data name="LNG_Menu_Encounter_Mattias" xml:space="preserve">
     <value>Matthias Gabrel</value>
+  </data>
+  <data name="LNG_Menu_Encounter_MediumKittyGolem" xml:space="preserve">
+    <value>Medium Kitty Golem</value>
   </data>
   <data name="LNG_Menu_Encounter_MursaatOverseer" xml:space="preserve">
     <value>Mursaat Overseer</value>
   </data>
   <data name="LNG_Menu_Encounter_Nightmare" xml:space="preserve">
     <value>Nightmare Fractal</value>
+  </data>
+  <data name="LNG_Menu_Encounter_OldLionsCourt" xml:space="preserve">
+    <value>Old Lion's Court</value>
   </data>
   <data name="LNG_Menu_Encounter_Qadim" xml:space="preserve">
     <value>Qadim</value>
@@ -324,11 +342,20 @@
   <data name="LNG_Menu_Encounter_Slothasor" xml:space="preserve">
     <value>Slothasor</value>
   </data>
+  <data name="LNG_Menu_Encounter_SOFO" xml:space="preserve">
+    <value>Secrets of the Obscure</value>
+  </data>
   <data name="LNG_Menu_Encounter_SoullessHorror" xml:space="preserve">
     <value>Soulless Horror</value>
   </data>
+  <data name="LNG_Menu_Encounter_StandardKittyGolem" xml:space="preserve">
+    <value>Standard Kitty Golem</value>
+  </data>
   <data name="LNG_Menu_Encounter_SunquaPeak" xml:space="preserve">
     <value>Sunqua Peak Fractal</value>
+  </data>
+  <data name="LNG_Menu_Encounter_TempleOfFebe" xml:space="preserve">
+    <value>Temple of Febe</value>
   </data>
   <data name="LNG_Menu_Encounter_TwinLargos" xml:space="preserve">
     <value>Twin Largos</value>
@@ -423,17 +450,11 @@
   <data name="LNG_Menu_Filter_Sort" xml:space="preserve">
     <value>Sort</value>
   </data>
-  <data name="LNG_Menu_Filter_Sort_Asc" xml:space="preserve">
-    <value>↑ Ascending</value>
-  </data>
   <data name="LNG_Menu_Filter_Sort_CharName" xml:space="preserve">
     <value>Character Name</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Date" xml:space="preserve">
     <value>Date</value>
-  </data>
-  <data name="LNG_Menu_Filter_Sort_Des" xml:space="preserve">
-    <value>↓ Descending</value>
   </data>
   <data name="LNG_Menu_Filter_Sort_Length" xml:space="preserve">
     <value>Length</value>
