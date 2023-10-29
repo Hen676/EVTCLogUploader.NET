@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="https://github.com/Hen676/EVTCLogUploader.NET/blob/master/FadedVanguardLogUploader/Assets/Logo.png" />
+  <img src="https://github.com/Hen676/EVTCLogUploader.NET/blob/master/EVTCLogUploader/Assets/Logo.png" />
 </p>
 
 # EVTCLogUploader
-C# desktop application for manageing and uploading [.evtc], [.zevtc] and [.evtc.zip] files. Files are read by binary file reader. Read files can be uploaded to [dps.report](https://dps.report/). Uploaded files will return formatted message copyied to the users clipboard.
+C# desktop application for managing and uploading [.evtc], [.zevtc], and [.evtc.zip] files. Files are read by a binary file reader. Read files can be uploaded to [dps.report](https://dps.report/). Uploaded files will return formatted messages copied to the user's clipboard.
             
 ## Examples of the program
 <p align="center">
