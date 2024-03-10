@@ -8,6 +8,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <Platforms>AnyCPU;x86</Platforms>
 	<ApplicationIcon>Assets/Logo.ico</ApplicationIcon>
+	<Version>1.2.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />

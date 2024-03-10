@@ -13,7 +13,7 @@ namespace EVTCLogUploader
 {
     public partial class App : Application
     {
-        public const string Version = "1.1.1";
+        public const string Version = "1.2.0";
         public const string ProgramName = "EVTC Log Uploader";
         private ISettingService _settingService;
 
