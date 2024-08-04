@@ -26,6 +26,7 @@ namespace EVTCLogUploader.Services.IO
             _eventItems = EVTCEvent();
         }
 
+        // TODO:: Remove?
         public BinaryReaderHandlerIO(BinaryArrayReaderIO read, bool getUserAgent)
         {
             _reader = read;
